@@ -97,13 +97,13 @@ export default function MacroBuilder() {
           )}
 
           <div style={sectionLabel}>Browse by category</div>
-          <div className="trait-card-grid">
+          <div className="macro-cat-grid">
             {MACRO_CATS.map((c, idx) => {
               const cnt = selected.filter(m => m.cat === c).length;
               const isOpen = cat === c;
               return (
                 <button key={c} onClick={() => setCat(isOpen ? null : c)}
-                  style={{ gridColumn: "span 4",
+                  style={{
                     background: cnt > 0 ? "var(--color-surface-success)" : "var(--color-surface-2)",
                     border: `1px solid ${isOpen ? "var(--color-gold)" : cnt > 0 ? "var(--color-border)" : "var(--color-border-subtle)"}`,
                     borderRadius: "var(--r-md)", padding: "14px 6px", textAlign: "center", cursor: "pointer", minHeight: 52,
