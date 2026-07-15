@@ -22,7 +22,7 @@ export default function ScoutScreen({
   setActiveP,
   modal, setModal,
   saveName, setSaveName,
-  profiles, saveProfiles,
+  profiles, saveProfiles, loadProfile,
   importMsg, exportProfiles, importProfiles,
   toggle, build,
   navigateToNotes,
@@ -416,7 +416,7 @@ export default function ScoutScreen({
             <div style={{ fontSize: 12, color: "var(--color-text-3)", marginBottom: 16 }}>What would you like to do?</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               <button
-                onClick={() => { setSel(profiles[profileAction]); setScored([]); setProfileAction(null); }}
+                onClick={() => { loadProfile(profiles[profileAction]); setProfileAction(null); }}
                 style={{ minHeight: 46, background: "var(--color-cta-bg)", border: "none", borderRadius: "var(--r-md)", color: "var(--color-cta-text)", fontWeight: "700", fontSize: 14, cursor: "pointer", fontFamily: "var(--font-mono)" }}
               >
                 Load Offensive Profile

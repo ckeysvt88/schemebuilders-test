@@ -125,6 +125,12 @@ export default function GamePlanScreen({
   const situationScored = applySituationSort(scored, situation);
   const groupedPersonnel = groupByPersonnel(situationScored);
 
+  // Plan-tab list: hide Prevent and low-relevance noise (<20). If a thin scout
+  // leaves nothing above the floor, fall back to the top 5 so the tab never blanks.
+  const planPool = situationScored.filter(f => f.name !== "Prevent 3-Deep");
+  const aboveFloor = planPool.filter(f => f.sc >= 20);
+  const planList = aboveFloor.length > 0 ? aboveFloor : planPool.slice(0, 5);
+
   // ── Recommended playbook ──────────────────────────────────────────────────────
   const recBook = (() => {
     const allScored = scoreAll(flat, "All");
@@ -418,7 +424,7 @@ export default function GamePlanScreen({
         {/* ── ALL FORMATIONS TAB ── */}
         {mainTab === "all" && (
           <div style={{ opacity: listOpacity, transition: "opacity 150ms ease" }}>
-            {groupByPersonnel(myBook === "All" ? situationScored.filter(f => f.sc >= 20) : situationScored).map(group => (
+            {groupByPersonnel(planList).map(group => (
               <div key={group.label} style={{ marginBottom: 28 }}>
                 <div style={{ fontSize: 10, letterSpacing: "2px", color: "var(--color-gold)", textTransform: "uppercase", marginBottom: 12, fontWeight: "700", fontFamily: "var(--font-mono)", borderBottom: "1px solid var(--color-border-subtle)", paddingBottom: 7 }}>
                   {group.label} <span style={{ color: "var(--color-text-3)", fontWeight: "400" }}>({group.formations.length})</span>

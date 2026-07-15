@@ -313,7 +313,7 @@ function CallSheetDocument({ data }) {
           <View>
             <Text style={S.hdrBrand}>SCHEME BUILDERS</Text>
             <Text style={S.hdrTitle}>DEFENSIVE CALL SHEET</Text>
-            <Text style={S.hdrSubtitle}>CFB26 Defensive Scheme Builder — Game Preparation</Text>
+            <Text style={S.hdrSubtitle}>CFB 27 Defensive Scheme Builder — Game Preparation</Text>
           </View>
           <View style={S.hdrRight}>
             <Text style={S.hdrMeta}>{date}</Text>
@@ -383,7 +383,7 @@ function CallSheetDocument({ data }) {
         </View>
 
         <View style={S.footer}>
-          <Text style={S.footerTxt}>Scheme Builders · CFB26 Defensive Scheme Builder · CONFIDENTIAL — GAME PREP</Text>
+          <Text style={S.footerTxt}>Scheme Builders · CFB 27 Defensive Scheme Builder · CONFIDENTIAL — GAME PREP</Text>
           <Text style={S.footerTxt}>Page 1 of 2</Text>
         </View>
       </Page>
@@ -407,7 +407,7 @@ function CallSheetDocument({ data }) {
         ))}
 
         <View style={S.footer}>
-          <Text style={S.footerTxt}>Scheme Builders · CFB26 Defensive Scheme Builder · CONFIDENTIAL — GAME PREP</Text>
+          <Text style={S.footerTxt}>Scheme Builders · CFB 27 Defensive Scheme Builder · CONFIDENTIAL — GAME PREP</Text>
           <Text style={S.footerTxt}>Page 2 of 2</Text>
         </View>
       </Page>

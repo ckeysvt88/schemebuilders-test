@@ -1,5 +1,202 @@
+// SchemeBuilders — Formation Info (CFB 27) · runnable preview
+// Phase A complete: 52 formations, 76 alignment diagrams, dup entries removed.
+import { useState, useMemo, useEffect } from "react";
+const HOUSE_CSS = `
+/* ── Design Tokens ──────────────────────────────────────────────────────────── */
+:root {
+  --color-bg:            #07080f;
+  --color-surface-1:     #0a0f18;
+  --color-surface-2:     #0d1622;
+  --color-surface-3:     #111927;
+  --color-surface-danger:#140708;
+  --color-surface-success:#071408;
+  --color-border-subtle: #182030;
+  --color-border:        #243548;
+  --color-border-active: #b8880c;
+  --color-text-1:        #eaf2fa;
+  --color-text-2:        #b0c8dc;
+  --color-text-3:        #7a9ab4;
+  --color-gold:          #b8880c;
+  --color-gold-bright:   #d4a020;
+  --color-gold-dim:      #9a7828;
+  --color-gold-surface:  #191408;
+  --color-gold-border:   #5a4010;
+  --color-run:           #c07040;
+  --color-pass:          #3a80e0;
+  --color-hybrid:        #7858a0;
+  --color-pressure:      #bb5050;
+  --color-success:       #5a9870;
+  --color-danger:        #b05050;
+  --color-bg-fade:       rgba(7, 8, 15, 0.85);
+  --color-hero-bg:       var(--color-bg);
+  --color-hero-bg-fade:  rgba(7, 8, 15, 0.85);
+  --nav-bg-color:        rgba(7, 8, 15, 0.95);
+  --color-cta-bg:        linear-gradient(135deg, #b8880c, #d4a020, #b8880c);
+  --color-cta-text:      #07080f;
+  --font-mono: 'IBM Plex Mono', 'SF Mono', monospace;
+  --font-sans: 'IBM Plex Sans', 'SF Pro Text', system-ui, sans-serif;
+  --nav-h:     56px;
+  --nav-total: calc(56px + env(safe-area-inset-bottom));
+  --r-sm: 6px;
+  --r-md: 8px;
+  --r-lg: 12px;
+}
+
+/* ── Light mode overrides ────────────────────────────────────────────────── */
+[data-theme="light"] {
+  --color-bg:             #edf1f8;
+  --color-surface-1:      #e3eaf5;
+  --color-surface-2:      #d8e2ef;
+  --color-surface-3:      #cfd9e8;
+  --color-surface-danger: #f5e8e8;
+  --color-surface-success:#e8f2ea;
+  --color-border-subtle:  #c4cedd;
+  --color-border:         #aabace;
+  --color-border-active:  #a89050;
+  --color-text-1:         #0c1520;
+  --color-text-2:         #253040;
+  --color-text-3:         #475868;
+  --color-gold:           #6a5014;
+  --color-gold-bright:    #a87e28;
+  --color-gold-dim:       #705414;
+  --color-gold-surface:   #e8e0cc;
+  --color-gold-border:    #a89050;
+  --color-bg-fade:        rgba(237, 241, 248, 0.85);
+  --color-run:            #904820;
+  --color-pass:           #1a5abf;
+  --color-hybrid:         #5034a0;
+  --color-pressure:       #8a2828;
+  --color-success:        #2a7040;
+  --color-danger:         #903030;
+  --color-cta-bg:         #1a1a1a;
+  --color-cta-text:       #f0f5ff;
+  --color-hero-bg:        var(--color-bg);
+  --color-hero-bg-fade:   rgba(237, 241, 248, 0.85);
+  --nav-bg-color:         rgba(205, 213, 225, 0.98);
+}
+
+/* ── XO pattern: lighter opacity on light hero bg ───────────────────────── */
+[data-theme="light"] .xo-hero::before {
+  color: rgba(120, 96, 24, 0.15);
+}
+
+
+/* ── Reset ──────────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+html, body {
+  margin: 0; padding: 0;
+  background: var(--color-bg);
+  height: 100%; width: 100%;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  color: var(--color-text-1);
+}
+
+#root {
+  height: 100dvh;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--nav-total);
+}
+#root::-webkit-scrollbar { display: none; }
+
+.safe-top    { padding-top: env(safe-area-inset-top); }
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+
+button { touch-action: manipulation; -webkit-appearance: none; }
+input, textarea { -webkit-appearance: none; border-radius: 0; }
+button, label { user-select: none; -webkit-user-select: none; }
+
+@keyframes screenEnter {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.screen-enter { animation: screenEnter 220ms ease forwards; }
+
+/* ── XO Hero ─────────────────────────────────────────────────────────────── */
+.xo-hero {
+  position: relative;
+  background: var(--color-hero-bg);
+  border-bottom: 2px solid var(--color-gold);
+  overflow: hidden;
+}
+
+.xo-hero::before {
+  /* Each row is wide enough to fill the 720px max container at any font size */
+  content: 'X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O\AO  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X\AX  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O\AO  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X\AX  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O\AO  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X\AX  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O\AO  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X  O  X';
+  white-space: pre;
+  position: absolute;
+  inset: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(184, 136, 12, 0.35); /* matches --color-gold (#b8880c) at 35% opacity */
+  letter-spacing: 4px;
+  line-height: 28px;
+  padding: 6px 10px;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  overflow: hidden;
+}
+
+.xo-fades {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to right,  var(--color-hero-bg) 0%, var(--color-hero-bg-fade) 35%, transparent 55%),
+    linear-gradient(to left,   var(--color-hero-bg) 0%, transparent 20%),
+    linear-gradient(to bottom, var(--color-hero-bg) 0%, transparent 30%),
+    linear-gradient(to top,    var(--color-hero-bg) 0%, transparent 40%);
+}
+
+/* ── Footer XO echo ──────────────────────────────────────────────────────── */
+.xo-hero--footer {
+  height: 80px;
+  border-bottom: none !important;
+}
+
+.xo-hero--footer::before {
+  opacity: 0.45; /* pattern itself further faded vs hero */
+}
+
+.xo-fades--footer {
+  background:
+    linear-gradient(to right,  var(--color-bg) 0%, transparent 20%),
+    linear-gradient(to left,   var(--color-bg) 0%, transparent 20%),
+    linear-gradient(to bottom, var(--color-bg) 0%, transparent 15%),
+    linear-gradient(to top,    var(--color-bg) 0%, transparent 20%);
+}
+
+/* ── Trait card grid ──────────────────────────────────────────────────────── */
+/* 12-column base: top 4 cards span 3 cols each (=12), bottom 3 span 4 cols each (=12) */
+.trait-card-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 6px;
+}
+
+@media (min-width: 768px) {
+  .trait-card-grid {
+    grid-template-columns: repeat(7, 1fr);
+  }
+  .trait-card-grid > * {
+    grid-column: span 1 !important;
+  }
+}
+
+`;
 // CFB 27 Formation Database
-export const FDB = {
+const FDB = {
   "46 Bear": {
     books:["4-3","4-3 Multiple"], priority:"run", personnel:"Heavy",
     desc:"8 defenders near LOS. Both OLBs walk to create 6-man surface. Physically dominates short yardage and goal line. Sub out immediately vs any spread.",
@@ -1019,3 +1216,624 @@ export const FDB = {
       {down:"vs Mobile QB",call:"CHECK OUT — go 3-4 Under",note:"This formation has no spy and no contain"}],
   },
 };
+
+// Trait label map for 'Why Selected' explainer
+const TRAIT_LABELS = {
+  outside_run:"Outside Runs / Sweeps", inside_run:"Inside Zone / Power", hb_stretch:"HB Stretch",
+  option_run:"Option / QB Run", counter_trap:"Counter / Trap", fb_lead:"Fullback Lead / Iso",
+  no_run:"Rarely Runs", rpo:"RPO Heavy", play_action:"Play Action", quick_game:"Quick Game / Bubbles",
+  deep_shots:"Deep Shots / Verticals", west_coast:"West Coast / Short Horizontal",
+  no_deep:"Avoids Going Deep", screens:"Screen Game", crossers:"Crossing Routes / Mesh",
+  middle_heavy:"Attacks Middle", boundary_hash:"Boundary Hash", field_hash:"Field Hash",
+  flat_attack:"Flat / Sideline Routes", seam_routes:"Seam Routes (TE/Slot)",
+  back_shoulder:"Back-Shoulder / Fades", slant_heavy:"Slant / Quick Hitch",
+  redzone_spec:"Red Zone Specialist", p10:"10p (1 RB, 4 WR)", p11:"11p (1 RB, 1 TE, 3 WR)",
+  p00:"00p (5 WR — Air Raid / Pure Spread)",
+  p01:"01p (No RB, 1 TE, 4 WR)", p02:"02p (No RB, 2 TE, 3 WR)",
+  p12:"12p (1 RB, 2 TE, 2 WR)", p13:"13p (1 RB, 3 TE, 1 WR)",
+  p20:"20p (2 RB, 3 WR)", p21:"21p (2 RB, 1 TE, 2 WR)", p22:"22p (2 RB, 2 TE, 1 WR)", p23:"23p (2 RB, 3 TE — Jumbo)",
+  trips:"Trips (3x1)", bunch:"Bunch / Compressed", stack_align:"Stacked WRs", empty:"Empty Backfield", elite_wr:"Elite WR",
+  elite_te:"Elite TE", elite_rb:"Elite HB", mobile_qb:"Mobile QB",
+  strong_oline:"Dominant OL", slot_threat:"Dangerous Slot", dual_threat:"Dual-Threat QB",
+  qb_checkdown:"Checkdown QB", qb_pocket:"Pocket QB", qb_scramble:"Scrambling QB",
+  qb_pre_snap:"Pre-Snap Reader", qb_one_read:"One-Read QB", qb_pressure:"Struggles Under Pressure",
+  run_heavy_1st:"Run Heavy 1st Down", pass_heavy_3rd:"Pass Heavy 3rd Down",
+  hurry_up:"Hurry-Up / Situational Tempo", no_huddle:"True No-Huddle (Full Tempo)",
+  motion_heavy:"Heavy Pre-Snap Motion",
+  short_yardage_run:"Short Yardage Run", four_down_go:"Goes For It on 4th",
+  two_minute_pass:"Strong 2-Minute", tempo_shift:"Shifts Tempo",
+  four_wide:"4-Wide / Air Raid / Run & Shoot"
+};
+
+// Trait groups for Scout screen
+const TRAITS = [
+  { id: "runStyle", label: "Run Style", icon: "🏃", items: [
+    { id: "outside_run", label: "Outside Runs / Sweeps" }, { id: "inside_run", label: "Inside Zone / Power" },
+    { id: "hb_stretch", label: "HB Stretch" }, { id: "option_run", label: "Option / QB Run" },
+    { id: "counter_trap", label: "Counter / Trap" }, { id: "fb_lead", label: "Fullback Lead / Iso" },
+    { id: "no_run", label: "Rarely Runs / Pass-First" },
+  ]},
+  { id: "passStyle", label: "Pass Style", icon: "🎯", items: [
+    { id: "rpo", label: "RPO Heavy" }, { id: "play_action", label: "Play Action" },
+    { id: "quick_game", label: "Quick Game / Bubble Screens" }, { id: "deep_shots", label: "Deep Shots / Verticals" },
+    { id: "west_coast", label: "West Coast / Short Horizontal" }, { id: "no_deep", label: "Avoids Going Deep" },
+    { id: "screens", label: "Screen Game" }, { id: "crossers", label: "Crossing Routes / Mesh" }, { id: "four_wide", label: "4-Wide / Air Raid / Run & Shoot" },
+  ]},
+  { id: "fieldZones", label: "Field Zone Targets", icon: "📍", items: [
+    { id: "middle_heavy", label: "Attacks Middle of Field" }, { id: "boundary_hash", label: "Boundary Hash" },
+    { id: "field_hash", label: "Field / Wide Hash" }, { id: "flat_attack", label: "Flat / Sideline Routes" },
+    { id: "seam_routes", label: "Seam Routes (TE / Slot)" }, { id: "back_shoulder", label: "Back-Shoulder / Fades" },
+    { id: "slant_heavy", label: "Slant / Quick Hitch" }, { id: "redzone_spec", label: "Red Zone Specialist" },
+  ]},
+  { id: "personnel", label: "Personnel", icon: "👥", items: [
+    { id: "p00", label: "00p (0 RB, 0 TE, 5 WR — Pure Spread)" },
+    { id: "p01", label: "01p (0 RB, 1 TE, 4 WR — Near-Empty)" },
+    { id: "p02", label: "02p (0 RB, 2 TE, 3 WR — Empty TE)" },
+    { id: "p10", label: "10p (1 RB, 0 TE, 4 WR)" }, { id: "p11", label: "11p (1 RB, 1 TE, 3 WR)" },
+    { id: "p12", label: "12p (1 RB, 2 TE, 2 WR)" }, { id: "p13", label: "13p (1 RB, 3 TE, 1 WR)" },
+    { id: "p20", label: "20p (2 RB, 0 TE, 3 WR)" }, { id: "p21", label: "21p (2 RB, 1 TE, 2 WR)" },
+    { id: "p22", label: "22p (2 RB, 2 TE, 1 WR — Heavy)" }, { id: "p23", label: "23p (2 RB, 3 TE, 0 WR — Jumbo)" },
+  ]},
+  { id: "threats", label: "Key Threats", icon: "⚡", items: [
+    { id: "elite_wr", label: "Elite WR / Speed Threat" }, { id: "elite_te", label: "Elite TE" },
+    { id: "elite_rb", label: "Elite HB / Scat Back" }, { id: "mobile_qb", label: "Mobile / Scrambling QB" },
+    { id: "strong_oline", label: "Dominant OL / Power Run" }, { id: "slot_threat", label: "Dangerous Slot Receiver" },
+    { id: "dual_threat", label: "Dual-Threat QB" },
+  ]},
+  { id: "qbTend", label: "QB Tendencies", icon: "🧠", items: [
+    { id: "qb_checkdown", label: "Checkdown / Dump Off" }, { id: "qb_pocket", label: "Stays in Pocket" },
+    { id: "qb_scramble", label: "Scrambles / Extends Plays" }, { id: "qb_pre_snap", label: "Pre-Snap Reader / Audibler" },
+    { id: "qb_one_read", label: "One-Read / Forces It" }, { id: "qb_pressure", label: "Struggles Under Pressure" },
+  ]},
+  { id: "situation", label: "Situational", icon: "📋", items: [
+    { id: "run_heavy_1st", label: "Run Heavy 1st Down" }, { id: "pass_heavy_3rd", label: "Pass Heavy 3rd Down" },
+    { id: "hurry_up", label: "Hurry-Up / Situational Tempo" }, { id: "no_huddle", label: "True No-Huddle (Full Tempo)" }, { id: "motion_heavy", label: "Heavy Pre-Snap Motion" },
+    { id: "short_yardage_run", label: "Short Yardage Run / Sneak" }, { id: "four_down_go", label: "Goes For It on 4th Down" },
+    { id: "two_minute_pass", label: "Strong 2-Minute Offense" }, { id: "tempo_shift", label: "Shifts Tempo Mid-Drive" },
+  ]},
+];
+
+// plays.js — CFB 27 play-structure database (built from play art)
+// Schema per play:
+//   n      name (exact in-game)
+//   badge  EA family label: BLITZ | MAN | ZONE | MATCH
+//   rush   total rushers (includes contain rushers)
+//   cont   rushers assigned QB Contain (purple arrows)
+//   spy    QB Spy defenders (brown/tan ellipse)
+//   deep   deep-zone defenders (blue ellipses; Tampa pole counts here)
+//   shell  0 | 1 | 2 | 3 | 4 | "tampa" | "6"  — deep structure
+//   und    underneath zone defenders (curl/flat, hook, hard flat, cloud, robber, hole)
+//   man    man-coverage defenders (bare markers)
+//   press  true if press technique shown
+//   notes  structural quirks that change how the play behaves
+// INVARIANT: rush + deep + und + man + spy === 11
+
+const PLAYS = {
+  "3-4 Under 4 Tech": [
+    { n:"Will Fire 3 Seam",     badge:"BLITZ", rush:5, cont:0, spy:0, deep:3, shell:3, und:3, man:0, notes:"Fire zone; seam-flat carriers instead of standard curl-flat — better vs verticals" },
+    { n:"Weak Blitz 3",         badge:"BLITZ", rush:5, cont:0, spy:0, deep:3, shell:3, und:3, man:0, notes:"Weak-side fire zone" },
+    { n:"FS Slant 3",           badge:"BLITZ", rush:5, cont:0, spy:0, deep:3, shell:3, und:3, man:0, notes:"FS is the 5th rusher; line slants away — secondary blitz, late arrival" },
+    { n:"MLB Cross Fire 3",     badge:"BLITZ", rush:5, cont:0, spy:0, deep:3, shell:3, und:3, man:0, notes:"Both ILBs cross inside; BOTH OLBs drop — interior heat, open edges = scramble lanes" },
+    { n:"Saw Blitz 1",          badge:"BLITZ", rush:5, cont:0, spy:0, deep:1, shell:1, und:0, man:5, notes:"Cover 1 five-man pressure, no rat — hot throws live inside" },
+    { n:"Weak Blitz 1",         badge:"MAN",   rush:5, cont:0, spy:0, deep:1, shell:1, und:0, man:5, notes:"Man pressure, weak-side overload" },
+    { n:"Cover 1 FS Fire",      badge:"BLITZ", rush:5, cont:0, spy:0, deep:1, shell:1, und:0, man:5, notes:"FS fires the edge; SS rotates to the deep middle" },
+    { n:"Cov 1 QB Contain Spy", badge:"BLITZ", rush:5, cont:2, spy:0, deep:1, shell:1, und:0, man:5, notes:"BOTH edges contain — but NO true spy despite the name. Pocket-squeeze, not a mirror." },
+    { n:"Pinch Buck 0",         badge:"BLITZ", rush:6, cont:0, spy:0, deep:0, shell:0, und:0, man:5, notes:"Cover 0 — someone is free, so is his hot read" },
+    { n:"Dbl Safety Blitz",     badge:"BLITZ", rush:6, cont:0, spy:0, deep:0, shell:0, und:0, man:5, notes:"Cover 0 with both safeties off depth — max disguise, max exposure" },
+    { n:"Cover 1 Hole Wk",      badge:"MAN",   rush:4, cont:0, spy:0, deep:1, shell:1, und:1, man:5, notes:"Man free with a weak-side hole rat" },
+    { n:"Cover 1 Robber Press", badge:"MAN",   rush:4, cont:0, spy:0, deep:1, shell:1, und:1, man:5, press:true, notes:"SS robs the hole; press outside — mesh/slant thief" },
+    { n:"Cover 2 Man",          badge:"MAN",   rush:4, cont:0, spy:0, deep:2, shell:2, und:0, man:5, notes:"Halves over man — pick-vulnerable without checks" },
+    { n:"Cover 2 Invert",       badge:"ZONE",  rush:4, cont:0, spy:0, deep:2, shell:2, und:5, man:0, notes:"Post-snap rotation shell — disguise value; thin deep middle" },
+    { n:"Cover 3 Hard Flat",    badge:"ZONE",  rush:4, cont:0, spy:0, deep:3, shell:3, und:4, man:0, notes:"Spot-drop C3; hard flats jump the quick game — corner route window behind them" },
+    { n:"Cover 3 Match",        badge:"MATCH", rush:4, cont:0, spy:0, deep:3, shell:3, und:4, man:0, notes:"Match rules; curl-flat (not hard flat) drops" },
+    { n:"Cover 3 Sky",          badge:"ZONE",  rush:4, cont:0, spy:0, deep:3, shell:3, und:4, man:0, notes:"SS is the sky force player — the base run-down call" },
+    { n:"Cover 4 Quarters",     badge:"MATCH", rush:4, cont:0, spy:0, deep:4, shell:4, und:3, man:0, notes:"Pattern-match quarters — the verticals answer" },
+    { n:"Cover 6",              badge:"MATCH", rush:4, cont:0, spy:0, deep:3, shell:"6", und:4, man:0, notes:"Quarter-quarter-half with a cloud corner to the half side" },
+  ],
+  "3-4 Under": [
+    { n:"Will Fire 3 Seam",     badge:"BLITZ", rush:5, cont:0, spy:0, deep:3, shell:3, und:3, man:0, notes:"Fire zone off the Will" },
+    { n:"Weak Blitz 3",         badge:"BLITZ", rush:5, cont:0, spy:0, deep:3, shell:3, und:3, man:0, notes:"Weak-side fire zone" },
+    { n:"FS Slant 3",           badge:"BLITZ", rush:5, cont:0, spy:0, deep:3, shell:3, und:3, man:0, notes:"FS is the 5th rusher; disguised, arrives late" },
+    { n:"MLB Cross Fire 3",     badge:"BLITZ", rush:5, cont:0, spy:0, deep:3, shell:3, und:3, man:0, notes:"ILBs cross; BOTH OLBs drop to curl-flat — open edges, scramble risk" },
+    { n:"Saw Blitz 1",          badge:"BLITZ", rush:5, cont:0, spy:0, deep:1, shell:1, und:0, man:5, notes:"Cover 1 five-man pressure, no rat" },
+    { n:"Weak Blitz 1",         badge:"BLITZ", rush:5, cont:0, spy:0, deep:1, shell:1, und:0, man:5, notes:"Man pressure, weak overload" },
+    { n:"Cover 1 FS Fire",      badge:"BLITZ", rush:5, cont:0, spy:0, deep:1, shell:1, und:0, man:5, notes:"FS fires; SS rotates to deep middle" },
+    { n:"Cov 1 QB Contain Spy", badge:"BLITZ", rush:4, cont:1, spy:1, deep:1, shell:1, und:0, man:5, notes:"TRUE SPY: one edge contains, an ILB mirrors the QB, other OLB plays man. The mobile-QB call." },
+    { n:"Pinch Buck 0",         badge:"BLITZ", rush:6, cont:0, spy:0, deep:0, shell:0, und:0, man:5, notes:"Cover 0 max pressure" },
+    { n:"Dbl Safety Blitz",     badge:"BLITZ", rush:6, cont:0, spy:0, deep:0, shell:0, und:0, man:5, notes:"Cover 0, both safeties rush" },
+    { n:"Cover 1 Hole Wk",      badge:"MAN",   rush:4, cont:0, spy:0, deep:1, shell:1, und:1, man:5, notes:"Man free, weak-side hole rat" },
+    { n:"Cover 1 Robber Press", badge:"MAN",   rush:4, cont:0, spy:0, deep:1, shell:1, und:1, man:5, press:true, notes:"SS robber, press outside" },
+    { n:"Cover 2 Man",          badge:"MAN",   rush:4, cont:0, spy:0, deep:2, shell:2, und:0, man:5, notes:"Halves over man" },
+    { n:"Tampa 2",              badge:"ZONE",  rush:4, cont:0, spy:0, deep:3, shell:"tampa", und:4, man:0, notes:"Two halves + ILB running the pole; cloud flats. Deep middle covered, but the pole runner is a LB." },
+    { n:"Cover 3 Hard Flat",    badge:"ZONE",  rush:4, cont:0, spy:0, deep:3, shell:3, und:4, man:0, notes:"Hard flats jump quick game; corner route lives behind them" },
+    { n:"Cover 3 Match",        badge:"MATCH", rush:4, cont:0, spy:0, deep:3, shell:3, und:4, man:0, notes:"Match rules, curl-flat drops" },
+    { n:"Cover 3 Sky",          badge:"ZONE",  rush:4, cont:0, spy:0, deep:3, shell:3, und:4, man:0, notes:"SS sky force — base run-down call" },
+    { n:"Cover 4 Quarters",     badge:"MATCH", rush:4, cont:0, spy:0, deep:4, shell:4, und:3, man:0, notes:"Pattern-match quarters" },
+    { n:"Cover 6",              badge:"MATCH", rush:4, cont:0, spy:0, deep:3, shell:"6", und:4, man:0, notes:"QQH, cloud corner to the half side" },
+  ],
+};
+
+// ── Derived capabilities ─────────────────────────────────────────────────────
+// Turns play art into the structural facts the engine and Formation Info page use.
+function getCapabilities(formation) {
+  const list = PLAYS[formation];
+  if (!list || !list.length) return null;
+  const rushes = list.map(p => p.rush);
+  const spyPlays = list.filter(p => p.spy > 0);
+  const contPlays = list.filter(p => p.cont > 0);
+  const zeroPlays = list.filter(p => p.shell === 0);
+  const blitzPlays = list.filter(p => p.rush >= 5);
+  // A blitz with no spy and no contain leaves the QB an escape lane.
+  const looseBlitzes = blitzPlays.filter(p => p.spy === 0 && p.cont === 0);
+  const shells = [...new Set(list.map(p => String(p.shell)))];
+  return {
+    playCount: list.length,
+    rushMin: Math.min(...rushes),
+    rushMax: Math.max(...rushes),
+    maxCoverage: 11 - Math.min(...rushes),
+    hasSpy: spyPlays.length > 0,
+    spyPlays: spyPlays.map(p => p.n),
+    hasContain: contPlays.length > 0,
+    containPlays: contPlays.map(p => p.n),
+    hasZero: zeroPlays.length > 0,
+    zeroPlays: zeroPlays.map(p => p.n),
+    blitzCount: blitzPlays.length,
+    blitzRate: Math.round((blitzPlays.length / list.length) * 100),
+    looseBlitzCount: looseBlitzes.length,
+    shells: shells.sort(),
+    hasQuarters: list.some(p => p.shell === 4),
+    hasTwoHigh: list.some(p => p.shell === 2 || p.shell === "tampa" || p.shell === "6"),
+    // Scramble containment: can this formation answer a mobile QB with a real tool?
+    scrambleAnswer: spyPlays.length > 0 ? "spy" : contPlays.length > 0 ? "contain" : "none",
+    matchCount: list.filter(p => p.badge === "MATCH").length,
+  };
+}
+
+const PLAY_FORMATIONS = Object.keys(PLAYS);
+
+// alignments.js — positional alignment per formation (CFB 27)
+// Transcribed from in-game formation art (collegefootball.gg reference).
+// [label, x, y] on a 0-100 grid; y increases toward LOS (LOS ≈ 64-66).
+// Rendered as ORIGINAL SVG in app theme — no source artwork reused.
+// Labels use real in-game position tags (NT, DT1, REDG, SLCB, RRE, SLB2, FS2...).
+
+const ALIGN = {
+  // ── 2-5 ──
+  "2-5 Over Wide": [["FS",24,10],["SS",75,10],["CB2",13,26],["CB1",85,26],["WILL",34,44],["MIKE",50,42],["SAM",65,44],["REDG",28,66],["NT",45,66],["DT",59,66],["LEDG",74,66]],
+
+  // ── 3-3-5 ──
+  "3-3-5 3 High": [["FS",20,12],["SS1",50,12],["SS2",80,12],["CB1",12,36],["CB2",88,36],["WILL",26,36],["MIKE",50,34],["SAM",74,36],["DT1",38,66],["NT",50,66],["DT2",62,66]],
+  "3-3-5 3 High Odd": [["FS",19,12],["SS1",50,12],["SS2",81,12],["CB1",12,38],["CB2",88,38],["WILL",26,38],["MIKE",43,38],["SAM",56,38],["DT1",38,66],["NT",50,66],["DT2",62,66]],
+  "3-3-5 3 High Over": [["FS",20,12],["SS2",50,13],["SS1",78,12],["CB1",13,38],["CB2",87,38],["MIKE",33,36],["WILL",66,36],["REDG",28,66],["DT1",45,66],["NT",59,66],["DT2",70,66]],
+  "3-3-5 3 High Penny": [["SS2",24,10],["SS1",50,10],["FS",76,10],["CB1",12,20],["CB2",88,20],["MIKE",50,26],["REDG",27,52],["DT1",38,52],["NT",50,52],["DT2",62,52],["LEDG",73,52]],
+  "3-3-5 Penny": [["FS",24,10],["SS2",76,12],["CB1",12,26],["CB2",87,26],["SS1",19,40],["MIKE",50,32],["REDG",27,64],["DT1",38,64],["NT",50,64],["DT2",62,64],["LEDG",73,64]],
+  "3-3-5 Split": [["FS",50,12],["CB1",13,30],["CB2",86,30],["SS2",23,42],["SS1",76,42],["WILL",40,40],["MIKE",58,40],["REDG",29,64],["NT",45,64],["DT",57,64],["LEDG",71,64]],
+  "3-3-5 Stack": [["FS",50,14],["CB1",10,44],["SS1",23,44],["SS2",77,44],["CB2",89,44],["WILL",37,44],["MIKE",50,44],["SAM",63,44],["DT1",37,64],["NT",50,64],["DT2",63,64]],
+  "3-3-5 Mint": [["FS",24,12],["SS2",76,14],["CB1",12,26],["CB2",88,26],["SS1",19,34],["MIKE",40,42],["WILL",58,42],["DT1",38,64],["NT",50,64],["DT2",62,64],["LEDG",73,64]],
+  "3-3-5 Odd Ghost": [["FS",50,12],["CB1",12,42],["SS1",18,44],["SS2",78,38],["CB2",88,38],["WILL",26,38],["MIKE",44,40],["SAM",56,40],["DT1",37,62],["NT",50,62],["DT2",62,62]],
+  "3-3-5 Over Flex": [["FS",24,12],["SS2",76,12],["CB1",13,26],["CB2",87,26],["SS1",19,40],["MIKE",40,40],["WILL",59,40],["REDG",29,64],["NT",45,64],["DT",57,64],["LEDG",71,64]],
+
+  // ── 3-4 ──
+  "3-4 Bear": [["FS",50,12],["CB1",13,32],["CB2",87,32],["WILL",38,42],["MIKE",62,42],["REDG",27,64],["DT1",40,64],["NT",50,64],["DT2",59,64],["LEDG",69,64],["SS",74,64]],
+  "3-4 Bear 46": [["FS",50,10],["CB1",13,28],["CB2",87,28],["SS",36,36],["MIKE",63,34],["REDG",27,62],["DT",42,62],["NT",50,62],["LEDG",57,62],["SAM",67,62],["WILL",74,62]],
+  "3-4 Even": [["FS",28,12],["SS",72,12],["CB1",13,30],["CB2",87,30],["WILL",42,40],["MIKE",58,40],["REDG",27,64],["DT1",42,64],["NT",57,64],["DT2",68,64],["LEDG",73,64]],
+  "3-4 Grizzly": [["FS",50,12],["CB1",13,30],["CB2",87,30],["WILL",37,40],["MIKE",50,40],["SS",63,40],["REDG",27,64],["DT1",40,64],["NT",50,64],["DT2",59,64],["LEDG",73,64]],
+  "3-4 Odd": [["FS",29,12],["SS",71,12],["CB1",13,30],["CB2",87,30],["WILL",43,40],["MIKE",57,40],["REDG",27,64],["DT1",37,64],["NT",50,64],["DT2",63,64],["LEDG",73,64]],
+  "3-4 Over": [["FS",28,10],["SS",72,10],["CB1",12,28],["CB2",87,28],["WILL",44,38],["MIKE",62,38],["REDG",27,64],["DT1",34,64],["NT",48,64],["DT2",59,64],["LEDG",73,64]],
+  "3-4 Over Ed": [["FS",28,12],["SS",73,12],["CB2",11,32],["CB1",87,32],["WILL",38,42],["MIKE",53,40],["SAM",69,42],["REDG",29,66],["NT",46,66],["DT1",59,66],["DT2",69,66]],
+  "3-4 Tite": [["FS",24,12],["SS",76,12],["CB1",13,34],["CB2",87,34],["WILL",43,40],["MIKE",57,40],["REDG",27,66],["DT1",38,66],["NT",50,66],["DT2",62,66],["LEDG",73,66]],
+  "3-4 Tite 5 Tech": [["FS",28,12],["SS",74,12],["CB1",13,34],["CB2",87,34],["WILL",40,40],["MIKE",57,40],["REDG",27,66],["DT1",38,66],["NT",50,66],["DT2",64,66],["LEDG",73,66]],
+  "3-4 Under": [["FS",28,10],["SS",73,10],["CB1",13,28],["CB2",87,28],["WILL",40,38],["MIKE",60,38],["REDG",27,64],["DT1",38,64],["NT",51,64],["DT2",62,64],["LEDG",72,64]],
+  "3-4 Under 4 Tech": [["FS",28,12],["SS",73,12],["CB1",13,30],["CB2",87,30],["WILL",40,40],["MIKE",60,40],["REDG",27,66],["DT1",41,66],["NT",52,66],["DT2",64,66],["LEDG",73,66]],
+
+  // ── 4-2-5 ──
+  "4-2-5 3 High": [["SS1",20,12],["SS2",50,13],["FS",80,12],["CB1",13,36],["CB2",87,36],["SLB2",32,36],["SLB1",67,36],["REDG",28,64],["NT",45,64],["DT",59,64],["LEDG",71,64]],
+  "4-2-5 Even": [["SS2",23,14],["FS",76,14],["CB1",12,36],["CB2",87,36],["SLB2",38,40],["SLB1",61,40],["SS1",75,42],["REDG",30,64],["NT",43,64],["DT",57,64],["LEDG",69,64]],
+  "4-2-5 Over G": [["SS2",20,12],["FS",80,12],["CB1",13,26],["CB2",87,26],["SLB2",34,36],["SLB1",62,36],["SS1",76,40],["REDG",28,64],["NT",45,64],["DT",59,64],["LEDG",70,64]],
+  "4-2-5 Under": [["SS2",20,14],["FS",80,14],["CB1",13,30],["CB2",87,30],["SLB2",35,38],["SLB1",60,38],["SS1",76,42],["REDG",28,64],["DT",41,64],["NT",57,64],["LEDG",69,64]],
+
+  // ── 4-3 ──
+  "4-3 Even 6-1": [["FS",24,14],["SS",73,10],["CB1",13,30],["CB2",87,30],["MIKE",50,36],["WILL",27,62],["REDG",37,62],["NT",44,62],["DT1",56,62],["DT2",65,62],["SAM",72,62]],
+  "4-3 Odd": [["FS",25,14],["SS",73,14],["CB1",13,30],["CB2",87,30],["MIKE",42,44],["SAM",57,44],["WILL",27,62],["REDG",37,62],["NT",48,62],["DT",62,62],["LEDG",72,62]],
+  "4-3 Over": [["FS",24,12],["SS",76,12],["CB1",13,28],["CB2",87,28],["WILL",36,38],["MIKE",50,38],["SAM",64,38],["REDG",30,62],["NT",47,62],["DT",59,62],["LEDG",71,62]],
+  "4-3 Over Solid": [["SS",26,14],["FS",74,14],["CB1",13,32],["CB2",87,32],["WILL",38,40],["MIKE",54,40],["REDG",29,62],["NT",47,62],["DT",59,62],["LEDG",68,62],["SAM",73,62]],
+  "4-3 Over Walk": [["FS",26,14],["SS",74,14],["CB1",13,30],["CB2",87,30],["MIKE",44,40],["SAM",61,40],["WILL",29,60],["REDG",37,62],["NT",47,62],["DT",59,62],["LEDG",71,62]],
+  "4-3 Over Wide": [["FS",24,12],["SS",76,12],["CB1",13,28],["CB2",87,28],["WILL",35,40],["MIKE",50,40],["SAM",64,40],["REDG",28,62],["NT",45,62],["DT",59,62],["LEDG",72,62]],
+  "4-3 Tite Leo": [["FS",24,14],["SS",76,14],["CB1",13,30],["CB2",87,30],["WILL",42,40],["MIKE",57,40],["REDG",27,62],["DT1",38,62],["NT",50,62],["DT2",62,62],["LEDG",73,62]],
+  "4-3 Under": [["FS",26,14],["SS",74,14],["CB1",13,32],["CB2",87,32],["WILL",39,40],["MIKE",57,40],["REDG",29,62],["DT",40,62],["NT",53,62],["LEDG",64,62],["SAM",73,62]],
+  "4-3 Under Wide": [["SS",24,14],["FS",74,14],["CB1",13,30],["CB2",87,30],["WILL",37,40],["MIKE",59,40],["REDG",34,62],["DT",41,62],["NT",55,62],["LEDG",68,62],["SAM",74,62]],
+
+  // ── 4-4 / 46 / 5-2 / Goal Line ──
+  "4-4 Split": [["FS",50,14],["CB1",13,32],["CB2",87,32],["WILL",27,58],["MIKE2",40,52],["MIKE1",60,52],["SAM",73,58],["REDG",34,62],["DT",43,62],["NT",56,62],["LEDG",65,62]],
+  "46 Bear": [["FS",50,12],["CB1",13,30],["CB2",87,30],["SS",36,44],["MIKE",63,42],["REDG",30,62],["DT",42,62],["NT",50,62],["LEDG",57,62],["SAM",68,62],["WILL",75,62]],
+  "46 Bear Under": [["FS",50,10],["CB1",13,30],["CB2",87,30],["SS",37,36],["MIKE",62,36],["WILL",29,62],["REDG",40,62],["NT",50,62],["DT",58,62],["SAM",67,62],["LEDG",73,62]],
+  "46 Normal": [["FS",42,14],["CB1",13,32],["CB2",87,32],["WILL",27,44],["MIKE",40,44],["SAM",60,44],["SS",73,46],["REDG",33,62],["NT",48,62],["DT",58,62],["LEDG",71,62]],
+  "5-2 Normal": [["FS",28,14],["SS",73,14],["CB1",13,30],["CB2",87,30],["WILL",42,44],["MIKE",58,44],["REDG",30,62],["DT1",40,62],["NT",50,62],["DT2",59,62],["LEDG",69,62]],
+  "Goal Line 5-3": [["SS",39,40],["MIKE",57,38],["WILL",74,40],["REDG",30,58],["DT3",39,58],["DT1",48,58],["NT1",57,58],["NT2",66,58],["DT2",76,58],["LEDG",84,58],["CB1",90,44]],
+  "Goal Line 6-2": [["WILL",46,40],["MIKE",68,40],["CB1",90,44],["SS",87,58],["FS",28,58],["REDG",33,58],["DT3",44,58],["DT1",53,58],["NT",61,58],["DT2",70,58],["LEDG",81,58]],
+
+  // ── Dime (SLCB = slot corner, RRE/RLE = rush ends) ──
+  "Dime 2-3-6": [["FS",23,10],["SS2",77,8],["CB1",12,22],["CB2",88,22],["SLCB",20,32],["SLB",44,30],["SS1",62,28],["RRE",28,44],["NT",44,44],["DT",58,44],["RLE",72,44]],
+  "Dime 2-3-6 Will": [["FS",29,14],["SS",71,14],["CB1",10,36],["CB2",90,36],["SLCB",23,40],["SLB",39,38],["SLB2",61,38],["SLCB2",77,40],["RRE",32,46],["DT1",50,46],["RLE",68,46]],
+  "Dime 3-2": [["FS",25,12],["SS",75,12],["CB1",12,30],["CB2",88,30],["SLCB1",20,40],["SLB1",39,40],["SLB2",62,40],["SLCB2",79,42],["RRE",31,50],["DT",50,50],["RLE",69,50]],
+  "Dime 3-2 Single Mug": [["FS",24,12],["SS",76,12],["CB1",12,30],["CB2",88,30],["SLCB1",20,40],["SLCB2",80,40],["RRE",28,58],["NT",39,58],["SLB",50,58],["DT",61,58],["RLE",72,58]],
+  "Dime Load Weak": [["FS",24,10],["SS",76,10],["CB1",12,26],["CB2",88,26],["SLCB1",20,34],["SLCB2",78,34],["RRE",31,50],["SLB2",39,50],["SLB1",47,50],["DT",62,50],["RLE",73,50]],
+  "Dime Normal": [["FS",24,12],["SS",76,12],["CB1",12,32],["CB2",88,32],["SLCB1",20,38],["SLCB2",80,38],["RRE",29,50],["SLB",50,44],["NT",46,50],["DT",59,50],["RLE",72,50]],
+  "Dime Rush": [["FS",24,12],["SS",76,12],["CB1",12,30],["CB2",88,30],["SLCB1",20,38],["SLCB2",80,38],["RRE",28,50],["SLB",50,42],["NT",44,50],["DT",61,50],["RLE",72,50]],
+  "Dime Single Mug": [["FS",24,12],["SS",76,12],["CB1",12,30],["CB2",88,30],["SLCB1",20,40],["SLCB2",80,40],["RRE",28,58],["NT",39,58],["SLB",50,58],["DT",61,58],["RLE",72,58]],
+
+  // ── Dollar (2 CB + 4 SAFETIES: FS, FS2, SS, SS2) ──
+  "Dollar 3-2": [["FS",29,14],["FS2",71,14],["CB1",10,20],["CB2",90,20],["SS",23,26],["SLB",39,24],["SLB2",61,26],["SS2",76,28],["RE",33,32],["NT",50,32],["DT1",67,32]],
+  "Dollar Sugar 3-2": [["FS",29,16],["FS2",71,16],["CB1",10,20],["CB2",90,20],["SS",26,30],["SS2",74,30],["RE",31,42],["SLB",45,42],["NT",50,42],["SLB2",62,42],["LE",68,42]],
+
+  // ── Nickel 2-4 ──
+  "Nickel 2-4": [["FS",27,12],["SS",73,12],["CB1",13,30],["CB2",87,30],["SLCB",22,40],["SLB1",44,36],["SLB2",63,36],["RRE",30,52],["NT",47,52],["DT",60,52],["RLE",72,52]],
+  "Nickel 2-4 Dbl Mug": [["FS",24,10],["SS",76,10],["CB1",13,26],["CB2",87,26],["SLCB",20,34],["RRE",28,50],["NT",39,50],["SLB1",46,50],["SLB2",54,50],["DT",62,50],["RLE",73,50]],
+  "Nickel 2-4 Load": [["FS",24,12],["SS",76,12],["CB1",13,30],["CB2",87,30],["SLCB",20,38],["SLB1",39,40],["SLB2",62,40],["RRE",31,50],["NT",52,50],["DT",62,50],["RLE",73,50]],
+  "Nickel 2-4 Load Dbl Mug": [["FS",24,12],["SS",76,12],["CB1",13,30],["CB2",87,30],["SLCB",20,38],["RRE",27,58],["NT",38,58],["DT",47,58],["SLB1",55,58],["SLB2",62,58],["RLE",73,58]],
+  "Nickel 2-4 Load Mug": [["FS",24,12],["SS",76,12],["CB1",13,30],["CB2",87,30],["SLCB",20,40],["SLB1",39,42],["RRE",27,58],["NT",38,58],["DT",48,58],["SLB2",61,58],["RLE",72,58]],
+  "Nickel 2-4 Single Mug": [["FS",24,12],["SS",76,12],["CB1",13,30],["CB2",87,30],["SLCB",20,38],["SLB2",61,38],["RRE",27,52],["NT",38,52],["SLB1",50,52],["DT",61,52],["RLE",72,52]],
+
+  // ── Nickel 3-3 ──
+  "Nickel 3-3": [["FS",29,14],["SS",71,14],["CB1",10,36],["CB2",90,36],["SLCB",22,40],["SLB2",33,40],["SLB",50,40],["SLB3",67,40],["RRE",33,46],["NT",50,46],["DT",67,46]],
+  "Nickel 3-3 Cub": [["FS",26,12],["SS",73,12],["CB1",12,30],["CB2",87,30],["SLCB",19,40],["SLB",50,40],["RRE",27,58],["DT1",38,58],["NT",50,58],["DT2",61,58],["RLE",72,58]],
+  "Nickel 3-3 Dbl Mug": [["FS",24,12],["SS",76,12],["CB1",12,30],["CB2",87,30],["SLCB",20,40],["RRE",27,58],["NT",38,58],["SLB1",46,58],["SLB2",54,58],["DT",62,58],["RLE",73,58]],
+  "Nickel 3-3 Load Dbl Mug": [["FS",24,12],["SS",76,12],["CB1",12,30],["CB2",87,30],["SLCB",20,38],["RRE",27,58],["NT",38,58],["DT",47,58],["SLB1",55,58],["SLB2",62,58],["RLE",73,58]],
+  "Nickel 3-3 Load Mug": [["FS",24,12],["SS",76,12],["CB1",12,30],["CB2",87,30],["SLCB",20,38],["SLB1",39,40],["RRE",27,52],["NT",38,52],["DT",48,52],["SLB2",62,52],["RLE",72,52]],
+  "Nickel 3-3 Odd": [["FS",29,14],["SS",71,14],["CB1",10,36],["CB2",90,36],["SLCB",22,42],["SLB",39,40],["SLB2",59,40],["DT1",35,50],["NT",50,50],["DT2",64,48],["RLE",71,50]],
+  "Nickel 3-3 Over": [["FS",24,12],["SS",76,12],["CB1",12,30],["CB2",87,30],["SLCB",20,40],["SLB1",39,40],["SLB2",62,40],["RRE",29,58],["NT",41,58],["DT",58,58],["RLE",71,58]],
+  "Nickel 3-3 Over Jack": [["FS",24,10],["SS",76,10],["CB1",12,26],["CB2",87,26],["SLCB",20,34],["SLB1",39,36],["SLB2",62,36],["RRE",31,52],["NT",50,52],["DT",63,52],["RLE",75,52]],
+  "Nickel 3-3 Single Mug": [["FS",24,12],["SS",76,12],["CB1",12,30],["CB2",87,30],["SLCB",20,38],["SLB2",61,38],["RRE",27,52],["NT",38,52],["SLB1",50,52],["DT",63,52],["RLE",73,52]],
+  "Nickel 3-3 Wide Jack": [["FS",24,12],["SS",76,12],["CB1",12,30],["CB2",87,30],["SLCB",20,40],["SLB1",39,40],["SLB2",62,40],["RRE",27,52],["NT",41,52],["DT",60,52],["RLE",73,52]],
+
+  // ── Nickel base variants ──
+  "Nickel Double Mug": [["FS",24,12],["SS",76,12],["CB1",12,30],["CB2",87,30],["SLCB",20,40],["RRE",27,58],["NT",39,58],["SLB1",46,58],["SLB2",54,58],["DT",62,58],["RLE",73,58]],
+  "Nickel Load": [["FS",24,10],["SS",76,10],["CB1",12,26],["CB2",87,26],["SLCB",20,34],["SLB1",39,36],["SLB2",62,36],["RRE",31,50],["NT",52,50],["DT",62,50],["RLE",73,50]],
+  "Nickel Load Dbl Mug": [["FS",24,12],["SS",76,12],["CB1",12,30],["CB2",87,30],["SLCB",20,38],["RRE",27,52],["NT",38,52],["DT",47,52],["SLB1",55,52],["SLB2",62,52],["RLE",73,52]],
+  "Nickel Load Mug": [["FS",24,12],["SS",76,12],["CB1",12,30],["CB2",87,30],["SLCB",20,40],["SLB1",39,40],["RRE",27,58],["NT",38,58],["DT",48,58],["SLB2",61,58],["RLE",72,58]],
+  "Nickel Over": [["FS",24,14],["SS",76,14],["CB1",12,30],["CB2",87,30],["SLCB",20,38],["SLB1",39,40],["SLB2",62,40],["RRE",29,58],["NT",46,58],["DT",59,58],["RLE",71,58]],
+  "Nickel Single Mug": [["FS",24,10],["SS",76,10],["CB1",12,26],["CB2",87,26],["SLCB",20,36],["SLB2",62,36],["RRE",28,50],["NT",39,50],["SLB1",50,50],["DT",61,50],["RLE",72,50]],
+  "Nickel Wide": [["FS",24,12],["SS",76,12],["CB1",12,30],["CB2",87,30],["SLCB",20,40],["SLB1",39,40],["SLB2",62,40],["RRE",28,52],["NT",41,52],["DT",60,52],["RLE",72,52]],
+
+  // ── Prevent ──
+  "Prevent 3-Deep": [["CB2",13,26],["CB3",23,26],["SLB",50,26],["CB4",78,26],["CB1",88,26],["RRE",31,50],["RDT",50,50],["RLE",69,50]],
+};
+
+// Position-group classifier. Edges are their own group so the DL-count
+// ambiguity never lies to the user. Slot corners count as CB, rush ends as EDGE.
+function groupOf(label) {
+  if (/^(NT|DT|RDT|RE$|LE$|DT\d)/.test(label)) return "dl";
+  if (/^(LEDG|REDG|EDGE|RRE|RLE|DE)/.test(label)) return "ed";
+  if (/^(MIKE|WILL|SAM|JACK|MLB|SLB|WLB|LB)/.test(label)) return "lb";
+  if (/^(SLCB|NCB|NB|CB)/.test(label)) return "cb";
+  return "s"; // FS, FS2, SS, SS1, SS2, S...
+}
+
+function alignCounts(name) {
+  const pts = ALIGN[name];
+  if (!pts) return null;
+  const c = { dl: 0, ed: 0, lb: 0, cb: 0, s: 0 };
+  for (const [l] of pts) c[groupOf(l)]++;
+  return c;
+}
+
+
+const PRI = {
+  run:      { c: "#c07040", l: "Run Stop" },
+  pass:     { c: "#3a80e0", l: "Pass Defense" },
+  hybrid:   { c: "#7858a0", l: "Hybrid" },
+  pressure: { c: "#bb5050", l: "Pressure" },
+};
+
+// Family grouping — order defines the top-level picker.
+const FAMILIES = [
+  { id: "4-3",     test: n => n.startsWith("4-3") },
+  { id: "3-4",     test: n => n.startsWith("3-4") },
+  { id: "Nickel",  test: n => n.startsWith("Nickel") },
+  { id: "Dime",    test: n => n.startsWith("Dime") },
+  { id: "Dollar",  test: n => n.startsWith("Dollar") },
+  { id: "3-3-5",   test: n => n.startsWith("3-3-5") },
+  { id: "4-2-5",   test: n => n.startsWith("4-2-5") },
+  { id: "2-5",     test: n => n.startsWith("2-5") },
+  { id: "Special", test: n => /^(46 Bear|5-2|Goal Line|Prevent|4-4)/.test(n) },
+];
+
+// Personnel structure derived from the formation name.
+// CFB 27: Dollar = 2 CB + 4 SAFETIES. Dime = 4 CB + 2 S. Same 6 DBs, different defense.
+function structure(name) {
+  const R = [
+    [/^Goal Line 6-2/, 6, 2, 2, 1], [/^Goal Line 5-3/, 5, 3, 2, 1], [/^5-2/, 5, 2, 2, 2],
+    [/^46 Bear/, 4, 4, 2, 1], [/^4-4/, 4, 4, 2, 1],
+    [/^Nickel 3-3/, 3, 3, 3, 2], [/^Nickel 2-4/, 2, 4, 3, 2], [/^Nickel/, 4, 2, 3, 2],
+    [/^Dime 2-3/, 2, 3, 4, 2], [/^Dime/, 4, 1, 4, 2],
+    [/^Dollar/, 3, 2, 2, 4],
+    [/^3-3-5/, 3, 3, 3, 2], [/^4-2-5/, 4, 2, 3, 2], [/^2-5/, 2, 5, 2, 2],
+    [/^4-3/, 4, 3, 2, 2], [/^3-4/, 3, 4, 2, 2],
+  ];
+  for (const [re, dl, lb, cb, sf] of R) {
+    if (re.test(name)) return { dl, lb, cb, s: sf, db: cb + sf, box: dl + lb };
+  }
+  return null;
+}
+
+const label10 = { fontSize: 10, color: "var(--color-text-3)", fontFamily: "var(--font-mono)", letterSpacing: "1px", textTransform: "uppercase", margin: "16px 0 8px", fontWeight: 700 };
+const goldHead = { fontSize: 10, fontFamily: "var(--font-mono)", letterSpacing: "1px", textTransform: "uppercase", color: "var(--color-gold)", margin: "12px 0 5px", fontWeight: 700 };
+const smallBtn = { fontSize: 11, minHeight: 28, padding: "0 10px", background: "transparent", border: "1px solid var(--color-border)", borderRadius: "var(--r-sm)", color: "var(--color-text-2)", cursor: "pointer", fontFamily: "var(--font-mono)" };
+const chip = (on) => ({
+  padding: "0 12px", minHeight: 40, borderRadius: "var(--r-md)",
+  border: `1px solid ${on ? "var(--color-gold)" : "var(--color-border-subtle)"}`,
+  background: on ? "var(--color-gold-surface)" : "var(--color-surface-2)",
+  color: on ? "var(--color-gold-bright)" : "var(--color-text-2)",
+  fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 700, cursor: "pointer", transition: "all 150ms ease",
+});
+const pill = (c) => ({ fontSize: 10, fontWeight: 700, letterSpacing: "0.4px", background: `${c}1a`, border: `1px solid ${c}55`, color: c, padding: "3px 7px", borderRadius: 4, fontFamily: "var(--font-mono)" });
+const stat = { background: "var(--color-surface-2)", border: "1px solid var(--color-border-subtle)", borderRadius: "var(--r-md)", padding: "9px 6px", textAlign: "center" };
+
+const GROUP_COLOR = { dl:"var(--color-run)", ed:"var(--color-run)", lb:"var(--color-hybrid)", cb:"var(--color-pass)", s:"var(--color-success)" };
+const GROUP_LABEL = { dl:"DL", ed:"EDGE", lb:"LB", cb:"CB", s:"S" };
+
+function FormationDiagram({ name }) {
+  const pts = ALIGN[name];
+  if (!pts) return (
+    <div style={{ background:"var(--color-surface-2)", border:"1px dashed var(--color-border)", borderRadius:"var(--r-md)", padding:"14px", fontSize:12.5, color:"var(--color-text-3)", textAlign:"center" }}>
+      Alignment diagram coming soon.
+    </div>
+  );
+  const px = x => 14 + x * 3.32;          // 0-100 → svg
+  const py = y => 8 + y * 2.05;
+  const groups = [...new Set(pts.map(([l]) => groupOf(l)))];
+  return (
+    <div>
+      <svg viewBox="0 0 360 180" style={{ width:"100%", display:"block", background:"var(--color-surface-1)", border:"1px solid var(--color-border-subtle)", borderRadius:"var(--r-md)" }}>
+        {[20, 55, 90, 125].map(y => <line key={y} x1="10" y1={y} x2="350" y2={y} stroke="var(--color-border-subtle)" strokeWidth="1" />)}
+        {[20, 55, 90, 125].map(y => [120, 240].map(x => <line key={x+"-"+y} x1={x} y1={y-3} x2={x} y2={y+3} stroke="var(--color-border)" strokeWidth="1" />))}
+        <line x1="10" y1={py(78)} x2="350" y2={py(78)} stroke="var(--color-gold)" strokeWidth="1.5" opacity="0.8" />
+        {pts.map(([l, x, y]) => (
+          <g key={l}>
+            <circle cx={px(x)} cy={py(y)} r="12.5" fill={GROUP_COLOR[groupOf(l)]} stroke="rgba(0,0,0,0.35)" strokeWidth="1" />
+            <text x={px(x)} y={py(y) + 3} textAnchor="middle" style={{ fontSize: l.length > 3 ? 7 : 8.5, fontWeight: 700, fontFamily: "var(--font-mono)", fill: "#0d1622" }}>{l}</text>
+          </g>
+        ))}
+      </svg>
+      <div style={{ display:"flex", gap:12, justifyContent:"center", marginTop:6, flexWrap:"wrap" }}>
+        {groups.map(g => (
+          <span key={g} style={{ display:"inline-flex", alignItems:"center", gap:5, fontSize:10, fontFamily:"var(--font-mono)", color:"var(--color-text-3)" }}>
+            <span style={{ width:9, height:9, borderRadius:"50%", background:GROUP_COLOR[g], display:"inline-block" }} />{GROUP_LABEL[g]}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Section({ title, count, tone, children, defaultOpen = false }) {
+  const [open, setOpen] = useState(defaultOpen);
+  const c = tone || "var(--color-gold)";
+  return (
+    <div style={{ marginTop: 10, border: "1px solid var(--color-border-subtle)", borderRadius: "var(--r-md)", overflow: "hidden", background: "var(--color-surface-2)" }}>
+      <button onClick={() => setOpen(!open)}
+        style={{ width: "100%", minHeight: 46, display: "flex", alignItems: "center", justifyContent: "space-between",
+          background: "transparent", border: "none", cursor: "pointer", padding: "0 12px", textAlign: "left" }}>
+        <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <span style={{ fontSize: 11, fontFamily: "var(--font-mono)", fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: c }}>{title}</span>
+          {count != null && <span style={{ fontSize: 10, fontFamily: "var(--font-mono)", color: "var(--color-text-3)" }}>{count}</span>}
+        </span>
+        <span style={{ fontFamily: "var(--font-mono)", fontSize: 13, color: "var(--color-text-3)", transform: open ? "rotate(90deg)" : "none", transition: "transform 150ms ease" }}>›</span>
+      </button>
+      {open && <div style={{ padding: "2px 12px 12px" }}>{children}</div>}
+    </div>
+  );
+}
+
+function FormationInfo() {
+  const [fam, setFam] = useState(null);
+  const [sel, setSel] = useState(null);
+
+  useEffect(() => { window.scrollTo(0, 0); document.getElementById('root')?.scrollTo(0, 0); }, []);
+  useEffect(() => { if (sel) { window.scrollTo(0, 0); document.getElementById('root')?.scrollTo(0, 0); } }, [sel]);
+
+  const names = useMemo(() => Object.keys(FDB), []);
+  const inFam = useMemo(() => fam ? names.filter(n => n !== "Prevent 3-Deep" && FAMILIES.find(f => f.id === fam).test(n)) : [], [fam, names]);
+
+  const d = sel ? FDB[sel] : null;
+  const st = sel ? structure(sel) : null;
+  const cap = sel ? getCapabilities(sel) : null;
+  const pri = d ? (PRI[d.priority] || { c: "var(--color-gold)", l: d.priority }) : null;
+
+  return (
+    <div className="screen-enter" style={{ fontFamily: "var(--font-sans)", background: "var(--color-bg)", minHeight: "100dvh", color: "var(--color-text-1)", maxWidth: 720, margin: "0 auto" }}>
+
+      <div style={{ background: "linear-gradient(135deg, var(--color-surface-1), var(--color-surface-2))", borderBottom: "2px solid var(--color-gold)", padding: "12px 16px", paddingTop: "calc(env(safe-area-inset-top) + 12px)", position: "sticky", top: 0, zIndex: 80 }}>
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between" }}>
+          <div>
+            <div style={{ fontSize: 10, color: "var(--color-gold-dim)", letterSpacing: "2px", textTransform: "uppercase", fontFamily: "var(--font-mono)", marginBottom: 2 }}>Scheme Builders</div>
+            <div style={{ fontSize: 20, fontWeight: "700", color: "var(--color-text-1)", fontFamily: "var(--font-mono)" }}>Formation Info</div>
+          </div>
+          {sel && <button style={smallBtn} onClick={() => setSel(null)}>← Back</button>}
+        </div>
+      </div>
+
+      <div style={{ padding: "14px 16px 32px" }}>
+
+        {/* ── Picker ── */}
+        {!sel && (<>
+          <div style={{ fontSize: 12.5, color: "var(--color-text-3)", lineHeight: 1.55 }}>
+            Every formation has a job. Pick a family, then a front, to see what it does, when to call it, and when it will get you beat.
+          </div>
+          <div style={label10}>Family</div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 6 }}>
+            {FAMILIES.map(f => {
+              const n = names.filter(f.test).length;
+              const on = fam === f.id;
+              return (
+                <button key={f.id} onClick={() => setFam(on ? null : f.id)}
+                  style={{ background: on ? "var(--color-gold-surface)" : "var(--color-surface-2)",
+                    border: `1px solid ${on ? "var(--color-gold)" : "var(--color-border-subtle)"}`,
+                    borderRadius: "var(--r-md)", padding: "12px 6px 10px", textAlign: "center", cursor: "pointer",
+                    transition: "border-color 150ms, background 150ms", outline: "none", minHeight: 58 }}>
+                  <div style={{ fontFamily: "var(--font-mono)", fontSize: 14, fontWeight: 700, color: on ? "var(--color-gold-bright)" : "var(--color-text-1)", lineHeight: 1.2 }}>{f.id}</div>
+                  <div style={{ fontSize: 10, color: "var(--color-text-3)", fontFamily: "var(--font-mono)", marginTop: 3 }}>{n} front{n !== 1 ? "s" : ""}</div>
+                </button>
+              );
+            })}
+          </div>
+          {fam && (<>
+            <div style={label10}>{fam} — {inFam.length} formations</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+              {inFam.map(n => {
+                const p = PRI[FDB[n].priority] || { c: "var(--color-gold)", l: "" };
+                return (
+                  <button key={n} onClick={() => setSel(n)}
+                    style={{ ...chip(false), width: "100%", textAlign: "left", minHeight: 46, borderLeft: `3px solid ${p.c}`, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 12px" }}>
+                    <span style={{ fontSize: 13, color: "var(--color-text-1)" }}>{n}</span>
+                    <span style={{ fontSize: 10, color: p.c, fontFamily: "var(--font-mono)" }}>{p.l.toUpperCase()}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </>)}
+        </>)}
+
+        {/* ── Detail ── */}
+        {sel && d && (<>
+          <div style={{ display: "flex", alignItems: "center", gap: 7, flexWrap: "wrap", marginTop: 2 }}>
+            <span style={pill(pri.c)}>{pri.l.toUpperCase()}</span>
+            <span style={pill("var(--color-text-3)")}>{d.personnel.toUpperCase()}</span>
+            <span style={pill("var(--color-gold)")}>BLITZ BASE {d.blitzBase}%</span>
+          </div>
+          <div style={{ fontFamily: "var(--font-mono)", fontSize: 22, fontWeight: 700, color: "var(--color-gold-bright)", margin: "8px 0 6px" }}>{sel}</div>
+          <div style={{ fontSize: 13.5, color: "var(--color-text-1)", lineHeight: 1.55 }}>{d.desc}</div>
+
+          {/* Personnel — diagram-derived when alignment art exists */}
+          {(() => {
+            const ac = alignCounts(sel);
+            const tiles = ac
+              ? [["DL", ac.dl], ["EDGE", ac.ed], ["LB", ac.lb], ["CB", ac.cb], ["S", ac.s]].filter(([, v]) => v > 0)
+              : st ? [["DL", st.dl], ["LB", st.lb], ["CB", st.cb], ["S", st.s]] : null;
+            if (!tiles) return null;
+            const cbN = ac ? ac.cb : st.cb, sN = ac ? ac.s : st.s;
+            const box = ac ? ac.dl + ac.ed + ac.lb : st.box;
+            return (<>
+              <div style={goldHead}>Alignment</div>
+              <FormationDiagram name={sel} />
+              <div style={{ display: "grid", gridTemplateColumns: `repeat(${tiles.length}, 1fr)`, gap: 6, marginTop: 8 }}>
+                {tiles.map(([k, v]) => (
+                  <div key={k} style={{ ...stat, borderColor: (k === "CB" && v >= 4) || (k === "S" && v >= 4) ? "var(--color-gold)" : "var(--color-border-subtle)" }}>
+                    <div style={{ fontFamily: "var(--font-mono)", fontSize: 18, fontWeight: 700, color: "var(--color-gold-bright)" }}>{v}</div>
+                    <div style={{ fontSize: 9.5, color: "var(--color-text-3)", fontFamily: "var(--font-mono)", letterSpacing: "0.5px" }}>{k}</div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ fontSize: 12, color: "var(--color-text-3)", marginTop: 6, lineHeight: 1.5 }}>
+                <span style={{ fontFamily: "var(--font-mono)", color: "var(--color-text-2)" }}>{box} in the box</span> · {cbN + sN} DBs
+                {sN >= 4 && <span style={{ color: "var(--color-gold)" }}> · FOUR SAFETIES — covers TEs, seams and crossers; only {cbN} corners, so outside speed hurts</span>}
+                {cbN >= 4 && <span style={{ color: "var(--color-gold)" }}> · FOUR CORNERS — matches WR speed; only {sN} safeties, so TEs and run support suffer</span>}
+              </div>
+            </>);
+          })()}
+
+          {/* Play structure (from art) */}
+          {cap ? (<>
+            <div style={goldHead}>Play Structure — {cap.playCount} plays</div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 6, marginBottom: 8 }}>
+              {[["RUSHERS", `${cap.rushMin}–${cap.rushMax}`], ["MAX COVER", cap.maxCoverage], ["BLITZ PLAYS", `${cap.blitzCount} (${cap.blitzRate}%)`]].map(([k, v]) => (
+                <div key={k} style={stat}>
+                  <div style={{ fontFamily: "var(--font-mono)", fontSize: 16, fontWeight: 700, color: "var(--color-gold-bright)" }}>{v}</div>
+                  <div style={{ fontSize: 9, color: "var(--color-text-3)", fontFamily: "var(--font-mono)" }}>{k}</div>
+                </div>
+              ))}
+            </div>
+          </>) : (
+            <div style={{ ...goldHead, color: "var(--color-text-3)" }}>Play structure — art pending for this formation</div>
+          )}
+
+          {/* Call it against */}
+          <Section title="Call It Against" tone="var(--color-success)" count={d.coreTags.filter(t => TRAIT_LABELS[t]).length} defaultOpen>
+            <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+              {d.coreTags.filter(t => TRAIT_LABELS[t]).map(t => (
+                <span key={t} style={{ ...pill("var(--color-success)"), fontSize: 11, padding: "5px 9px" }}>{TRAIT_LABELS[t]}</span>
+              ))}
+            </div>
+            {d.suppTags?.filter(t => TRAIT_LABELS[t]).length > 0 && (<>
+              <div style={{ fontSize: 10, color: "var(--color-text-3)", fontFamily: "var(--font-mono)", margin: "9px 0 5px" }}>ALSO GOOD VS</div>
+              <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                {d.suppTags.filter(t => TRAIT_LABELS[t]).map(t => (
+                  <span key={t} style={{ ...pill("var(--color-text-3)"), fontSize: 11, padding: "5px 9px" }}>{TRAIT_LABELS[t]}</span>
+                ))}
+              </div>
+            </>)}
+          </Section>
+
+          {/* Do NOT call it against */}
+          {d.avoidTags?.filter(t => TRAIT_LABELS[t]).length > 0 && (
+            <Section title="Do Not Call It Against" tone="var(--color-danger)" count={d.avoidTags.filter(t => TRAIT_LABELS[t]).length}>
+              <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                {d.avoidTags.filter(t => TRAIT_LABELS[t]).map(t => (
+                  <span key={t} style={{ ...pill("var(--color-danger)"), fontSize: 11, padding: "5px 9px" }}>{TRAIT_LABELS[t]}</span>
+                ))}
+              </div>
+            </Section>
+          )}
+
+          {/* Why it works */}
+          {d.dcNote && (
+            <Section title="Why It Works">
+              <div style={{ fontSize: 13, color: "var(--color-text-2)", lineHeight: 1.6 }}>{d.dcNote}</div>
+            </Section>
+          )}
+
+          {/* Coverages */}
+          {d.coverages?.length > 0 && (
+            <Section title="Best Calls" count={d.coverages.length}>
+            {d.coverages.map((c, i) => (
+              <div key={i} style={{ background: "var(--color-surface-2)", border: "1px solid var(--color-border-subtle)", borderRadius: "var(--r-md)", padding: "10px 12px", marginBottom: 6 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 13, fontWeight: 700, color: "var(--color-text-1)" }}>{c.name}</span>
+                  <span style={{ fontSize: 10, color: "var(--color-gold)", fontFamily: "var(--font-mono)" }}>{"★".repeat(c.rating)}</span>
+                </div>
+                {c.tag && <div style={{ fontSize: 10, color: "var(--color-text-3)", fontFamily: "var(--font-mono)", marginTop: 2 }}>{c.tag.toUpperCase()}</div>}
+                <div style={{ fontSize: 12.5, color: "var(--color-text-2)", marginTop: 4, lineHeight: 1.5 }}>{c.detail}</div>
+              </div>
+            ))}
+            </Section>
+          )}
+
+          {/* Pre-snap + coaching */}
+          {d.preSnap?.length > 0 && (
+            <Section title="Pre-Snap Keys" count={d.preSnap.length}>
+              {d.preSnap.map((x, i) => (
+                <div key={i} style={{ fontSize: 13, color: "var(--color-text-2)", marginBottom: 5, display: "flex", gap: 8, lineHeight: 1.5 }}>
+                  <span style={{ color: "var(--color-gold)" }}>·</span><span>{x}</span>
+                </div>
+              ))}
+            </Section>
+          )}
+          {d.coaching?.length > 0 && (
+            <Section title="Coaching Settings" count={d.coaching.length}>
+              {d.coaching.map((c, i) => (
+                <div key={i} style={{ fontSize: 13, marginBottom: 4, lineHeight: 1.5 }}>
+                  <span style={{ fontFamily: "var(--font-mono)", color: "var(--color-gold-bright)", fontWeight: 700 }}>{c.label}</span>
+                  <span style={{ color: "var(--color-text-3)" }}>: </span>
+                  <span style={{ color: "var(--color-text-1)" }}>{c.value}</span>
+                </div>
+              ))}
+            </Section>
+          )}
+
+          <Section title="Playbooks" count={d.books.length}>
+            <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+              {d.books.map(b => (
+                <span key={b} style={{ ...pill("var(--color-text-3)"), fontSize: 11, padding: "5px 9px" }}>{b}</span>
+              ))}
+            </div>
+          </Section>
+        </>)}
+      </div>
+    </div>
+  );
+}
+
+export default function App() {
+  useEffect(() => { document.documentElement.setAttribute("data-theme", "dark"); }, []);
+  return (<div style={{ background: "#07080f", minHeight: "100vh" }}><style>{HOUSE_CSS}</style><FormationInfo /></div>);
+}

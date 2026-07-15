@@ -9,6 +9,8 @@ import GamePlanScreen from './components/GamePlanScreen.jsx';
 import CompareScreen from './components/CompareScreen.jsx';
 import NotesScreen from './components/NotesScreen.jsx';
 import BottomNav from './components/BottomNav.jsx';
+import MacroBuilder from './components/MacroBuilder.jsx';
+import FormationInfo from './components/FormationInfo.jsx';
 
 export default function App() {
   // ── Navigation ──────────────────────────────────────────────────────────────
@@ -68,6 +70,15 @@ export default function App() {
   const flat         = Object.values(sel).flat();
   const personnelSel = sel.personnel || [];
 
+  // Keep `scored` in sync with the live scout. Previously scored only recomputed
+  // on explicit Build/book-change, so changing tags then viewing Plan showed a
+  // STALE ranking (e.g. run fronts left over from a prior scout vs an empty set).
+  // Deriving it reactively makes stale recommendations structurally impossible.
+  useEffect(() => {
+    if (!flat.length) { setScored([]); return; }
+    setScored(scoreAll(flat, myBook || "All", runPass));
+  }, [JSON.stringify(flat), myBook, runPass]);
+
   const displayScored = (ddDown && ddDistance)
     ? applyDownDistance(scored, Number(ddDown), Number(ddDistance))
     : scored;
@@ -97,6 +108,13 @@ export default function App() {
     setSelFm(null);
   };
 
+  const loadProfile = useCallback((profileTags) => {
+    setSel(profileTags);
+    setScored(scoreAll(Object.values(profileTags).flat(), myBook || "All", runPass));
+    setSelFm(null);
+    setActiveP(null);
+  }, [myBook, runPass]);
+
   const toggle = useCallback((g, t) =>
     setSel(p => { const c = p[g] || []; return { ...p, [g]: c.includes(t) ? c.filter(x => x !== t) : [...c, t] }; }), []);
 
@@ -114,7 +132,7 @@ export default function App() {
   };
 
   const buildShareText = () => {
-    const lines = ['CFB26 DC SCHEME BUILDER — GAME PLAN', '═'.repeat(38), ''];
+    const lines = ['CFB 27 DC SCHEME BUILDER — GAME PLAN', '═'.repeat(38), ''];
     const allTraits = Object.entries(sel).flatMap(([, ids]) => ids.map(id => TRAIT_LABELS[id] || id));
     if (allTraits.length) { lines.push('SCOUTED TRAITS:'); allTraits.forEach(t => lines.push(`  · ${t}`)); lines.push(''); }
     lines.push('TOP MATCHED FORMATIONS:', '─'.repeat(30));
@@ -132,7 +150,7 @@ export default function App() {
   const handleShare = async () => {
     const text = buildShareText();
     try {
-      if (navigator.share) { await navigator.share({ title: 'CFB26 DC Game Plan', text }); setShareToast('shared'); }
+      if (navigator.share) { await navigator.share({ title: 'CFB 27 DC Game Plan', text }); setShareToast('shared'); }
       else { await navigator.clipboard.writeText(text); setShareToast('copied'); }
     } catch(e) {
       try { await navigator.clipboard.writeText(text); setShareToast('copied'); } catch(e2) {}
@@ -179,7 +197,7 @@ export default function App() {
     shareToast, handleShare,
     modal, setModal,
     saveName, setSaveName,
-    profiles, saveProfiles,
+    profiles, saveProfiles, loadProfile,
     importMsg, exportProfiles, importProfiles,
     toggle, build,
     compareA, setCompareA,
@@ -207,6 +225,8 @@ export default function App() {
       {step === "scout"   && <ScoutScreen   key="scout"   {...sharedProps} />}
       {step === "plan"    && <GamePlanScreen key="plan"    {...sharedProps} />}
       {step === "compare" && <CompareScreen  key="compare" compareA={compareA} setCompareA={setCompareA} compareB={compareB} setCompareB={setCompareB} setStep={navigate} />}
+      {step === "macros"  && <MacroBuilder key="macros" />}
+      {step === "info"    && <FormationInfo key="info" />}
       {step === "notes"   && <NotesScreen    key={"notes" + (notesInitProfile || "")}   profiles={profiles} setStep={navigate} initProfile={notesInitProfile} handleShare={handleShare} shareToast={shareToast} />}
 
       <BottomNav step={step} setStep={navigate} hasPlan={scored.length > 0} isDark={isDark} onToggle={onToggle} />

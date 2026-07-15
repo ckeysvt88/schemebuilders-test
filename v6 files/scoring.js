@@ -1,8 +1,6 @@
 import { FDB } from '../data/formations.js';
 import { PERSONNEL_FAMILIES, FAMILY_ADJUSTMENTS, deriveImpliedTraits } from '../data/personnel.js';
 
-const PKG_TAGS = new Set(["p00","p01","p02","p10","p11","p12","p13","p20","p21","p22","p23"]);
-
 // ── SCORING ENGINE ────────────────────────────────────────────────────────────
 export function getBlitz(f, flat) {
   let pos = 0; let neg = 0;
@@ -40,11 +38,8 @@ export function scoreAll(flat, book, runPass) {
     }
     const coreHits = d.coreTags.filter(t => flat.includes(t));
     const suppHits = d.suppTags.filter(t => flat.includes(t));
-    // CFB 27: offenses shift formations within a personnel grouping (Formation Shifts),
-    // so personnel reads are the trustworthy signal. Package tags weigh 3, others 2.
-    const w = t => PKG_TAGS.has(t) ? 3 : 2;
-    const raw = coreHits.reduce((acc, t) => acc + w(t), 0) + suppHits.length;
-    const maxPossible = d.coreTags.reduce((acc, t) => acc + w(t), 0) + d.suppTags.length;
+    const raw = coreHits.length * 2 + suppHits.length;
+    const maxPossible = d.coreTags.length * 2 + d.suppTags.length;
     let sc = maxPossible > 0 ? Math.round((raw / maxPossible) * 100) : 0;
     // Run/pass bias: run formations get +bonus when slider is run-heavy; pass formations when pass-heavy
     if (sc > 0) {
