@@ -20,8 +20,8 @@ const FAMILIES = [
   { id: "Dollar",  test: n => n.startsWith("Dollar") },
   { id: "3-3-5",   test: n => n.startsWith("3-3-5") },
   { id: "4-2-5",   test: n => n.startsWith("4-2-5") },
-  { id: "2-5",     test: n => n.startsWith("2-5") },
-  { id: "Special", test: n => /^(46 Bear|5-2|Goal Line|Prevent|4-4)/.test(n) },
+  { id: "Goalline", test: n => n.startsWith("Goal Line") },
+  { id: "Unique",   test: n => /^(2-5|46 Bear|4-4|5-2)/.test(n) },
 ];
 
 // Personnel structure derived from the formation name.
@@ -257,7 +257,7 @@ export default function FormationInfo() {
           )}
 
           {/* Call it against */}
-          <Section title="Call It Against" tone="var(--color-success)" count={d.coreTags.filter(t => TRAIT_LABELS[t]).length} defaultOpen>
+          <Section title="Call It Against" tone="var(--color-success)" count={d.coreTags.filter(t => TRAIT_LABELS[t]).length}>
             <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
               {d.coreTags.filter(t => TRAIT_LABELS[t]).map(t => (
                 <span key={t} style={{ ...pill("var(--color-success)"), fontSize: 11, padding: "5px 9px" }}>{TRAIT_LABELS[t]}</span>
