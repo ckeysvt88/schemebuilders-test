@@ -30,7 +30,6 @@ export const PLAYBOOKS = {
   "4-3 Zone": { color:"#509060", style:"Zone", desc:"Zone-first 4-3." },
   "4-3 Zone Pressure": { color:"#607890", style:"Zone Pressure", desc:"4-3 fire zone book." },
   "Multiple": { color:"#607888", style:"Multiple", desc:"Front variety: 5-2, Bear looks, odd/even mixes." },
-  "Multiple D": { color:"#708090", style:"Multiple", desc:"Second multiple-front book — new in 27." },
 };
 
 export const STYLES = ["Man","Man Pressure","Shell","Zone","Zone Pressure","Multiple"];

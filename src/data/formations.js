@@ -1,7 +1,7 @@
 // CFB 27 Formation Database
 export const FDB = {
   "46 Bear": {
-    books:["4-3","4-3 Multiple"], priority:"run", personnel:"Heavy",
+    books:["4-3","4-3 Press Quarters","4-3 Zone Pressure"], priority:"run", personnel:"Heavy",
     desc:"8 defenders near LOS. Both OLBs walk to create 6-man surface. Physically dominates short yardage and goal line. Sub out immediately vs any spread.",
     dcNote:"Buddy Ryan's 46 creates impossible 1-on-2 blocking for the center and guards. Against 21/22p on 3rd & 1 this is unblockable. Against 11p spread it's a free touchdown — know your substitution trigger.",
     blitzBase:12, blitzMods:[{tags:["short_yardage_run","four_down_go"],d:+15},{tags:["p13","p23"],d:+5},{tags:["rpo","quick_game","p10","empty"],d:-35},{tags:["qb_scramble","dual_threat"],d:-20}],
@@ -18,7 +18,7 @@ export const FDB = {
     callsheet:[{down:"3rd & 1 (21/22p)",call:"46 Bear · Cover 1",note:"Outnumber every blocker"},{down:"GL / 3rd & 1 (13/23p)",call:"46 Bear · Cover 1",note:"3 TEs cannot all block — MLB wall the seam TE"},{down:"4th & Short",call:"46 Bear · Engage Eight",note:"All-in — no safety help"},{down:"22p PA-heavy",call:"46 Bear · Cover 3",note:"Eliminate the PA fade off GL look"}],
   },
   "5-2 Normal": {
-    books:["Multiple"], priority:"run", personnel:"Heavy",
+    books:["4-2-5 Zone","4-3 Man","4-3 Man Pressure","4-3 Multiple","4-3 Zone Pressure","Multiple"], priority:"run", personnel:"Heavy",
     desc:"Five DL, two LBs. Every gap filled simultaneously. UNIQUE to the Multiple playbook. 5 DL occupy all 5 OL in individual matchups — both LBs are completely free runners.",
     dcNote:"5-2 gives you 5 individual DL vs OL matchups with zero doubles possible. The two LBs have clean sight lines with no blockers. Against power run it's dominant. Sub immediately vs any spread.",
     blitzBase:18, blitzMods:[{tags:["strong_oline","p22"],d:-8},{tags:["short_yardage_run"],d:+10},{tags:["rpo","quick_game","p10","empty"],d:-30},{tags:["option_run","dual_threat","qb_scramble"],d:-15}],
@@ -36,7 +36,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (13/23p)",call:"5-2 Normal · Cover 1",note:"5 DL vs 5 OL — identify the pass-catching TE pre-snap"},{down:"1st & 10 (22p)",call:"5-2 Normal · Cover 1",note:"Individual matchups everywhere"},{down:"2nd & Short",call:"5-2 Normal · Cover 2",note:"Run dominance + PA insurance"},{down:"4th & 1",call:"5-2 Normal · Engage Eight",note:"All-in — zero coverage behind"}],
   },
   "Goal Line 5-3": {
-    books:["All","3-4 Multiple"], priority:"run", personnel:"Goal Line",
+    books:["3-2-6","3-3-5","3-3-5 Man","3-3-5 Man Pressure","3-3-5 Shell","3-3-5 Three High","3-3-5 Tite","3-3-5 Zone","3-3-5 Zone Pressure","3-4","3-4 Man","3-4 Man Pressure","3-4 Multiple","3-4 Shell","3-4 Zone","3-4 Zone Pressure","4-2-5","4-2-5 Man","4-2-5 Man Pressure","4-2-5 Shell","4-2-5 Zone","4-2-5 Zone Pressure","4-3","4-3 Man","4-3 Man Pressure","4-3 Multiple","4-3 Press Quarters","4-3 Shell","4-3 Zone","4-3 Zone Pressure","Multiple"], priority:"run", personnel:"Goal Line",
     desc:"Five DL, three LBs. Better pursuit angles than 6-2. More coverage flexibility near goal line when concerned about PA fades. The preferred GL front when offense mixes PA.",
     dcNote:"5-3 is superior to 6-2 when the offense mixes PA or fades into their GL package. 5 DL handle all gaps while the extra LB (vs 6-2's extra DL) gives you a coverage athlete who can carry a TE or HB.",
     blitzBase:25, blitzMods:[{tags:["short_yardage_run","four_down_go"],d:+10},{tags:["redzone_spec"],d:+8},{tags:["play_action","back_shoulder"],d:-8}],
@@ -53,7 +53,7 @@ export const FDB = {
     callsheet:[{down:"Goal Line (PA risk)",call:"GL 5-3 · Cover 2",note:"Run stop + PA coverage"},{down:"3rd & 1",call:"GL 5-3 · Cover 1",note:"Better pursuit than 6-2"},{down:"GL pure run",call:"GL 5-3 · Cover 1",note:"All gaps, all receivers"}],
   },
   "Goal Line 6-2": {
-    books:["All","3-4 Multiple"], priority:"run", personnel:"Goal Line",
+    books:["3-2-6","3-3-5","3-3-5 Man","3-3-5 Man Pressure","3-3-5 Shell","3-3-5 Three High","3-3-5 Tite","3-3-5 Zone","3-3-5 Zone Pressure","3-4","3-4 Man","3-4 Man Pressure","3-4 Multiple","3-4 Shell","3-4 Zone","3-4 Zone Pressure","4-2-5","4-2-5 Man","4-2-5 Man Pressure","4-2-5 Shell","4-2-5 Zone","4-2-5 Zone Pressure","4-3","4-3 Man","4-3 Man Pressure","4-3 Multiple","4-3 Press Quarters","4-3 Shell","4-3 Zone","4-3 Zone Pressure","Multiple"], priority:"run", personnel:"Goal Line",
     desc:"Six DL, two LBs. Maximum gap-filling power. Available in every playbook. Most physically dominant formation in CFB 27. 6 DL vs 5 OL — the math is simply unblockable.",
     dcNote:"Six DL means the center and guards face impossible 1-on-2 assignments. LBs have clean sight lines. Sub immediately if he goes spread — there is literally no pass coverage in 6-2.",
     blitzBase:30, blitzMods:[{tags:["short_yardage_run","four_down_go"],d:+15},{tags:["redzone_spec"],d:+10},{tags:["rpo","quick_game","play_action","p10","p11","empty"],d:-35}],
@@ -71,7 +71,7 @@ export const FDB = {
     callsheet:[{down:"Goal Line pure run",call:"GL 6-2 · Cover 1",note:"6 matchups — unblockable"},{down:"4th & 1",call:"GL 6-2 · Cover 0",note:"All-in"},{down:"3rd & 1 (21/22p)",call:"GL 6-2 · Cover 1",note:"Every gap filled"}],
   },
   "Prevent 3-Deep": {
-    books:["All","3-4 Multiple"], priority:"pass", personnel:"Prevent",
+    books:["3-2-6","3-3-5","3-3-5 Man","3-3-5 Man Pressure","3-3-5 Shell","3-3-5 Three High","3-3-5 Tite","3-3-5 Zone","3-3-5 Zone Pressure","3-4","3-4 Man","3-4 Man Pressure","3-4 Multiple","3-4 Shell","3-4 Zone","3-4 Zone Pressure","4-2-5","4-2-5 Man","4-2-5 Man Pressure","4-2-5 Shell","4-2-5 Zone","4-2-5 Zone Pressure","4-3","4-3 Man","4-3 Man Pressure","4-3 Multiple","4-3 Press Quarters","4-3 Shell","4-3 Zone","4-3 Zone Pressure","Multiple"], priority:"pass", personnel:"Prevent",
     desc:"Three deep zone defenders + flooding all underneath zones. Intentionally surrenders short yardage to eliminate the explosive play. Use ONLY when protecting a lead late in the game.",
     dcNote:"Prevent is a deliberate trade — yards for time. The mistake DCs make is using it too early. Deploy with 2+ min left protecting a 2-score lead. Short completions kill clock in your favor.",
     blitzBase:5, blitzMods:[{tags:["qb_pressure"],d:+5},{tags:["deep_shots","elite_wr"],d:-5}],
@@ -89,7 +89,7 @@ export const FDB = {
 
   // ── 4-3 BASE FAMILY
   "4-3 Over": {
-    books:["4-3","4-3 Multiple","Multiple"], priority:"run", personnel:"Base",
+    books:["4-3","4-3 Man","4-3 Multiple","4-3 Press Quarters","4-3 Shell","4-3 Zone","Multiple"], priority:"run", personnel:"Base",
     desc:"Classic 3-tech over the guard. Most fundamentally sound college front vs pro-style offenses. Balanced run/pass fits. The standard starting point for any DC.",
     dcNote:"The 3-tech over the guard disrupts inside zone by occupying two blockers. MLB reads the B-gap. The Over has been the dominant college base front since the 1980s — it accounts for all 7 gaps.",
     blitzBase:18, blitzMods:[{tags:["qb_pressure","qb_one_read"],d:+10},{tags:["qb_scramble","dual_threat","option_run"],d:-10},{tags:["quick_game","rpo"],d:-8},{tags:["qb_pocket"],d:+5},{tags:["seam_routes","elite_te"],d:-6}],
@@ -107,7 +107,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10",call:"4-3 Over · Cover 3 Sky",note:"Sound base — run and PA covered"},{down:"2nd & Medium",call:"4-3 Over · Cover 2",note:"Squeeze hash routes"},{down:"3rd & Long",call:"4-3 Over · Cover 1",note:"Man frees all 4 rushers"},{down:"Red Zone",call:"4-3 Over · Cover 2",note:"Flatten field"}],
   },
   "4-3 Over Solid": {
-    books:["Multiple"], priority:"run", personnel:"Base",
+    books:["4-2-5 Man","4-3 Man Pressure","4-3 Press Quarters","Multiple"], priority:"run", personnel:"Base",
     desc:"4-3 Over with compressed Solid DL alignment. Stronger interior run-stop — DL shaded tighter to center occupying A and B gaps simultaneously. Unique to Multiple playbook.",
     dcNote:"Solid compresses the DL to dominate the interior. Better vs power inside run (iso, trap, lead) than standard Over. Trades some edge width for interior dominance.",
     blitzBase:16, blitzMods:[{tags:["qb_pressure"],d:+8},{tags:["outside_run","hb_stretch"],d:-8},{tags:["rpo","quick_game"],d:-8}],
@@ -134,7 +134,7 @@ export const FDB = {
     ],
   },
   "4-3 Over Walk": {
-    books:["4-3"], priority:"hybrid", personnel:"Base",
+    books:["4-3 Man Pressure","4-3 Shell","4-3 Zone","4-3 Zone Pressure"], priority:"hybrid", personnel:"Base",
     desc:"4-3 Over with a walked-up LB on the LOS. Creates 5-man surface pre-snap. Walked-up LB can blitz, spy, or drop. Saban/Smart staple for disguising coverage vs motion-heavy offenses.",
     dcNote:"The walked-up LB forces the OL to account for a 5th rusher. Against motion teams this LB follows motion and resets the front without a coverage tell. His assignment MUST be decided pre-snap.",
     blitzBase:22, blitzMods:[{tags:["qb_pressure"],d:+12},{tags:["motion_heavy"],d:+8},{tags:["qb_scramble","dual_threat"],d:-12},{tags:["quick_game","rpo"],d:-10}],
@@ -151,7 +151,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (motion)",call:"4-3 Over Walk · Cover 3 Sky",note:"LB follows motion, assigns himself"},{down:"3rd & Medium",call:"4-3 Over Walk · Cover 2",note:"Force audible into your coverage"}],
   },
   "4-3 Under": {
-    books:["4-3","Multiple"], priority:"run", personnel:"Base",
+    books:["4-3","4-3 Shell","4-3 Zone"], priority:"run", personnel:"Base",
     desc:"Under front shifts DL to weak side. 5-tech DE + OLB create a two-man edge that's nearly impossible to reach. The dominant outside run-stop formation in college football history.",
     dcNote:"Under is the best college formation vs outside zone and HB stretch. The 5-tech DE and OLB create a two-man edge. The 3-tech backside DE collapses the cutback lane. MLB is free to fill B-gap.",
     blitzBase:16, blitzMods:[{tags:["qb_pressure"],d:+10},{tags:["outside_run","hb_stretch"],d:-10},{tags:["strong_oline"],d:-6},{tags:["qb_pocket","qb_one_read"],d:+8},{tags:["rpo","quick_game"],d:-6},{tags:["seam_routes","elite_te"],d:-6}],
@@ -169,7 +169,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (outside run)",call:"4-3 Under · Cover 3 Sky",note:"Run and PA covered"},{down:"2nd & Short",call:"4-3 Under · Cover 1",note:"Box stack"},{down:"1st & 10 (12p)",call:"4-3 Under · Tampa 2",note:"MLB walls the TE seam"}],
   },
   "4-3 Even 6-1": {
-    books:["4-3 Multiple"], priority:"run", personnel:"Base",
+    books:["4-2-5 Man Pressure","4-2-5 Shell","4-3","4-3 Man Pressure","4-3 Zone Pressure"], priority:"run", personnel:"Base",
     desc:"Six defenders in the box — 4-3 Even alignment with all gaps accounted for pre-snap. Specifically designed to overwhelm 21 and 22 personnel who bring extra blockers.",
     dcNote:"21/22p give the offense a numerical blocker advantage. 6-1 counters with a 6th box defender. Every gap assigned before the snap. The offense must win one-on-one blocking matchups.",
     blitzBase:15, blitzMods:[{tags:["p22","strong_oline"],d:-8},{tags:["p13","p23"],d:-8},{tags:["fb_lead","inside_run"],d:-5},{tags:["qb_pressure"],d:+8},{tags:["rpo","quick_game","p10","p11"],d:-15},{tags:["seam_routes","elite_te"],d:-5}],
@@ -188,7 +188,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (21/22p)",call:"4-3 Even 6-1 · Cover 2 Man",note:"Man underneath + PA protection"},{down:"12p w/ seam TE",call:"4-3 Even 6-1 · Tampa 2",note:"MLB walls the seam — closes Cover 2 void"},{down:"PA-heavy (play-action)",call:"4-3 Even 6-1 · Cover 3 Buzz",note:"Safety robs hook-curl off the PA fake"},{down:"Goal Line (22p)",call:"4-3 Even 6-1 · Cover 1 Hole",note:"Man on every receiver — max gap control"}],
   },
   "4-3 Odd": {
-    books:["4-3 Multiple"], priority:"hybrid", personnel:"Base",
+    books:["4-3","4-3 Multiple"], priority:"hybrid", personnel:"Base",
     desc:"Odd-shade front — no obvious strong/weak DL shade. OLBs walked up. OL cannot ID assignments pre-snap. Saban/Smart staple for coverage disguise and blitz confusion.",
     dcNote:"The Odd front creates ambiguity — OL must make blocking decisions without alignment cues. Both OLBs are pre-snap threats. Confusion creates pressure even without a blitz. Maximum pre-snap information denial.",
     blitzBase:22, blitzMods:[{tags:["qb_pre_snap","qb_one_read"],d:+10},{tags:["qb_pressure"],d:+12},{tags:["qb_scramble","dual_threat"],d:-12},{tags:["rpo","quick_game"],d:-8}],
@@ -208,7 +208,7 @@ export const FDB = {
 
   // ── NICKEL 4-3 FAMILY
   "Nickel Over": {
-    books:["4-3","4-2-5","Multiple"], priority:"pass", personnel:"Nickel",
+    books:["4-2-5 Man","4-2-5 Man Pressure","4-2-5 Shell","4-2-5 Zone","4-2-5 Zone Pressure","4-3","4-3 Man","4-3 Man Pressure","4-3 Multiple","4-3 Press Quarters","4-3 Shell","4-3 Zone","4-3 Zone Pressure"], priority:"pass", personnel:"Nickel",
     desc:"Nickel with Over-shade DL. Extra DB replaces the 4th LB — eliminates the LB-on-slot mismatch from base 4-3. Over shade keeps DL tilted to run side so run defense isn't completely sacrificed.",
     dcNote:"Against 11p, a base 4-3 LB covers the slot receiver — a catastrophic mismatch on bubbles and slants. Nickel Over eliminates that mismatch. The Over shade provides interior run integrity that standard Nickel sacrifices.",
     blitzBase:20, blitzMods:[{tags:["qb_pressure","qb_one_read"],d:+12},{tags:["rpo","quick_game"],d:-10},{tags:["qb_scramble","mobile_qb"],d:-8},{tags:["no_deep","qb_checkdown"],d:-5}],
@@ -227,7 +227,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (11p)",call:"Nickel Over · Cover 3 Sky",note:"Complete RPO answer"},{down:"2nd & Medium",call:"Nickel Over · Cover 2",note:"Hash routes closed — watch TE seam void between safeties"},{down:"3rd & Medium",call:"Nickel Over · Cover 1 Robber",note:"Force off first read"},{down:"Trips",call:"Nickel Over · Cover 6",note:"Field=Quarters, Boundary=Cover 2 — mathematically handles 3x1 overload"}],
   },
   "Nickel 3-3 Over Jack": {
-    books:["3-3-5","3-3-5 Tite","3-2-6","3-4 Shell"], priority:"pass", personnel:"Nickel",
+    books:["3-2-6","3-3-5","3-3-5 Man","3-3-5 Man Pressure","3-3-5 Shell","3-3-5 Three High","3-3-5 Tite","3-3-5 Zone","3-3-5 Zone Pressure","3-4 Shell"], priority:"pass", personnel:"Nickel",
     desc:"3-man DL Nickel with Over shade. THREE LBs flood all intermediate zones simultaneously. Your personal base formation. One of the best all-purpose Nickel calls in CFB 27.",
     dcNote:"3-3 alignment gives three LBs to cover curl, hook, and flat simultaneously — every RPO window the QB reads is covered. The Over shade provides run integrity. Pre-snap disguise is mandatory.",
     blitzBase:20, blitzMods:[{tags:["qb_pressure","qb_one_read"],d:+12},{tags:["rpo","quick_game"],d:-12},{tags:["qb_scramble","mobile_qb"],d:-8},{tags:["no_deep","qb_checkdown"],d:-5}],
@@ -247,7 +247,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (RPO)",call:"3-3 Over · Cover 3 Sky",note:"Every RPO window covered"},{down:"2nd & Medium",call:"3-3 Over · Cover 2",note:"All intermediate hashes"},{down:"3rd & Medium",call:"3-3 Over · Cover 1 Robber",note:"Break rhythm"},{down:"2-Minute",call:"3-3 Over · Cover 2",note:"Flatten field"}],
   },
   "Nickel 3-3 Cub": {
-    books:["4-3 Multiple"], priority:"hybrid", personnel:"Nickel",
+    books:["4-2-5 Man Pressure","4-3 Man","4-3 Man Pressure"], priority:"hybrid", personnel:"Nickel",
     desc:"Nickel 3-3 with Cub alignment — a LB positioned inside to physically disrupt crossing route stems before completion. Used by pattern-match defenses to destroy mesh and crosser concepts.",
     dcNote:"The Cub LB's inside alignment lets him physically disrupt crossing stems before the route develops. Against mesh, he attacks the inside receiver BEFORE the cross — eliminating the timing that makes mesh work. This LB is NOT a blitzer — he's a route disruptor.",
     blitzBase:18, blitzMods:[{tags:["crossers","middle_heavy"],d:-8},{tags:["qb_pressure"],d:+6},{tags:["rpo","quick_game"],d:-8}],
@@ -264,7 +264,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (crossers)",call:"3-3 Cub · Cover 1 Robber",note:"Disrupt crossing stems before completion"},{down:"3rd & Medium",call:"3-3 Cub · Cover 2",note:"Seam sealed from Cub's position"}],
   },
   "Nickel 3-3 Dbl Mug": {
-    books:["3-3-5","3-3-5 Tite","3-2-6","Multiple"], priority:"pressure", personnel:"Nickel",
+    books:["3-2-6","3-3-5 Zone Pressure"], priority:"pressure", personnel:"Nickel",
     desc:"Both ILBs mug A-gaps in a 3-3 shell. Center cannot block both threats alone. Interior pressure from confusion, not athleticism. Best pre-snap pressure package in the Nickel family.",
     dcNote:"The center must communicate pick-ups for two A-gap threats. Guards must decide inside help or primary assignment. This indecision creates pressure windows even when the LB drops. Against a one-read QB, he will panic.",
     blitzBase:30, blitzMods:[{tags:["qb_pressure","qb_one_read"],d:+15},{tags:["qb_pocket"],d:+10},{tags:["quick_game","rpo","screens"],d:-18},{tags:["qb_scramble","dual_threat"],d:-15},{tags:["empty"],d:+10}],
@@ -283,7 +283,7 @@ export const FDB = {
     callsheet:[{down:"3rd & Medium",call:"3-3 Dbl Mug · Tampa 2",note:"Interior — center can't handle both"},{down:"3rd & Long",call:"3-3 Dbl Mug · Mid Blitz 0",note:"Max pressure — 1.5 sec to throw"},{down:"Empty",call:"3-3 Dbl Mug · Tampa 2",note:"No RB protection"},{down:"Pressure w/ safety net",call:"3-3 Dbl Mug · LB Blitz 3",note:"Zone behind — no explosive play even if pressure picked up"}],
   },
     "Nickel Double Mug": {
-    books:["4-3","4-3 Multiple","4-2-5"], priority:"pressure", personnel:"Nickel",
+    books:["4-2-5","4-2-5 Man","4-2-5 Man Pressure","4-2-5 Shell","4-2-5 Zone","4-2-5 Zone Pressure","4-3","4-3 Man","4-3 Shell","4-3 Zone","4-3 Zone Pressure"], priority:"pressure", personnel:"Nickel",
     desc:"Both inside linebackers walk up to A-gaps in standard Nickel shell. Same A-gap pressure concept as 3-3 Dbl Mug but from 4-3 Nickel personnel. Stand-up LBs generate better burst than hand-in-dirt DEs.",
     dcNote:"Identical football logic to 3-3 Dbl Mug but different personnel creates different pre-snap appearance. Use when your base book is 4-3 or 4-2-5 and you want A-gap pressure without changing personnel.",
     blitzBase:30, blitzMods:[{tags:["qb_pressure","qb_one_read"],d:+15},{tags:["qb_pocket"],d:+10},{tags:["quick_game","rpo","screens"],d:-18},{tags:["qb_scramble","dual_threat"],d:-15},{tags:["empty"],d:+10}],
@@ -300,7 +300,7 @@ export const FDB = {
     callsheet:[{down:"3rd & Medium",call:"Nickel Dbl Mug · Tampa 2",note:"A-gap threat — center can't assign both"},{down:"2nd & Long",call:"Nickel Dbl Mug · Cover 3",note:"Show double mug, drop both LBs — force audible into your coverage"},{down:"3rd & Long",call:"Nickel Dbl Mug · Mid Blitz 0",note:"All LBs blitz — 1.5 sec to throw"}],
   },
   "Nickel Load": {
-    books:["4-3","4-2-5","Multiple"], priority:"hybrid", personnel:"Nickel",
+    books:["4-2-5 Man","4-3","4-3 Zone"], priority:"hybrid", personnel:"Nickel",
     desc:"Nickel with extra LB in box. Five DBs handle 3 WRs while Load LB maintains run integrity against 11p run threats. Best compromise formation when offense can run OR pass from same personnel.",
     dcNote:"11p still runs the ball with a capable HB. Load front maintains run integrity without sacrificing the extra DB vs 3 WRs. This is the compromise elite DCs use when the offense is a true run-pass threat.",
     blitzBase:20, blitzMods:[{tags:["rpo","play_action"],d:-8},{tags:["qb_pressure"],d:+10},{tags:["qb_scramble"],d:-6},{tags:["elite_rb","outside_run"],d:-5}],
@@ -317,7 +317,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (11p)",call:"Nickel Load · Cover 3 Sky",note:"Run AND pass handled"},{down:"2nd & Medium",call:"Nickel Load · Cover 2",note:"Hash + run insurance"}],
   },
   "Nickel Load Mug": {
-    books:["4-3","4-3 Multiple","4-2-5"], priority:"pressure", personnel:"Nickel",
+    books:["4-2-5","4-2-5 Man Pressure","4-2-5 Shell","4-2-5 Zone","4-3","4-3 Man","4-3 Man Pressure","4-3 Shell","4-3 Zone","4-3 Zone Pressure"], priority:"pressure", personnel:"Nickel",
     desc:"Load LB + mugging A-gap LB. Shows 7 defenders near box. Forces OL to communicate and assign 7 threats pre-snap — impossible in available time. Maximum box confusion.",
     dcNote:"The offense must account for both the Load LB (run threat) and the Mug LB (blitz threat) simultaneously. Center cannot handle both and protect his guard's outside assignment.",
     blitzBase:28, blitzMods:[{tags:["qb_pressure","qb_one_read"],d:+12},{tags:["rpo","quick_game"],d:-14},{tags:["qb_scramble"],d:-12}],
@@ -333,7 +333,7 @@ export const FDB = {
     callsheet:[{down:"3rd & Medium",call:"Load Mug · Tampa 2",note:"Interior confusion"},{down:"Empty",call:"Load Mug · Tampa 2",note:"No RB help"}],
   },
   "Nickel Single Mug": {
-    books:["4-3","4-2-5","Multiple"], priority:"hybrid", personnel:"Nickel",
+    books:["4-2-5","4-2-5 Man","4-2-5 Man Pressure","4-2-5 Shell","4-2-5 Zone Pressure","4-3","4-3 Multiple","4-3 Press Quarters","4-3 Shell","4-3 Zone","4-3 Zone Pressure"], priority:"hybrid", personnel:"Nickel",
     desc:"One LB mugs the A-gap in Nickel shell. Less commitment than Double Mug — run integrity maintained while creating center indecision. Best all-purpose Nickel pressure look at 50/50 blitz/drop.",
     dcNote:"A single mug forces center to communicate a pick-up for a potential blitzer. The guard must decide inside help or primary. This indecision slows OL reaction — creating pressure windows even when the LB drops.",
     blitzBase:30, blitzMods:[{tags:["qb_pressure","qb_one_read"],d:+10},{tags:["rpo","quick_game"],d:-8},{tags:["qb_scramble"],d:-6},{tags:["motion_heavy"],d:+5}],
@@ -351,7 +351,7 @@ export const FDB = {
     callsheet:[{down:"2nd & Medium",call:"Single Mug · Cover 3 Sky",note:"Sell blitz, play zone"},{down:"3rd & Medium",call:"Single Mug · Cover 1 Robber",note:"Actual blitz — unidentifiable"}],
   },
   "Nickel Wide": {
-    books:["4-3"], priority:"pass", personnel:"Nickel",
+    books:["4-2-5 Man","4-2-5 Man Pressure","4-2-5 Shell","4-3","4-3 Man","4-3 Man Pressure","4-3 Press Quarters","4-3 Shell","4-3 Zone","Multiple"], priority:"pass", personnel:"Nickel",
     desc:"Nickel Wide pre-positions DBs to match wide receiver splits. Eliminates travel distance to boundary routes — DBs are already at their coverage positions. Against trips, pre-positions the apex defender.",
     dcNote:"Against 10/11p in a spread, standard Nickel leaves CBs too narrow for boundary routes — they must travel across their alignment to coverage. Wide alignment eliminates that travel entirely.",
     blitzBase:18, blitzMods:[{tags:["deep_shots","back_shoulder"],d:-8},{tags:["boundary_hash","field_hash"],d:-5},{tags:["qb_pressure","qb_one_read"],d:+8}],
@@ -372,7 +372,7 @@ export const FDB = {
 
   // ── DIME FAMILY
   "Dime Normal": {
-    books:["4-3","4-2-5","Multiple"], priority:"pass", personnel:"Dime",
+    books:["4-2-5 Man Pressure","4-2-5 Shell","4-2-5 Zone","4-3 Man"], priority:"pass", personnel:"Dime",
     desc:"Six DBs, four DL. Maximum pass coverage with 4-man interior pressure. Only on obvious passing downs (3rd & 7+) when run threat is eliminated by down and distance.",
     dcNote:"Dime is a weapon for down and distance — not a base. On 3rd & 8+ the offense MUST throw. The risk is a Dime against a run audible — know your substitution trigger.",
     blitzBase:25, blitzMods:[{tags:["qb_pressure","qb_one_read"],d:+15},{tags:["qb_scramble","mobile_qb"],d:-15},{tags:["deep_shots"],d:-5},{tags:["empty"],d:+10},{tags:["quick_game","screens"],d:-10}],
@@ -389,7 +389,7 @@ export const FDB = {
     callsheet:[{down:"3rd & Long",call:"Dime Normal · Cover 2 Man",note:"Max coverage + pressure"},{down:"Deep Shot Down",call:"Dime Normal · Cover 4 Drop",note:"Every deep window covered"},{down:"2-Minute",call:"Dime Normal · Cover 3 Sky",note:"Prevent the explosive"}],
   },
   "Dime Rush": {
-    books:["4-3","3-4","4-2-5","3-3-5","3-3-5 Tite","3-2-6","Multiple"], priority:"pressure", personnel:"Dime",
+    books:["4-3 Man","4-3 Press Quarters","4-3 Shell"], priority:"pressure", personnel:"Dime",
     desc:"Dime with extra pass rusher. 5+ pass rushers in Dime shell. The offense cannot block 5+ with 5 OL — someone goes free. Exclusively a passing-down formation. NEVER vs mobile QB.",
     dcNote:"On clear passing downs, an extra rusher gets to the QB faster. With 6 DBs covering every receiver, there's no hot route answer. Someone goes free — the QB must throw in 1.5 seconds.",
     blitzBase:40, blitzMods:[{tags:["qb_pressure","qb_one_read"],d:+15},{tags:["qb_pocket"],d:+10},{tags:["qb_scramble","mobile_qb","dual_threat"],d:-25},{tags:["quick_game","screens"],d:-20},{tags:["empty"],d:+8}],
@@ -407,7 +407,7 @@ export const FDB = {
     callsheet:[{down:"3rd & Long",call:"Dime Rush · Cover 1",note:"5-man rush — someone free"},{down:"4th & Long",call:"Dime Rush · Cover 2",note:"Max pressure + zone kills hot route"},{down:"Empty & Long",call:"Dime Rush · DB Blitz",note:"Unexpected pressure angle from coverage position"}],
   },
   "Dime 2-3-6": {
-    books:["4-3 Multiple","3-4","3-3-5","3-3-5 Tite"], priority:"pass", personnel:"Dime",
+    books:["3-4 Man","3-4 Man Pressure","3-4 Multiple"], priority:"pass", personnel:"Dime",
     desc:"Dime with Odd DL alignment. Better run resistance when opponent audiibles from spread to run after seeing standard Dime. The Odd DL deters the run audible.",
     dcNote:"Standard Dime is exploitable via run audiibles. Odd DL alignment deters the run audible — the offense can't simply audible to a run and gain easy yards. Use when he's been running against your Dime package.",
     blitzBase:22, blitzMods:[{tags:["quick_game","rpo","screens"],d:-10},{tags:["qb_pressure"],d:+8},{tags:["outside_run"],d:-5}],
@@ -423,7 +423,7 @@ export const FDB = {
     callsheet:[{down:"3rd & Medium (run audible risk)",call:"Dime 2-3 Odd · Cover 4 Drop",note:"Coverage + run resistance"},{down:"2nd & Long",call:"Dime 2-3 Odd · Cover 2",note:"Flatten field"}],
   },
   "Dime Load Weak": {
-    books:["4-3 Multiple","3-2-6","Multiple"], priority:"pass", personnel:"Dime",
+    books:["3-3-5 Shell","3-4","4-3 Press Quarters"], priority:"pass", personnel:"Dime",
     desc:"Dime Load Weak overloads the weak side (away from the TE/formation strength) with an extra DB. Counters teams that consistently attack the weak-side hash or flat.",
     dcNote:"Against teams working the weak-side boundary, standard coverage loads the wrong side. Load Weak pre-positions a 6th DB to the weak side — wherever he attacks, there's a coverage player already positioned.",
     blitzBase:15, blitzMods:[{tags:["boundary_hash","field_hash"],d:-8},{tags:["qb_pressure"],d:+8}],
@@ -444,7 +444,7 @@ export const FDB = {
 
   // ── 3-4 FAMILY
   "3-4 Bear": {
-    books:["3-4","Multiple"], priority:"run", personnel:"Base",
+    books:["3-4 Man"], priority:"run", personnel:"Base",
     desc:"3-4 Bear packs all four LBs near LOS. Creates a 7-man box with 3-4 flexibility. Four LBs can blitz any combination of A, B, or C gaps — the permutations are too many for the offense to account for.",
     dcNote:"The 3-4 Bear gives you 7 near the LOS while only rushing 3. Four LBs can blitz any gap combination. The offense cannot ID the protection assignment against 4 potential blitzers from all combinations.",
     blitzBase:20, blitzMods:[{tags:["short_yardage_run","inside_run"],d:+8},{tags:["qb_pressure"],d:+10},{tags:["qb_scramble","dual_threat","option_run"],d:-12},{tags:["option_run"],d:-15},{tags:["rpo","quick_game","p10"],d:-10}],
@@ -464,7 +464,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (13/23p)",call:"3-4 Bear · Cover 1 Hole",note:"7-man box + FS robbing QB's checkdown"},{down:"1st & 10 (21p)",call:"3-4 Bear · Cover 1",note:"7-man box — every gap filled"},{down:"2nd & Short",call:"3-4 Bear · Cover 3 Hard Flat",note:"Bear box + flat closed — checkdown denied"},{down:"Must-Stop 3rd/4th & 1",call:"3-4 Bear · LB Blitz 0",note:"All-out — overwhelm the run front"}],
   },
   "3-4 Odd": {
-    books:["3-4","3-2-6"], priority:"hybrid", personnel:"Base",
+    books:["3-3-5 Man","3-4","3-4 Man","3-4 Man Pressure","3-4 Shell","3-4 Zone"], priority:"hybrid", personnel:"Base",
     desc:"Most versatile 3-4 formation. No obvious 3-tech or 1-tech — OL cannot ID assignments. OLBs can rush or cover. ILBs can blitz any A/B gap combination. Maximum flexibility.",
     dcNote:"The 3-4 Odd confuses OL blocking assignments because there's no obvious shade — every gap looks different. OLBs can be pass rushers or coverage players. Maximum alignment ambiguity.",
     blitzBase:22, blitzMods:[{tags:["qb_pressure","qb_one_read"],d:+12},{tags:["play_action","deep_shots"],d:-8},{tags:["elite_te","seam_routes"],d:-6},{tags:["qb_scramble"],d:-8}],
@@ -481,7 +481,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (12p)",call:"3-4 Odd · Cover 3 Sky",note:"Sound base"},{down:"2nd & Medium",call:"3-4 Odd · Tampa 2",note:"TE seam walled"},{down:"3rd & Long",call:"3-4 Odd · Cover 4 Drop",note:"Every deep window covered"}],
   },
   "3-4 Over": {
-    books:["3-4","3-4 Multiple"], priority:"hybrid", personnel:"Base",
+    books:["3-4","3-4 Man Pressure","3-4 Multiple","3-4 Shell"], priority:"hybrid", personnel:"Base",
     desc:"3-4 Over shifts DL to strong side. Strong OLB becomes the natural edge setter. Backside OLB has blitz or coverage flexibility. Excellent balanced front for 11/12p run-pass mix.",
     dcNote:"The Over shift occupies the strong-side guard, disrupting play-side blocking. Strong OLB sets the edge without walking up. Backside OLB's flexibility — blitz or drop — is the formation's key variable.",
     blitzBase:20, blitzMods:[{tags:["rpo","play_action"],d:-8},{tags:["qb_pressure"],d:+10},{tags:["mobile_qb","dual_threat"],d:-8}],
@@ -499,7 +499,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (11p)",call:"3-4 Over · Cover 3 Sky",note:"Run and PA covered — 8 in box"},{down:"1st & 10 (12p)",call:"3-4 Over · Cover 2 Man",note:"TE seam + outside run covered"},{down:"Trips",call:"3-4 Over · Cover 6",note:"Field=Quarters, Boundary=Cover 2 — OLB edge holds the overload side"}],
   },
   "3-4 Under": {
-    books:["3-4"], priority:"hybrid", personnel:"Base",
+    books:["3-4 Man","3-4 Man Pressure","3-4 Shell"], priority:"hybrid", personnel:"Base",
     desc:"3 DL, 4 LBs in Under alignment. THE spy formation — purpose-built for mobile QBs and play-action bootleg teams. One OLB spies QB, other rushes edge — you get contain AND 7-man coverage without using a DB as spy.",
     dcNote:"The 3-4 Under's key advantage vs mobile QBs: OLB spy while the other rushes the edge. You get QB contain AND 7-man coverage without sacrificing a DB. No other common formation achieves this. Mandatory vs dual-threat QBs.",
     blitzBase:18, blitzMods:[{tags:["qb_pressure","qb_one_read"],d:+10},{tags:["mobile_qb","dual_threat","qb_scramble","option_run"],d:-14},{tags:["play_action","rpo"],d:-6},{tags:["seam_routes","elite_te"],d:-6}],
@@ -517,7 +517,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (mobile QB)",call:"3-4 Under · Cover 3",note:"OLB spy + 7-man coverage — contain without sacrificing a DB"},{down:"2nd & Medium",call:"3-4 Under · Cover 2 Man",note:"Seam window closed — switch to Cover 3 vs flat/screen teams"},{down:"Trips",call:"3-4 Under · Cover 6",note:"Field=Quarters, Boundary=Cover 2 — OLB spy still accounts for mobile QB"}],
   },
   "3-4 Even": {
-    books:[], priority:"hybrid", personnel:"Base",
+    books:["3-3-5 Tite","3-4 Man","3-4 Zone"], priority:"hybrid", personnel:"Base",
     desc:"Even-front 3-4 — both OLBs equidistant from center. Neither run nor blitz telegraphed by alignment. Offense cannot identify the strong side pre-snap.",
     dcNote:"Even alignment forces the OC to make blocking assignments without alignment cues — a significant pre-snap disadvantage. Symmetry denies pre-snap information.",
     blitzBase:20, blitzMods:[{tags:["qb_pre_snap","motion_heavy"],d:+8},{tags:["qb_pressure"],d:+10},{tags:["rpo","quick_game"],d:-8},{tags:["qb_scramble","mobile_qb","dual_threat","option_run"],d:-10}],
@@ -551,7 +551,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10",call:"3-4 Over Ed · Cover 3 Sky",note:"Base — sky force vs run"},{down:"3rd & Med",call:"3-4 Over Ed · Cover 2 Man",note:"Press man, muddy the slide"},{down:"Pressure",call:"3-4 Over Ed · Strong Snake 3",note:"Stunt heat, 3 deep safe"},{down:"vs Trips",call:"3-4 Over Ed · Cover 6",note:"Quarters to trips, half to iso"}],
   },
   "3-4 Tite": {
-    books:["3-4 Multiple","3-3-5 Tite","Multiple"], priority:"pass", personnel:"Base",
+    books:["3-2-6","3-3-5","3-3-5 Shell","3-3-5 Three High","3-3-5 Tite","3-3-5 Zone","3-3-5 Zone Pressure","3-4","3-4 Multiple","3-4 Shell","3-4 Zone","3-4 Zone Pressure","4-2-5","Multiple"], priority:"pass", personnel:"Base",
     desc:"Tite front compresses DL into interior A and B gaps. Walls against inside run while freeing OLBs for coverage. The modern 3-4 front used by Kirby Smart, Nick Saban, and Ryan Day.",
     dcNote:"Tite front eliminates inside zone running lanes while freeing OLBs to drop into coverage. Against 11p, no interior running lanes AND four coverage players on the perimeter. The dominant modern answer to spread-run-pass offenses.",
     blitzBase:20, blitzMods:[{tags:["rpo","play_action"],d:-8},{tags:["qb_pressure"],d:+10},{tags:["mobile_qb","dual_threat","option_run"],d:-10},{tags:["outside_run"],d:-6}],
@@ -571,7 +571,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (11p)",call:"3-4 Tite · Cover 3 Sky",note:"Interior wall + perimeter coverage — 8 in box"},{down:"2nd & Medium",call:"3-4 Tite · Cover 2",note:"Hash windows + PA protection — switch to Tampa 2 vs elite TE"},{down:"Trips",call:"3-4 Tite · Cover 6",note:"Field=Quarters, Boundary=Cover 2 — Tite wall handles overload run threat"}],
   },
   "4-4 Split": {
-    books:[], priority:"run", personnel:"Heavy",
+    books:["4-2-5 Man","4-3 Zone"], priority:"run", personnel:"Heavy",
     desc:"Four DL, four LBs. Both OLBs as DE-quality edge defenders. Maximum box presence. Most physically dominant run-stop front outside Goal Line. ONLY for run downs — sub immediately vs pass.",
     dcNote:"Eight near the LOS leaves no running lane. Both OLBs set hard edges simultaneously. Four LBs fill all interior gaps. The ONLY weakness is pass coverage — this is exclusively a run-stop formation.",
     blitzBase:14, blitzMods:[{tags:["strong_oline","inside_run"],d:-8},{tags:["short_yardage_run"],d:+10},{tags:["rpo","quick_game","p10","p11","empty"],d:-30},{tags:["qb_scramble","dual_threat","option_run"],d:-12}],
@@ -590,7 +590,7 @@ export const FDB = {
 
   // ── NICKEL 2-4 FAMILY
   "Nickel 2-4": {
-    books:["3-4"], priority:"hybrid", personnel:"Nickel",
+    books:["3-4","3-4 Man","3-4 Man Pressure","3-4 Zone","3-4 Zone Pressure","4-2-5","Multiple"], priority:"hybrid", personnel:"Nickel",
     desc:"Two DL, four OLBs in Nickel shell. Four stand-up pass rushers who can blitz from any angle. Can send any two of the four from different edges — offense must assign protectors to all four threats.",
     dcNote:"Four stand-up OLBs give you four different pressure angles. The offense must assign to all four — creating natural pressure lanes regardless of which two actually rush.",
     blitzBase:22, blitzMods:[{tags:["qb_pressure","qb_one_read"],d:+10},{tags:["qb_pocket"],d:+8},{tags:["rpo","quick_game"],d:-10},{tags:["qb_scramble","dual_threat"],d:-10}],
@@ -611,7 +611,7 @@ export const FDB = {
     callsheet:[{down:"3rd & Medium",call:"Nickel 2-4 · Cover 3 Sky",note:"Two edge rushers + sound zone"},{down:"Crossers / Mesh",call:"Nickel 2-4 · Cover 3 Buzz Mable",note:"Buzz safety robs interior behind OLB rush"},{down:"Seam TE threat",call:"Nickel 2-4 · Tampa 2",note:"MLB walls seam — OLBs keep rushing"}],
   },
   "Nickel 2-4 Dbl Mug": {
-    books:["3-4"], priority:"pressure", personnel:"Nickel",
+    books:["3-3-5 Man","3-4 Man","3-4 Zone","3-4 Zone Pressure"], priority:"pressure", personnel:"Nickel",
     desc:"Stand-up OLBs mug both A-gaps in 2-4 shell. Superior to traditional DL double mug — stand-up OLBs generate more explosive initial burst. Looks like coverage players pre-snap.",
     dcNote:"Stand-up OLBs in 2-4 alignment look like coverage players to the QB. When they mug the A-gap, the center has never seen this exact threat pattern. Communication breakdown creates pressure from confusion.",
     blitzBase:32, blitzMods:[{tags:["qb_pressure","qb_one_read"],d:+15},{tags:["qb_pocket"],d:+10},{tags:["quick_game","rpo","screens"],d:-18},{tags:["qb_scramble","dual_threat"],d:-14},{tags:["empty"],d:+10}],
@@ -629,7 +629,7 @@ export const FDB = {
     callsheet:[{down:"3rd & Medium",call:"2-4 Dbl Mug · Tampa 2",note:"Stand-up A-gap — unprecedented"},{down:"3rd & Long",call:"2-4 Dbl Mug · Mid Blitz 0",note:"All OLBs crash — 0.8 seconds to throw"},{down:"Crossers / Mesh",call:"2-4 Dbl Mug · Nickel Dog 3 Buzz",note:"Dog + Buzz robs intermediate middle"}],
   },
   "Nickel 2-4 Load": {
-    books:["3-4","3-4 Multiple","3-3-5","3-3-5 Tite"], priority:"hybrid", personnel:"Nickel",
+    books:["3-3-5 Man","3-4 Man","3-4 Multiple"], priority:"hybrid", personnel:"Nickel",
     desc:"2-4 alignment with a loaded box LB. Run-stop integrity in a 2-4 shell. Handles 11p run/pass balance without sacrificing coverage against 3 WRs.",
     dcNote:"11p with an athletic HB still threatens the run. 2-4 Load adds a run-stop LB while four stand-up OLBs maintain coverage and edge flexibility.",
     blitzBase:20, blitzMods:[{tags:["rpo","play_action"],d:-8},{tags:["qb_pressure"],d:+8},{tags:["elite_rb","outside_run"],d:-6}],
@@ -647,7 +647,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (11p)",call:"2-4 Load · Cover 3 Sky",note:"Run and pass handled simultaneously"},{down:"Crosser / RPO",call:"2-4 Load · Cover 3 Buzz Mable",note:"Load LB handles run, Buzz robs crossers"}],
   },
   "Nickel 2-4 Load Mug": {
-    books:["3-4","3-4 Multiple","3-3-5 Tite","3-2-6"], priority:"pressure", personnel:"Nickel",
+    books:["3-2-6","3-3-5 Man","3-3-5 Man Pressure","3-4","3-4 Man","3-4 Man Pressure","3-4 Multiple","4-3 Multiple","Multiple"], priority:"pressure", personnel:"Nickel",
     desc:"2-4 Load with mugging OLB. Combines run-stop Load LB with A-gap pressure threat. Two box threats shown — one for run, one threatening pressure. Maximum box confusion from Nickel.",
     dcNote:"Offense must account for Load LB (run threat) AND Mug OLB (blitz threat) simultaneously. Center cannot handle both and protect his guard's outside assignment.",
     blitzBase:28, blitzMods:[{tags:["qb_pressure","qb_one_read"],d:+12},{tags:["rpo","quick_game"],d:-14},{tags:["qb_scramble"],d:-12}],
@@ -663,7 +663,7 @@ export const FDB = {
     callsheet:[{down:"3rd & Medium",call:"2-4 Load Mug · Nickel Blitz 3",note:"A-gap crash + match shell — confirmed best call"},{down:"3rd & Long (empty)",call:"2-4 Load Mug · Nickel Blitz 3",note:"No RB help — interior pressure"},{down:"Play Action",call:"2-4 Load Mug · Tampa 2",note:"Zone behind Load mug sells run threat"}],
   },
   "Nickel 2-4 Single Mug": {
-    books:["4-3 Multiple","3-4","3-4 Multiple","3-3-5 Tite","3-2-6"], priority:"hybrid", personnel:"Nickel",
+    books:["3-2-6","3-3-5","3-3-5 Man Pressure","3-3-5 Shell","3-3-5 Three High","3-3-5 Tite","3-3-5 Zone","3-3-5 Zone Pressure","3-4","3-4 Man Pressure","3-4 Multiple","3-4 Shell","4-2-5 Zone","Multiple"], priority:"hybrid", personnel:"Nickel",
     desc:"One OLB mugs A-gap in 2-4 shell. Stand-up stance disguises whether he's rushing or dropping. Hardest single-threat mug to identify pre-snap. Best 50/50 blitz from the 2-4 family.",
     dcNote:"Stand-up OLB mugging looks like a coverage player — center communicates a pick-up for a threat he's uncertain about. Indecision slows OL reaction.",
     blitzBase:30, blitzMods:[{tags:["qb_pressure","qb_one_read"],d:+10},{tags:["rpo","quick_game"],d:-8},{tags:["motion_heavy"],d:+5},{tags:["qb_scramble","mobile_qb","dual_threat","option_run"],d:-15}],
@@ -681,7 +681,7 @@ export const FDB = {
 
   // ── 3-3-5 FAMILY
   "3-3-5 Stack": {
-    books:["3-3-5","4-3 Multiple"], priority:"hybrid", personnel:"Nickel",
+    books:["3-2-6","3-3-5","3-3-5 Man Pressure","3-3-5 Zone","3-3-5 Zone Pressure"], priority:"hybrid", personnel:"Nickel",
     desc:"Three DL, three LBs, five DBs stacked for coverage depth. Purpose-built for modern spread offenses. Excellent vs mobile QBs, RPO, and option attacks where assignment integrity matters.",
     dcNote:"The 3-3-5 answers spread athleticism with defensive athleticism. Against option/RPO, three LBs assign one to QB, one to HB, one to pitch/slot — clean assignment coverage.",
     blitzBase:22, blitzMods:[{tags:["qb_scramble","mobile_qb","dual_threat"],d:-12},{tags:["qb_pressure"],d:+10},{tags:["rpo"],d:-10},{tags:["option_run"],d:-10},{tags:["p10","empty"],d:+8}],
@@ -701,7 +701,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (spread)",call:"3-3-5 Stack · Cover 3 Sky",note:"Best all-purpose spread call — 8 in box vs run"},{down:"2nd & Long",call:"3-3-5 Stack · Cover 4 Drop",note:"Every zone covered"},{down:"Trips",call:"3-3-5 Stack · Cover 6",note:"Field=Quarters, Boundary=Cover 2 — 3x1 solved"},{down:"3rd & Medium",call:"3-3-5 Stack · Cover 1 Robber",note:"Destroy crosser/mesh"}],
   },
   "3-3-5 3 High": {
-    books:["3-3-5"], priority:"pass", personnel:"Nickel",
+    books:["3-2-6","3-3-5","3-3-5 Man Pressure","3-3-5 Shell","3-3-5 Three High","3-3-5 Zone","3-3-5 Zone Pressure","3-4 Zone Pressure","4-3 Press Quarters"], priority:"pass", personnel:"Nickel",
     desc:"Three-high safety shell. Three deep defenders eliminate the explosive play entirely. Intentionally surrenders short yardage. Best 2-minute and protect-the-lead defense.",
     dcNote:"Three-high puts a defender in every deep zone. No vertical route beats this coverage. Allow the short completion — the clock is your ally when leading.",
     blitzBase:5, blitzMods:[{tags:["deep_shots","elite_wr"],d:-5},{tags:["qb_pressure"],d:+3}],
@@ -718,7 +718,7 @@ export const FDB = {
     callsheet:[{down:"2-Min (leading)",call:"3-3-5 3-High · Cover 3",note:"Allow underneath — eliminate explosive"},{down:"2-Score Lead",call:"3-3-5 3-High · Cover 4 Quarters",note:"Zero big plays"},{down:"Seam threat",call:"3-3-5 3-High · Tampa 2",note:"Safety robs seam mid-read — same three-high look"}],
   },
   "3-3-5 3 High Odd": {
-    books:["3-3-5","3-2-6"], priority:"pass", personnel:"Nickel",
+    books:["3-3-5 Shell","3-3-5 Three High","3-4 Zone Pressure"], priority:"pass", personnel:"Nickel",
     desc:"Three-high safety shell with Odd DL alignment. Three deep defenders eliminate the explosive play while the Odd front deters run audibles. In-game plays confirmed: Cover 4 Palms, Cover 6 Willie (loop edge blitz), Tampa 2 Drop, Cover 4 Quarters, Cover 6, Cover 3 Man.",
     dcNote:"Cover 6 Willie is your weapon — loop edge blitz with a three-high safety net behind it. If pressure doesn't arrive, no vertical route beats you anyway. Default to Cover 4 Palms: looks like two-high pre-snap, converts to man on seam routes with palms technique. Check to Tampa 2 Drop if TE is in seam position.",
     blitzBase:18, blitzMods:[{tags:["hurry_up","tempo_shift"],d:+5},{tags:["qb_pressure"],d:+5},{tags:["short_yardage_run","inside_run","strong_oline"],d:-10}],
@@ -743,7 +743,7 @@ export const FDB = {
     ],
   },
   "3-3-5 Over Flex": {
-    books:["3-3-5","3-3-5 Tite","4-2-5","3-4 Multiple"], priority:"pass", personnel:"Nickel",
+    books:["3-3-5","3-3-5 Man","3-3-5 Man Pressure","3-3-5 Tite","3-3-5 Zone","3-3-5 Zone Pressure","3-4 Multiple","4-2-5","Multiple"], priority:"pass", personnel:"Nickel",
     desc:"Over-Flex alignment in 3-3-5 personnel. Pre-positions defenders in their coverage zones before the snap. Eliminates travel distance to hash windows — defenders already there when the ball is snapped.",
     dcNote:"Over Flex pre-positions LBs and DBs in their actual coverage zones. Against hash-attack teams, standard alignment requires defenders to travel to coverage — creating a timing window. Flex eliminates that travel entirely.",
     blitzBase:20, blitzMods:[{tags:["boundary_hash","field_hash"],d:-6},{tags:["seam_routes","middle_heavy"],d:-5},{tags:["qb_pressure"],d:+8}],
@@ -762,7 +762,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (hash attack)",call:"Over Flex · Cover 2",note:"Hash routes closed at the throw"},{down:"3rd & Medium (TE seam)",call:"Over Flex · Tampa 2",note:"MLB already in seam position"}],
   },
   "3-3-5 Split": {
-    books:["3-3-5","3-3-5 Tite"], priority:"hybrid", personnel:"Nickel",
+    books:["3-3-5 Man","3-3-5 Man Pressure"], priority:"hybrid", personnel:"Nickel",
     desc:"Split alignment — defenders distributed symmetrically. Prevents offense from identifying weak side. Against trips and 2x2 spread, keeps every zone equal — no obvious target area.",
     dcNote:"Split alignment prevents offense from identifying coverage side by alignment. Against trips, split doesn't tip which safety rotates. The value is denying pre-snap information.",
     blitzBase:20, blitzMods:[{tags:["trips","p10"],d:-5},{tags:["qb_pre_snap"],d:+8},{tags:["motion_heavy"],d:+5}],
@@ -780,7 +780,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (trips)",call:"3-3-5 Split · Cover 4 Drop",note:"Symmetric — no flooding advantage"},{down:"2nd & Long",call:"3-3-5 Split · Cover 2",note:"Both hashes without tipping"}],
   },
   "3-3-5 Mint": {
-    books:["3-3-5 Tite","3-4","4-2-5","3-2-6","3-3-5"], priority:"pass", personnel:"Nickel",
+    books:["3-3-5 Three High","3-3-5 Tite","3-3-5 Zone Pressure","Multiple"], priority:"pass", personnel:"Nickel",
     desc:"Mint alignment in 3-3-5 Tite. Middle-loaded positioning enables loop blitzes and natural seam coverage. Tite DL walls interior while Mint LBs cover intermediate window. Community top formation.",
     dcNote:"3-3-5 Mint runs the same loop blitz concept as Nickel 3-3 Mint but with Tite DL. The Tite front handles inside zone while Mint LBs cover every intermediate zone.",
     blitzBase:24, blitzMods:[{tags:["qb_pressure","qb_pocket"],d:+12},{tags:["rpo","quick_game"],d:-10},{tags:["qb_scramble"],d:-8}],
@@ -797,7 +797,7 @@ export const FDB = {
     callsheet:[{down:"2nd & Medium",call:"3-3-5 Mint · Cover 3",note:"Blind side pressure"},{down:"3rd & Medium",call:"3-3-5 Mint · Cover 2",note:"Seam sealed — watch TE seam void between safeties"},{down:"Trips",call:"3-3-5 Mint · Cover 6",note:"Field=Quarters, Boundary=Cover 2 — Mint rotation handles 3x1"}],
   },
   "3-3-5 Penny": {
-    books:["3-3-5 Tite","4-2-5","3-4 Multiple"], priority:"pass", personnel:"Nickel",
+    books:["3-3-5 Man","3-3-5 Tite","3-4","3-4 Multiple","4-2-5","4-3 Man Pressure"], priority:"pass", personnel:"Nickel",
     desc:"DB-LB hybrid personnel. Seven DBs total in certain alignments. Hybrid defenders cover slots in man while providing run support. Against 10p and empty, coverage athletes at every position.",
     dcNote:"Traditional Nickel gets mismatched vs slots in spread. Penny's hybrid DB-LB personnel cover slots in man while providing run fits — eliminating both the coverage mismatch AND run vulnerability.",
     blitzBase:18, blitzMods:[{tags:["p10","empty"],d:+8},{tags:["qb_scramble","mobile_qb"],d:-8},{tags:["deep_shots","elite_wr"],d:-5}],
@@ -815,7 +815,7 @@ export const FDB = {
   },
 
   "3-3-5 Odd Ghost": {
-    books:["3-3-5","3-2-6"], priority:"pass", personnel:"Nickel",
+    books:["3-2-6","3-3-5","3-3-5 Man","3-3-5 Man Pressure","3-3-5 Three High","3-3-5 Zone Pressure","Multiple"], priority:"pass", personnel:"Nickel",
     desc:"The offense sees a standard 3-3-5 edge front pre-snap; at the snap, both DEs slant inside to 4i, sealing the interior and releasing all LBs into coverage. Pressure comes from where the offense least expects it.",
     dcNote:"Ghost DEs don't rush the edge — they play 4i. Every interior blocker is assigned the wrong gap. Shift the line away from the ghost backer, walk him up like a DE pre-snap, and the offense has no read on where pressure originates.",
     blitzBase:28, blitzMods:[{tags:["p10","empty"],d:+10},{tags:["qb_scramble","mobile_qb"],d:+8},{tags:["rpo","quick_game"],d:-6},{tags:["inside_run","strong_oline"],d:-10}],
@@ -852,7 +852,7 @@ export const FDB = {
 
   // ── 4-2-5 FAMILY
   "4-2-5 Over G": {
-    books:["4-2-5"], priority:"pass", personnel:"Nickel",
+    books:["4-2-5","4-2-5 Man","4-2-5 Man Pressure","4-2-5 Shell","4-2-5 Zone","4-2-5 Zone Pressure","4-3 Press Quarters","4-3 Zone"], priority:"pass", personnel:"Nickel",
     desc:"4-2-5 with G-alignment — 3-tech directly over the guard (weakest blocker). Best pass rush + coverage formation in 4-2-5 family. 4-man G-rush generates reliable pressure without blitzing while 5 DBs cover every receiver.",
     dcNote:"G-alignment puts the 3-tech directly over the guard — fastest path to QB through the weakest blocker. With 5 DBs covering every receiver, the 4-man G-rush generates pressure without a blitz.",
     blitzBase:20, blitzMods:[{tags:["qb_pressure","qb_pocket"],d:+12},{tags:["qb_scramble","mobile_qb"],d:-12},{tags:["deep_shots"],d:-6},{tags:["rpo","quick_game"],d:-8}],
@@ -869,7 +869,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (11p)",call:"4-2-5 Over G · Cover 3 Match",note:"4-man rush + zone match"},{down:"2nd & Long",call:"4-2-5 Over G · Cover 2 Man",note:"G-shade + complete coverage"},{down:"3rd & Long",call:"4-2-5 Over G · Cover 4 Drop",note:"Every deep window"}],
   },
   "4-2-5 Under": {
-    books:["4-2-5"], priority:"pass", personnel:"Nickel",
+    books:["4-2-5","4-2-5 Man","4-2-5 Man Pressure","4-2-5 Shell","4-2-5 Zone","4-2-5 Zone Pressure"], priority:"pass", personnel:"Nickel",
     desc:"4-2-5 Under shifts DL to weak side. The definitive pass-stop formation for spread passing attacks — best balance of pass rush and coverage in any playbook. 4-man rush without blitzing + 5-DB coverage.",
     dcNote:"Under shift puts best pass rusher at 3-tech on the weak-side guard. With 5 DBs covering every receiver, the 4-man rush generates pressure. This is what top DCs use as their base vs spread passing attacks.",
     blitzBase:20, blitzMods:[{tags:["qb_pressure","qb_pocket"],d:+12},{tags:["qb_scramble","mobile_qb"],d:-12},{tags:["deep_shots","elite_wr"],d:-6},{tags:["rpo"],d:-8}],
@@ -929,7 +929,7 @@ export const FDB = {
     ],
   },
     "2-5 Over Wide": {
-    books:["3-4 Man","3-4 Multiple","3-4 Zone"], priority:"pressure", personnel:"Base",
+    books:["3-4 Man","3-4 Zone","Multiple"], priority:"pressure", personnel:"Base",
     desc:"2 interior DL, 2 WIDE edges, 3 LB, 4 DB. NEW in CFB 27. The name counts the two interior linemen and the five front defenders outside them. Four hands are in the dirt, but the ends align WIDE — this is a contain front built to wall the perimeter and rush the edge, not to squeeze the B-gap.",
     dcNote:"The wide edges are the whole idea. They set a hard contain edge, which is why Cover 1 Contain is built in and why this front holds up against scramblers and option teams trying to get outside. The cost is interior: only a nose and one tackle sit between the guards, so a downhill A/B-gap run game has room to work. Seven in the box means it is not soft — just do not mistake it for a Bear front and live here on 3rd & 1.",
     blitzBase:34,
@@ -960,7 +960,7 @@ export const FDB = {
       {down:"3rd & Long",call:"2-5 Over Wide · Cover 4 Quarters",note:"Blitz look, quarters reality"}],
   },
   "3-4 Under 4 Tech": {
-    books:["3-4 Multiple"], priority:"run", personnel:"Base",
+    books:["3-4 Man","3-4 Man Pressure","3-4 Multiple","3-4 Zone Pressure"], priority:"run", personnel:"Base",
     desc:"3-4 Under with the strong-side end in a 4-technique — head-up on the offensive tackle. NEW in CFB 27. The 4-tech is a B-gap wall: he cannot be reached, cannot be combo-climbed cleanly, and the guard-tackle double dies on his frame. The cost is pass-rush juice — a head-up end rushes through a man, not past him.",
     dcNote:"Call it to kill interior and off-tackle run games behind a strong OL. One warning that matters: its 'Cov 1 QB Contain Spy' squeezes with BOTH edges but assigns NO true spy — the plain 3-4 Under owns the actual spy play. Against a scrambler, check to 3-4 Under; against a downhill run team, live here.",
     blitzBase:30,
@@ -1019,7 +1019,7 @@ export const FDB = {
       {down:"vs Mobile QB",call:"CHECK OUT — go 3-4 Under",note:"This formation has no spy and no contain"}],
   },
   "3-3-5 3 High Over": {
-    books:["Multiple","3-3-5"], priority:"pass", personnel:"Nickel",
+    books:["3-3-5 Shell","3-3-5 Three High","3-3-5 Tite","3-4 Shell"], priority:"pass", personnel:"Nickel",
     desc:"A 3-3-5 shifted to an Over front with three safeties showing a three-high shell. Three down linemen and three linebackers with five defensive backs, it defends spread passing with disguise and light-box flexibility. The over shift gives it a stronger edge presence than a standard 3-3-5 while keeping the three-high coverage disguise.",
     dcNote:"3 High Over combines the 3-3-5's coverage flexibility with an over-shifted front for better edge play. The three-high shell disguises whether you rotate to three-deep or drop to two, and the match menu handles spread route concepts. It is a light front, so it is a passing-down tool — get out of it against heavy run personnel. Use it to disguise coverage against a spread offense while keeping edge pressure available.",
     blitzBase:24, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+11},{tags:["empty","four_wide"],d:+7},{tags:["quick_game","rpo","screens"],d:-15},{tags:["qb_scramble","dual_threat"],d:-10}],
@@ -1039,7 +1039,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (spread)",call:"3-3-5 3 High Over · Cover 3 Match",note:"Match routes from three-high"},{down:"2nd & Long (shots)",call:"3-3-5 3 High Over · Cover 4 Quarters",note:"Cap the verticals"},{down:"3rd & Medium",call:"3-3-5 3 High Over · Cover 2 Lurk",note:"Bait and jump the middle"},{down:"3rd & Long",call:"3-3-5 3 High Over · Edge Blitz 2",note:"Edge heat, keep two deep"}],
   },
   "3-3-5 3 High Penny": {
-    books:["Multiple","3-3-5"], priority:"pass", personnel:"Nickel",
+    books:["3-3-5 Three High","3-4 Zone Pressure"], priority:"pass", personnel:"Nickel",
     desc:"A 3-3-5 Penny package showing a three-high safety shell, the most pass-heavy and coverage-deep look in the 3-3-5 family. Three down linemen with a lightened box and extra defensive backs, built purely for obvious passing situations. It carries a full match-coverage menu plus disguised pressures, all flowing from the three-high shell.",
     dcNote:"3 High Penny is your obvious-passing-down 3-3-5. The Penny package trades box defenders for coverage, so the three-high shell and the deep match menu (Cover 4 Palms/Quarters, Cover 6, Cover 6 Invert) let you defend any passing concept. It is the lightest front in the family against the run, so it belongs strictly on passing downs. Use it when the offense has to throw and you want maximum coverage disguise with pressure available off the edge.",
     blitzBase:22, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+11},{tags:["empty","four_wide"],d:+8},{tags:["quick_game","rpo","screens"],d:-16},{tags:["qb_scramble","dual_threat"],d:-10}],
@@ -1059,7 +1059,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (obvious pass)",call:"3-3-5 3 High Penny · Cover 3 Sky",note:"Three-high, stay sound"},{down:"2nd & Long vs Trips",call:"3-3-5 3 High Penny · Cover 6",note:"Quarters to trips, half to single"},{down:"3rd & Long (shots)",call:"3-3-5 3 High Penny · Cover 4 Quarters",note:"Cap the verticals"},{down:"3rd & Long (must get off)",call:"3-3-5 3 High Penny · Mike Blitz 0",note:"All-in — ball out now"}],
   },
   "3-4 Grizzly": {
-    books:["Multiple","3-4"], priority:"pass", personnel:"Base",
+    books:["3-2-6","3-3-5","3-3-5 Tite","3-3-5 Zone Pressure","3-4","3-4 Man Pressure","3-4 Multiple","3-4 Zone","3-4 Zone Pressure","Multiple"], priority:"pass", personnel:"Base",
     desc:"A 3-4 front with the strong safety walked down into the box as an extra linebacker-level defender. It gives you a heavier look against the run while keeping the coverage flexibility of a 3-4, and it can bring simulated pressure with the Mike linebacker without committing to an all-out blitz. A balanced base front for a run-leaning offense that still throws.",
     dcNote:"Grizzly is your run-strong 3-4 with disguise built in. Walking the strong safety down gives you an extra hat in the box without sacrificing your ability to sit in Cover 3. The Mike sim and Mike hot looks let you pressure the A-gaps while dropping out, so you can pressure a play-action passer without getting caught in man behind it. Use it against a balanced offense that runs to set up the pass.",
     blitzBase:24, blitzMods:[{tags:["inside_run","play_action"],d:+8},{tags:["qb_pocket","qb_one_read"],d:+10},{tags:["quick_game","rpo","screens"],d:-14},{tags:["qb_scramble","dual_threat"],d:-12}],
@@ -1078,7 +1078,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10",call:"3-4 Grizzly · Cover 3",note:"Safety down, sound vs run + PA"},{down:"2nd & Medium (PA seams)",call:"3-4 Grizzly · Cover 3 Drop",note:"Deeper hooks, cap the seam"},{down:"3rd & Short (quick game)",call:"3-4 Grizzly · Cover 2 Invert",note:"Hard flats, take the quick out"},{down:"3rd & Long",call:"3-4 Grizzly · Mike Sim 2",note:"Show pressure, drop to two-deep"}],
   },
   "4-2-5 3 High": {
-    books:["Multiple","4-2-5"], priority:"pass", personnel:"Nickel",
+    books:["4-2-5","4-2-5 Man","4-2-5 Man Pressure","4-2-5 Shell","4-2-5 Zone","4-2-5 Zone Pressure","4-3 Shell"], priority:"pass", personnel:"Nickel",
     desc:"A 4-2-5 with three safeties showing a three-high shell, built to defend spread passing with extra coverage depth. Four down linemen and two linebackers keep a four-man rush available, while the three-high look disguises the coverage rotation. A pass-first nickel-family front for a spread offense that lives in the air.",
     dcNote:"3 High is your disguise shell against a spread passing team. Showing three deep safeties muddies the quarterback's pre-snap read — he cannot tell if you are rotating to three-deep, dropping to two, or matching quarters. The coverage menu (3 Double Cloud/Sky, Cover 3 Match, Quarters, Cover 2 Lurk) all flows from that shared look. Use it when a quarterback is beating you with pre-snap reads, and mix the edge pressures in to keep him honest.",
     blitzBase:22, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+10},{tags:["empty","four_wide"],d:+7},{tags:["quick_game","rpo","screens"],d:-15},{tags:["qb_scramble","dual_threat"],d:-10}],
@@ -1097,7 +1097,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (spread)",call:"4-2-5 3 High · Cover 3 Match",note:"Match the routes from three-high"},{down:"2nd & Long (shots)",call:"4-2-5 3 High · Cover 4 Quarters",note:"Cap the verticals"},{down:"3rd & Medium",call:"4-2-5 3 High · Cover 2 Lurk",note:"Bait and jump the middle throw"},{down:"3rd & Long",call:"4-2-5 3 High · Edge Blitz 3",note:"Edge heat, keep deep third"}],
   },
   "4-2-5 Even": {
-    books:["Multiple","4-2-5"], priority:"pass", personnel:"Nickel",
+    books:["4-2-5","4-2-5 Man","4-2-5 Man Pressure","4-2-5 Shell","4-2-5 Zone","4-2-5 Zone Pressure","4-3 Zone"], priority:"pass", personnel:"Nickel",
     desc:"The most complete coverage formation in the 4-2-5 family, with the deepest match-coverage and man menu in the package. Four down linemen and two linebackers with five defensive backs, built to defend any modern passing concept with the specific check for it. Its identity is coverage versatility, though it carries a full weak-safety pressure package as well.",
     dcNote:"4-2-5 Even is the coverage hub of the whole app — twenty-nine plays, more match and man answers than any other formation. Cover 6 variants, Palms, Quarters, every Cover 1 double, the bracket switches — if an offense has a specific route concept, Even has the specific answer. This is where you go against an elite receiver or a route-concept team you have to out-structure. The weak-safety blitz package is there when you need it, but you call Even to win with coverage.",
     blitzBase:20, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+9},{tags:["elite_wr","trips"],d:+5},{tags:["quick_game","rpo","screens"],d:-16},{tags:["qb_scramble","dual_threat"],d:-10}],
@@ -1117,7 +1117,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (spread)",call:"4-2-5 Even · Cover 3 Match",note:"Match the routes, don't chase"},{down:"2nd & Long vs Trips",call:"4-2-5 Even · Cover 6 Willie",note:"Quarters to trips, half to single"},{down:"3rd & Medium vs Elite WR",call:"4-2-5 Even · 1 Double WR1",note:"Bracket him, man elsewhere"},{down:"3rd & Long (shots)",call:"4-2-5 Even · Cover 4 Palms",note:"Two-read, cap verticals + rob out"}],
   },
   "4-3 Over Wide": {
-    books:["Multiple","4-3"], priority:"pass", personnel:"Base",
+    books:["4-3","4-3 Man","4-3 Man Pressure","4-3 Multiple","4-3 Press Quarters"], priority:"pass", personnel:"Base",
     desc:"A 4-3 Over front with the coverage spread wider to handle spread passing while keeping four down linemen. It carries a deep menu of single-high man coverages plus fire-zone pressures, and it has a specific mobile-quarterback answer with both edges containing and a spy. A versatile four-down front for a balanced-to-spread offense.",
     dcNote:"Over Wide is your four-down answer to spread passing. The value is the coverage breadth — Cover 1 variants (hole, robber, contain), Cover 3 rotations, quarters, and Tampa 2 all live here. The standout is Cover 1 Contain: both edges contain with a spy, which is your genuine answer to a mobile quarterback from a four-down front. Use it when you want a four-man rush with man or match behind it against a QB who can hurt you with his legs or his arm.",
     blitzBase:26, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+10},{tags:["empty","pass_heavy_3rd"],d:+6},{tags:["quick_game","rpo","screens"],d:-14},{tags:["qb_scramble","dual_threat"],d:-8}],
@@ -1136,7 +1136,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10",call:"4-3 Over Wide · Cover 3 Sky",note:"Four-down zone, stay sound"},{down:"2nd & Long (shots)",call:"4-3 Over Wide · Cover 4 Quarters",note:"Cap the verticals"},{down:"3rd & Medium vs Mobile QB",call:"4-3 Over Wide · Cover 1 Contain",note:"Man + contain + spy"},{down:"3rd & Long",call:"4-3 Over Wide · Free Fire 3",note:"Five-man fire, keep deep third"}],
   },
   "4-3 Tite Leo": {
-    books:["Multiple","4-3"], priority:"pressure", personnel:"Base",
+    books:["4-3 Multiple","4-3 Zone Pressure","Multiple"], priority:"pressure", personnel:"Base",
     desc:"A tite 4-3 front with a Leo edge rusher, effectively a five-man rush look built to pressure with four down plus the Leo while staying gap-sound. It leans on fire-zone pressures and match coverage, giving you a heavy front that can send five and still keep a zone behind it. A pressure-forward four-down front.",
     dcNote:"Tite Leo puts a fifth rush threat on the edge with the Leo, so you get a five-man rush from a four-down shell. The identity is pressure with structure — Saw Blitz variants from Cover 0 through three-deep fire zone, plus Cover 3 Sky as the base for the five-man wall. Use it when you want to pressure the edge and interior at once while keeping match or zone integrity behind. The tite front also holds up against inside run better than a wider four-down look.",
     blitzBase:32, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+13},{tags:["empty","pass_heavy_3rd"],d:+8},{tags:["quick_game","rpo","screens"],d:-16},{tags:["qb_scramble","dual_threat"],d:-10}],
@@ -1155,7 +1155,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10",call:"4-3 Tite Leo · Cover 3 Sky",note:"Five-man wall, sound behind"},{down:"2nd & Long vs Spread",call:"4-3 Tite Leo · Cover 3 Match",note:"Match routes, keep pressure"},{down:"3rd & Medium",call:"4-3 Tite Leo · Saw Blitz 3",note:"Add a rusher, keep deep third"},{down:"3rd & Long (sure pass)",call:"4-3 Tite Leo · Saw Blitz 0",note:"Max pressure — ball out now"}],
   },
   "4-3 Under Wide": {
-    books:["Multiple","4-3"], priority:"pass", personnel:"Base",
+    books:["4-3","4-3 Man","4-3 Man Pressure","4-3 Multiple","4-3 Press Quarters","4-3 Shell","4-3 Zone","4-3 Zone Pressure","Multiple"], priority:"pass", personnel:"Base",
     desc:"A 4-3 Under front spread wider for spread passing, carrying the deepest pressure and man-coverage menu of the 4-3 family. Twenty plays span single-high man variants, fire zones, and a dedicated mobile-quarterback answer with both edges containing, a spy, and press. A versatile four-down front built to pressure and match a spread offense.",
     dcNote:"Under Wide is the most complete 4-3 in the package — twenty plays covering nearly every man, zone, and pressure answer. Its standout is Cover 1 Contain Press: both edges contain, a spy underneath, corners pressing outside — the four-down answer to a mobile quarterback who also has weapons outside. Beyond that it carries the full crash and fire-zone pressure menu. Use it when you need one four-down front that can do everything against a spread passing attack.",
     blitzBase:30, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+12},{tags:["empty","pass_heavy_3rd"],d:+7},{tags:["quick_game","rpo","screens"],d:-15},{tags:["qb_scramble","dual_threat"],d:-8}],
@@ -1175,7 +1175,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10",call:"4-3 Under Wide · Cover 3 Sky Wk",note:"Four-down zone, stay sound"},{down:"2nd & Long (shots)",call:"4-3 Under Wide · Cover 4 Quarters",note:"Cap the verticals"},{down:"3rd & Medium vs Mobile QB",call:"4-3 Under Wide · Cover 1 Contain Press",note:"Man + contain + spy + press"},{down:"3rd & Long",call:"4-3 Under Wide · FS Fire 3",note:"Fire zone, keep the deep third"}],
   },
   "Dime 2-3 Odd": {
-    books:["Multiple","Dime"], priority:"pass", personnel:"Dime",
+    books:["3-3-5 Three High"], priority:"pass", personnel:"Dime",
     desc:"An odd dime front built on three defensive tackles with a linebacker level behind them, backed by six defensive backs. The three-tackle base can rush all three or add a linebacker for a four-man rush, with the outside tackles containing to handle a mobile quarterback. It carries a deep man and match menu, and it has a specific mobile-QB answer with contain and a spy.",
     dcNote:"2-3 Odd runs on a distinct rule set: the three down linemen are all tackles, so a three-man rush is the three tackles, a four-man rush adds a linebacker, and the outside tackles contain the edge. That containment structure makes it a strong answer to a mobile quarterback — Cover 1 Contain Spy pairs edge containment with a spy while playing man behind. It also carries a full lock-and-double man menu for defending specific receivers. Use it on passing downs against a QB who can throw and run.",
     blitzBase:22, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+9},{tags:["empty","four_wide"],d:+6},{tags:["quick_game","rpo","screens"],d:-15},{tags:["qb_scramble","dual_threat"],d:-8}],
@@ -1195,7 +1195,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (obvious pass)",call:"Dime 2-3 Odd · Cover 3 Cloud",note:"Odd front, three over top"},{down:"2nd & Long vs Trips",call:"Dime 2-3 Odd · Cover 6",note:"Quarters to trips, half to single"},{down:"3rd & Medium vs Mobile QB",call:"Dime 2-3 Odd · Cover 1 Contain Spy",note:"Contain + spy + man behind"},{down:"3rd & Long (shots)",call:"Dime 2-3 Odd · Cover 4 Quarters",note:"Cap the verticals"}],
   },
   "Dime 3-2": {
-    books:["Multiple","Dime"], priority:"pass", personnel:"Dime",
+    books:["3-3-5","3-3-5 Man","3-3-5 Man Pressure","3-3-5 Shell","3-3-5 Three High","3-3-5 Tite","3-3-5 Zone","3-3-5 Zone Pressure","3-4","3-4 Man","3-4 Man Pressure","3-4 Multiple","3-4 Shell","3-4 Zone","3-4 Zone Pressure","4-2-5","4-2-5 Man","4-2-5 Man Pressure","4-2-5 Shell","4-2-5 Zone","4-2-5 Zone Pressure","4-3","4-3 Man","4-3 Man Pressure","4-3 Multiple","4-3 Press Quarters","4-3 Shell","4-3 Zone","4-3 Zone Pressure","Multiple"], priority:"pass", personnel:"Dime",
     desc:"A dime package with three down linemen and two linebackers, backed by six defensive backs for maximum pass coverage. It carries the deepest coverage menu in the dime family, from hard-flat Cover 2 and Cover 3 variants through match Palms and Quarters, plus a full edge and DB pressure package. The core dime front for obvious passing situations.",
     dcNote:"Dime 3-2 is your primary passing-down coverage front. Six defensive backs let you match any spread concept while three down linemen still generate a natural four-man rush with an edge blitzer. The coverage breadth is the strength — hard-flat and cloud Cover 3, Cover 6, Palms, Quarters all live here, so you have the specific answer for whatever the offense shows. It is a pass-defense front, so keep it to clear passing downs where the run is not a real threat.",
     blitzBase:24, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+11},{tags:["empty","four_wide"],d:+7},{tags:["quick_game","rpo","screens"],d:-16},{tags:["qb_scramble","dual_threat"],d:-9}],
@@ -1215,7 +1215,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (obvious pass)",call:"Dime 3-2 · Cover 3 Cloud",note:"Roll the corner, three over top"},{down:"2nd & Long vs Trips",call:"Dime 3-2 · Cover 6 Willie",note:"Quarters to trips, half to single"},{down:"3rd & Medium (quick game)",call:"Dime 3-2 · Cover 2 Hard Flat",note:"Sit hard in the flat"},{down:"3rd & Long (shots)",call:"Dime 3-2 · Cover 4 Palms",note:"Two-read, cap verticals + rob out"}],
   },
   "Dime 3-2 Single Mug": {
-    books:["Multiple","Dime"], priority:"pressure", personnel:"Dime",
+    books:["3-3-5 Tite","3-4 Man","3-4 Shell"], priority:"pressure", personnel:"Dime",
     desc:"A 3-2 dime front with a single linebacker mugged in the A-gap, combining the three-down coverage flexibility of Dime 3-2 with an added interior pressure threat. Six defensive backs stay in coverage while the mug and stunts disrupt protection. A pressure-leaning dime front that keeps strong coverage behind the blitz look.",
     dcNote:"This blends Dime 3-2's coverage with a single-mug pressure wrinkle. The three-down front already gives a natural rush, and mugging a linebacker adds a fifth threat and stunt options (Tex, Games) while keeping six defensive backs behind it. It disguises well because the mug threatens without committing, and the coverage menu behind it stays sound. Use it on passing downs when you want the Dime 3-2 coverage but need to pressure a quarterback who is comfortable against a four-man rush.",
     blitzBase:30, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+13},{tags:["empty","pass_heavy_3rd"],d:+7},{tags:["quick_game","rpo","screens"],d:-16},{tags:["qb_scramble","dual_threat"],d:-10}],
@@ -1235,7 +1235,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (obvious pass)",call:"Dime 3-2 Single Mug · Cov 3 Buzz Show 1",note:"Show pressure, play three-deep"},{down:"2nd & Long (shots)",call:"Dime 3-2 Single Mug · Cover 4 Palms",note:"Two-read, cap verticals + rob out"},{down:"3rd & Medium (beating 4)",call:"Dime 3-2 Single Mug · Blitz Tex 3",note:"Stunt to five, keep deep third"},{down:"3rd & Long (must get off)",call:"Dime 3-2 Single Mug · DB Blitz",note:"All-in — ball out now"}],
   },
   "Dime Single Mug": {
-    books:["Multiple","Dime"], priority:"pressure", personnel:"Dime",
+    books:["4-2-5","4-2-5 Man","4-2-5 Zone Pressure","4-3 Man Pressure","4-3 Shell","4-3 Zone Pressure"], priority:"pressure", personnel:"Dime",
     desc:"A dime package with a single linebacker mugged in the A-gap, showing interior pressure while keeping six defensive backs for coverage. It leans on stunts and simulated pressure from the mug to disrupt protection without committing to an all-out blitz. A pressure-leaning dime front for obvious passing situations.",
     dcNote:"Dime Single Mug shows one mugged linebacker off the dime personnel to move the protection, then decides late whether he comes. The Tex stunts and games blitz create a five-man look while often dropping to four, so you pressure a passing-down offense without sacrificing your six-DB coverage. Use it to keep a pocket quarterback uncomfortable on obvious passing downs while staying sound behind the pressure. The single mug is a threat, not a commitment.",
     blitzBase:30, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+13},{tags:["empty","pass_heavy_3rd"],d:+7},{tags:["quick_game","rpo","screens"],d:-16},{tags:["qb_scramble","dual_threat"],d:-10}],
@@ -1255,7 +1255,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (obvious pass)",call:"Dime Single Mug · Cov 3 Buzz Show 1",note:"Show pressure, play three-deep"},{down:"2nd & Medium",call:"Dime Single Mug · Cover 1 Robber Press",note:"Rob the middle, press outside"},{down:"3rd & Medium (beating 4)",call:"Dime Single Mug · Blitz Tex 3",note:"Stunt to five, keep deep third"},{down:"3rd & Long (must get off)",call:"Dime Single Mug · DB Blitz",note:"All-in — ball out now"}],
   },
   "Nickel 2-4 Load Dbl Mug": {
-    books:["Multiple","Nickel"], priority:"pressure", personnel:"Nickel",
+    books:["3-4 Shell"], priority:"pressure", personnel:"Nickel",
     desc:"A 2-4 nickel front with both linebackers loaded and mugged in the A-gaps, showing an all-out interior blitz. Two down linemen and four linebackers create maximum pre-snap pressure disguise, relying on loop stunts and simulated pressure to attack protection. The most pressure-committed look in the Nickel 2-4 family.",
     dcNote:"This is the 2-4 version of a double-mug pressure front. Both linebackers in the A-gaps off a two-down line shows the offense an overwhelming interior threat, but like all double-mug looks it usually simulates — the loops and sims send four or five while dropping bodies, so the center cannot assign both A-gap threats. Use it to force a protection bust or a hot throw. The two-down front makes it lighter against the run than the 3-3 version, so keep it to passing downs.",
     blitzBase:38, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+15},{tags:["empty","pass_heavy_3rd"],d:+8},{tags:["quick_game","rpo","screens"],d:-18},{tags:["qb_scramble","dual_threat"],d:-14}],
@@ -1275,7 +1275,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (show pressure)",call:"Nickel 2-4 Load Dbl Mug · Cover 3 Match",note:"Both drop, match the routes"},{down:"2nd & Medium (quick game)",call:"Nickel 2-4 Load Dbl Mug · CB Bench Sim 2",note:"Show heat, pop to Cover 2"},{down:"3rd & Medium",call:"Nickel 2-4 Load Dbl Mug · Blitz Loop Sim 3",note:"5-look, 4-rush, drop out sound"},{down:"3rd & Long",call:"Nickel 2-4 Load Dbl Mug · Blitz Loop 3",note:"Loop frees a rusher, keep deep third"}],
   },
   "Nickel 3-3 Load Dbl Mug": {
-    books:["Multiple","Nickel"], priority:"pressure", personnel:"Nickel",
+    books:["3-3-5 Man Pressure","3-3-5 Shell","3-4 Man Pressure"], priority:"pressure", personnel:"Nickel",
     desc:"Both linebackers loaded and mugged in the A-gaps, the most pressure-committed look in the nickel family. It relies heavily on loop stunts and simulated pressure — showing an all-out blitz while dropping defenders out — to attack the quarterback's protection and first read. A specialist front for creating confusion and interior heat.",
     dcNote:"Load Dbl Mug shows the offense the scariest picture in the package: both linebackers in the A-gaps. But the football reality is that these looks usually simulate pressure — the loop stunts and sim calls send four or five while dropping bodies, so the center cannot assign both threats. That is the point. Use it to force a protection mistake or a hot throw, not necessarily to send everyone. The A-gap mug creates the pressure whether or not the linebackers actually come.",
     blitzBase:38, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+15},{tags:["empty","pass_heavy_3rd"],d:+8},{tags:["quick_game","rpo","screens"],d:-18},{tags:["qb_scramble","dual_threat"],d:-14}],
@@ -1294,7 +1294,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (show pressure)",call:"Nickel 3-3 Load Dbl Mug · Cover 3 Match",note:"Both drop, match the routes"},{down:"2nd & Medium (quick game)",call:"Nickel 3-3 Load Dbl Mug · Nickel Sim 2",note:"Show heat, pop to Cover 2"},{down:"3rd & Medium",call:"Nickel 3-3 Load Dbl Mug · Blitz Loop Sim 3",note:"5-look, 4-rush, drop out sound"},{down:"3rd & Long",call:"Nickel 3-3 Load Dbl Mug · Blitz Loop 3",note:"Loop frees a rusher, keep deep third"}],
   },
   "Nickel 3-3 Load Mug": {
-    books:["Multiple","Nickel"], priority:"pressure", personnel:"Nickel",
+    books:["3-3-5","3-3-5 Shell","3-3-5 Zone","3-4 Zone Pressure","4-2-5 Zone Pressure","4-3 Press Quarters"], priority:"pressure", personnel:"Nickel",
     desc:"Linebackers loaded and mugged to bring real interior pressure, this is a genuine blitzing front rather than a disguise look. It carries the widest set of Nickel Blitz variants in the family and sends five or six after the quarterback more often than it fakes. A dedicated pressure package for obvious passing situations.",
     dcNote:"Load Mug is where you go to actually send. Unlike Single Mug or the sim-heavy Dbl Mug, this front's identity is real pressure — five distinct Nickel Blitz looks from man-free up through fire-zone three-deep. Because you are sending bodies, coverage behind is thinner, so pick your man-free spots carefully. Best on a down where you have the offense in a clear pass and you want to end the drive.",
     blitzBase:36, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+15},{tags:["empty","pass_heavy_3rd"],d:+8},{tags:["quick_game","rpo","screens"],d:-18},{tags:["qb_scramble","dual_threat"],d:-12}],
@@ -1313,7 +1313,7 @@ export const FDB = {
     callsheet:[{down:"2nd & Long",call:"Nickel 3-3 Load Mug · Cover 3 Cloud",note:"Stay sound, take the quick out"},{down:"3rd & Medium",call:"Nickel 3-3 Load Mug · Nickel Blitz 3",note:"Five rush, keep the deep third"},{down:"3rd & Long (trust corners)",call:"Nickel 3-3 Load Mug · Cover 1 LB Blitz",note:"Man-free, five-man heat"},{down:"3rd & Long (must get off)",call:"Nickel 3-3 Load Mug · Nickel Blitz 0",note:"All-in — ball must be out fast"}],
   },
   "Nickel 3-3 Single Mug": {
-    books:["Multiple","Nickel"], priority:"pressure", personnel:"Nickel",
+    books:["3-4 Zone","3-4 Zone Pressure"], priority:"pressure", personnel:"Nickel",
     desc:"A single linebacker mugged in the A-gap, showing interior pressure while keeping the other two linebackers free to blitz or drop. It leans on simulated pressure and stunts more than all-out blitzing, so it can create a five-man rush look while dropping into coverage. A disguise-first pressure front.",
     dcNote:"Single Mug shows one mugged linebacker to move the protection, then decides late whether he comes. The strength is simulated pressure — Blitz Tex 3 Sim and DT Mike Loop send four or five while dropping a lineman, so you get pressure without the man-free risk of a full send. Use it to keep a pocket quarterback uncomfortable while staying sound behind it. It disguises well because the single mug is a threat, not a commitment.",
     blitzBase:28, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+13},{tags:["empty","pass_heavy_3rd"],d:+6},{tags:["quick_game","rpo","screens"],d:-15},{tags:["qb_scramble","dual_threat"],d:-10}],
@@ -1332,7 +1332,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10",call:"Nickel 3-3 Single Mug · Cover 3 Match",note:"Mug moves protection, stay sound"},{down:"2nd & Medium (quick game)",call:"Nickel 3-3 Single Mug · Cover 2 Invert Hard Flat",note:"Sit hard in the flat"},{down:"3rd & Medium (beating 4)",call:"Nickel 3-3 Single Mug · Blitz Tex 3 Sim",note:"5-look, 4-rush, no man-free risk"},{down:"3rd & Long",call:"Nickel 3-3 Single Mug · Nickel Blitz 3",note:"Send five, keep the deep third"}],
   },
   "Nickel 3-3 Wide Jack": {
-    books:["Multiple","Nickel"], priority:"pressure", personnel:"Nickel",
+    books:["3-4","3-4 Multiple","3-4 Shell","3-4 Zone","4-3 Multiple"], priority:"pressure", personnel:"Nickel",
     desc:"A wider-front nickel pressure look with the linebackers walked out toward the edges. Built to bring edge pressure and all-out Cover 0 heat, it is the most blitz-forward of the 3-3 nickel family. It also carries a contain answer, so it can pressure the edge without letting a mobile quarterback escape outside.",
     dcNote:"Wide Jack is your edge-pressure front. Walking the linebackers wide gives you speed off the perimeter and multiple Cover 0 all-out looks. The wrinkle that makes it more than a gambling front is Tampa 2 Contain — you can bring the edge and still keep your rushers disciplined against a scrambler. Use it as a pressure changeup, especially against a pocket quarterback you want to speed up. Get out of it against heavy run personnel.",
     blitzBase:34, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+15},{tags:["empty","pass_heavy_3rd"],d:+8},{tags:["quick_game","rpo","screens"],d:-18},{tags:["qb_scramble","dual_threat"],d:-10}],
@@ -1351,7 +1351,7 @@ export const FDB = {
     callsheet:[{down:"2nd & Long (pocket QB)",call:"Nickel 3-3 Wide Jack · Cover 3 Sky",note:"Edge heat, keep the deep third"},{down:"3rd & Medium vs Mobile QB",call:"Nickel 3-3 Wide Jack · Tampa 2 Contain",note:"Pressure with contained rush lanes"},{down:"3rd & Short (quick game)",call:"Nickel 3-3 Wide Jack · Cover 3 Cloud",note:"Roll the corner, take the quick out"},{down:"3rd & Long (sure pass)",call:"Nickel 3-3 Wide Jack · Over Storm Brave",note:"All-in — ball must be out in 1.5s"}],
   },
   "Nickel Load Dbl Mug": {
-    books:["4-2-5","4-2-5 Man","Multiple"], priority:"hybrid", personnel:"Nickel",
+    books:["4-2-5","4-2-5 Man Pressure","4-2-5 Shell","4-2-5 Zone","4-2-5 Zone Pressure","4-3 Man Pressure","4-3 Press Quarters","4-3 Zone Pressure"], priority:"hybrid", personnel:"Nickel",
     desc:"A base Nickel front with both linebackers loaded and mugged in the A-gaps, showing an all-out interior blitz. It relies on loop stunts and simulated pressure to attack the quarterback's protection and first read, using the double-mug look to create confusion up the middle. The base-personnel version of the double-mug pressure concept.",
     dcNote:"This is the standard-Nickel double-mug, the same concept as the 3-3 and 2-4 versions but from base Nickel personnel. Both linebackers in the A-gaps shows an overwhelming interior threat, but the calls usually simulate — the loops and sims send four or five while dropping bodies, so the center cannot assign both threats. Use it to force a protection bust or a hot throw. Keep it to passing downs; the mugged front is light against the run once the linebackers commit.",
     blitzBase:34, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+15},{tags:["empty","pass_heavy_3rd"],d:+8},{tags:["quick_game","rpo","screens"],d:-18},{tags:["qb_scramble","dual_threat"],d:-14}],
@@ -1371,7 +1371,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (show pressure)",call:"Nickel Load Dbl Mug · Cover 3 Match",note:"Both drop, match the routes"},{down:"2nd & Medium (quick game)",call:"Nickel Load Dbl Mug · CB Bench Sim 2",note:"Show heat, pop to Cover 2"},{down:"3rd & Medium",call:"Nickel Load Dbl Mug · Blitz Loop Sim 3",note:"5-look, 4-rush, drop out sound"},{down:"3rd & Long",call:"Nickel Load Dbl Mug · Blitz Loop 3",note:"Loop frees a rusher, keep deep third"}],
   },
   "Nickel 3-3 Mint": {
-    books:["Multiple","Nickel"], priority:"pass", personnel:"Nickel",
+    books:["3-2-6","3-3-5","3-3-5 Man","3-3-5 Man Pressure","3-3-5 Shell","3-3-5 Three High","3-3-5 Tite","3-3-5 Zone","3-3-5 Zone Pressure","3-4","3-4 Man","3-4 Shell","3-4 Zone","3-4 Zone Pressure","4-2-5","Multiple"], priority:"pass", personnel:"Nickel",
     desc:"The most complete coverage formation in the nickel package, with the deepest menu of match-coverage answers. Three down linemen and three linebackers, built to defend spread passing with true pattern-matching structure. It can bring heavy pressure, but its identity is coverage flexibility against modern route concepts.",
     dcNote:"Mint is your coverage hub. No other nickel front gives you this many match answers — Cover 3 Match, Cover 6, Cover 9, Palms, and Quarters all live here. Match coverage is how you defend stacks, bunches, and trips without getting picked, so when an offense manufactures free releases, Mint has the specific check for it. It can pressure when needed, but you call it to out-structure the route concept, not to blitz.",
     blitzBase:20, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+10},{tags:["quick_game","rpo","screens"],d:-16},{tags:["qb_scramble","dual_threat"],d:-12},{tags:["trips","empty"],d:+5}],
@@ -1390,7 +1390,7 @@ export const FDB = {
     callsheet:[{down:"1st & 10 (spread)",call:"Nickel 3-3 Mint · Cover 3 Match",note:"Match the routes, don't chase"},{down:"2nd & Long vs Trips",call:"Nickel 3-3 Mint · Cover 6 Willie",note:"Quarters to trips, half to single"},{down:"3rd & Medium",call:"Nickel 3-3 Mint · Cover 9 Show 2",note:"Disguise the rotation"},{down:"3rd & Long (comfortable QB)",call:"Nickel 3-3 Mint · Overload 3 Sky Press",note:"Overload one side, cap deep"}],
   },
   "Nickel 3-3 Stack": {
-    books:["Multiple","Nickel"], priority:"pass", personnel:"Nickel",
+    books:["4-3 Multiple"], priority:"pass", personnel:"Nickel",
     desc:"Three down linemen with three linebackers stacked behind them in nickel personnel. The stacked look hides which linebacker is coming and which is dropping, so the offense cannot set protection with confidence. A balanced formation that can sit in any coverage shell or bring extra rushers without changing personnel.",
     dcNote:"Stack is your do-everything nickel front. The value is disguise: three linebackers behind three linemen means the offense sees the same picture whether you rush three or five. It carries the full coverage menu from Cover 1 up through Cover 4, so you are never locked into one answer. Reach for it when you want to stay multiple against a balanced offense and make the quarterback guess.",
     blitzBase:22, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+12},{tags:["quick_game","rpo","screens"],d:-15},{tags:["qb_scramble","dual_threat"],d:-12},{tags:["empty","four_wide"],d:+6}],
