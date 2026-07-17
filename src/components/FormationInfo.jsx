@@ -298,7 +298,7 @@ export default function FormationInfo() {
               <div key={i} style={{ background: "var(--color-surface-2)", border: "1px solid var(--color-border-subtle)", borderRadius: "var(--r-md)", padding: "10px 12px", marginBottom: 6 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <span style={{ fontFamily: "var(--font-mono)", fontSize: 13, fontWeight: 700, color: "var(--color-text-1)" }}>{c.name}</span>
-                  <span style={{ fontSize: 10, color: "var(--color-gold)", fontFamily: "var(--font-mono)" }}>{"★".repeat(c.rating)}</span>
+                  <span style={{ fontSize: 10, color: "var(--color-gold)", fontFamily: "var(--font-mono)", fontWeight: 700 }}>{c.tag}</span>
                 </div>
                 {c.tag && <div style={{ fontSize: 10, color: "var(--color-text-3)", fontFamily: "var(--font-mono)", marginTop: 2 }}>{c.tag.toUpperCase()}</div>}
                 <div style={{ fontSize: 12.5, color: "var(--color-text-2)", marginTop: 4, lineHeight: 1.5 }}>{c.detail}</div>

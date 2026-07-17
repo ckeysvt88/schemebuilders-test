@@ -172,7 +172,7 @@ export default function FormationDetail({ fm, flat, situation = "base", runPass 
       </div>
 
       <div style={{ padding: 13 }}>
-        {tab === "coverages" && fm.coverages.map((c, i) => (
+        {tab === "coverages" && (fm.coverages || []).map((c, i) => (
           <div key={i} style={{ background: "var(--color-surface-1)", border: "1px solid var(--color-border-subtle)", borderLeft: `3px solid ${["#b8880c","#6090b8","#7858a0","#508860"][i] || "#b8880c"}`, borderRadius: 5, padding: "14px 16px", marginBottom: 16 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -180,9 +180,8 @@ export default function FormationDetail({ fm, flat, situation = "base", runPass 
                 <span style={{ fontSize: "12px", background: "var(--color-gold-surface)", border: "1px solid var(--color-gold-border)", color: "var(--color-gold)", padding: "1px 5px", borderRadius: 4, fontFamily: "'IBM Plex Mono', monospace" }}>{c.tag}</span>
                 {i === 0 && <span style={{ fontSize: "12px", background: "var(--color-surface-success)", border: "1px solid var(--color-border)", color: "var(--color-success)", padding: "1px 5px", borderRadius: 4, fontWeight: "bold", fontFamily: "'IBM Plex Mono', monospace" }}>BASE</span>}
               </div>
-              <span style={{ fontSize: 11 }}>
-                <span style={{ color: "var(--color-gold-bright)" }}>{"★".repeat(c.rating)}</span>
-                <span style={{ color: "var(--color-text-3)" }}>{"★".repeat(5 - c.rating)}</span>
+              <span style={{ fontSize: 11, fontWeight: "bold", color: "var(--color-gold)", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "0.5px" }}>
+                {c.tag}
               </span>
             </div>
             <div style={{ fontSize: 11, color: "var(--color-text-2)", lineHeight: 1.65 }}>{c.detail || c.note}</div>
@@ -192,7 +191,7 @@ export default function FormationDetail({ fm, flat, situation = "base", runPass 
         {tab === "preSnap" && (
           <div>
             <div style={{ fontSize: "12px", color: "var(--color-text-3)", letterSpacing: "2px", textTransform: "uppercase", marginBottom: 18, fontFamily: "'IBM Plex Mono', monospace" }}>Every Snap — Before the Ball is Snapped</div>
-            {fm.preSnap.map((a, i) => (
+            {(fm.preSnap || []).map((a, i) => (
               <div key={i} style={{ display: "flex", gap: 8, background: "var(--color-surface-1)", border: "1px solid var(--color-border-subtle)", borderRadius: 5, padding: "14px 16px", marginBottom: 8 }}>
                 <span style={{ color: "var(--color-gold)", flexShrink: 0, marginTop: 1 }}>▸</span>
                 <span style={{ fontSize: 11, color: "var(--color-text-2)", lineHeight: 1.55 }}>{a}</span>
@@ -223,7 +222,7 @@ export default function FormationDetail({ fm, flat, situation = "base", runPass 
         {tab === "callsheet" && (
           <div>
             <div style={{ fontSize: "12px", color: "var(--color-text-3)", letterSpacing: "2px", textTransform: "uppercase", marginBottom: 18, fontFamily: "'IBM Plex Mono', monospace" }}>Down & Distance Quick Reference</div>
-            {fm.callsheet.map((c, i) => (
+            {(fm.callsheet || []).map((c, i) => (
               <div key={i} style={{ display: "grid", gridTemplateColumns: "95px 1fr", background: i % 2 === 0 ? "var(--color-surface-1)" : "var(--color-surface-2)", border: "1px solid var(--color-border-subtle)", borderRadius: 4, marginBottom: 4, overflow: "hidden" }}>
                 <div style={{ padding: "10px 12px", background: "var(--color-bg)", borderRight: "1px solid var(--color-border-subtle)", display: "flex", alignItems: "center" }}>
                   <span style={{ fontSize: 11, fontWeight: "bold", color: "var(--color-gold)", fontFamily: "'IBM Plex Mono', monospace" }}>{c.down}</span>
