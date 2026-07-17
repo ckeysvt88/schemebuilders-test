@@ -1,5 +1,6 @@
 import { FDB } from '../data/formations.js';
 import { PERSONNEL_FAMILIES, FAMILY_ADJUSTMENTS, deriveImpliedTraits } from '../data/personnel.js';
+import { capabilityAdjust } from './getCapabilities.js';
 
 const PKG_TAGS = new Set(["p00","p01","p02","p10","p11","p12","p13","p20","p21","p22","p23"]);
 
@@ -63,6 +64,9 @@ export function scoreAll(flat, book, runPass) {
       const avoidHits = d.avoidTags.filter(t => flat.includes(t)).length;
       if (avoidHits > 0) sc = Math.max(0, sc - Math.min(40, 15 + (avoidHits - 1) * 8));
     }
+    // Capability layer (Phase C): fact-based refinement from transcribed play
+    // data, clamped ±15. Stubs return 0 adjustment. Approved weights, CK 7/16/26.
+    if (sc > 0) sc = Math.max(0, Math.min(100, sc + capabilityAdjust(name, flat)));
     if (sc === 0) return null;
     return { name, sc, coreHits, suppHits, blitz: getBlitz(d, flat), ...d };
   }).filter(Boolean).filter(f => f.sc > 0).sort((a, b) => b.sc - a.sc);
