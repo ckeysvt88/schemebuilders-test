@@ -399,7 +399,8 @@ export default function ScoutScreen({
 
         {/* ── Footer ── */}
         <div style={{ marginTop: 32, paddingTop: 16, borderTop: "1px solid var(--color-border-subtle)", textAlign: "center", fontSize: 11, color: "var(--color-text-3)", fontFamily: "var(--font-mono)", letterSpacing: "0.5px" }}>
-          Designed by CK · Scheme Builders 2026
+          Scheme Builders 2026<br/>
+          © Root and Ink, LLC. All Rights Reserved.
         </div>
 
         {/* ── Footer XO echo — faded mirror of hero pattern for visual continuity ── */}
