@@ -1,5 +1,5 @@
 export const PLAYBOOKS = {
-  "3-2-6": { color:"#8870c8", style:"Zone", desc:"6 DBs, max coverage. Sugar 3-2 mugged looks. Pass-down specialist book." },
+  "3-2-6": { color:"#8870c8", style:"Zone", desc:"6 DBs, max coverage. Dollar Sugar 3-2 mugged looks. Pass-down specialist book." },
   "3-3-5": { color:"#a06030", style:"Multiple", desc:"Speed everywhere. Over Jack + Stack core. Best all-around vs spread." },
   "3-3-5 Man": { color:"#a05050", style:"Man", desc:"3-3-5 shells built on man principles. Press the spread." },
   "3-3-5 Man Pressure": { color:"#b04040", style:"Man Pressure", desc:"Man behind movement — sims and creepers from the stack." },

@@ -8,7 +8,7 @@ import { PLAYS } from '../data/plays.js';
 const round2 = x => Math.round(x * 100) / 100;
 const _capCache = new Map();
 
-export function getCapabilities(formationName) {
+export function deriveCapabilities(formationName) {
   if (_capCache.has(formationName)) return _capCache.get(formationName);
   const plays = PLAYS[formationName];
   if (!plays || !plays.length) { _capCache.set(formationName, null); return null; }
@@ -66,7 +66,7 @@ export function getCapabilities(formationName) {
 const CAP_CLAMP = 15;
 
 export function capabilityAdjust(formationName, flat) {
-  const c = getCapabilities(formationName);
+  const c = deriveCapabilities(formationName);
   if (!c) return 0;                        // stub formation — tag score stands
   const has = t => flat.includes(t);
   let adj = 0;
