@@ -104,12 +104,14 @@ export default function GamePlanScreen({
     const t = setTimeout(() => {
       // Wait past the 150ms card transition before measuring position
       const el = document.querySelector(`[data-fm-name="${selFm.name.replace(/"/g, '\\"')}"]`);
-      if (!el) return;
+      const scroller = document.getElementById('root');
+      if (!el || !scroller) return;
       const headerEl = document.querySelector('[data-sticky-header]');
       const headerHeight = headerEl ? headerEl.getBoundingClientRect().height : 90;
       const rect = el.getBoundingClientRect();
-      const scrollTop = window.scrollY + rect.top - headerHeight - 8;
-      window.scrollTo({ top: scrollTop, behavior: 'smooth' });
+      const scrollerRect = scroller.getBoundingClientRect();
+      const scrollTop = scroller.scrollTop + (rect.top - scrollerRect.top) - headerHeight - 8;
+      scroller.scrollTo({ top: scrollTop, behavior: 'smooth' });
     }, 200);
     return () => clearTimeout(t);
   }, [selFm]);
@@ -193,11 +195,11 @@ export default function GamePlanScreen({
       {/* ── Header ── */}
       <div data-sticky-header="" style={{ background: "linear-gradient(135deg, var(--color-surface-1), var(--color-surface-2))", borderBottom: "2px solid var(--color-gold)", padding: "12px 16px 10px", paddingTop: "calc(env(safe-area-inset-top) + 12px)", position: "sticky", top: 0, zIndex: 80 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
-          <div>
+          <div style={{ minWidth: 0 }}>
             <div style={{ fontSize: 10, letterSpacing: "2px", color: "var(--color-gold-dim)", textTransform: "uppercase", fontWeight: "700", fontFamily: "var(--font-mono)", marginBottom: 2 }}>
               Scheme Builders
             </div>
-            <div style={{ fontSize: 17, fontWeight: "700", color: "var(--color-text-1)", fontFamily: "var(--font-mono)", letterSpacing: "-0.2px" }}>
+            <div style={{ fontSize: 17, fontWeight: "700", color: "var(--color-text-1)", fontFamily: "var(--font-mono)", letterSpacing: "-0.2px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
               Defensive Gameplan — {scored.length} Formation{scored.length !== 1 ? "s" : ""}{myBook !== "All" ? " · " + myBook : ""}
             </div>
           </div>

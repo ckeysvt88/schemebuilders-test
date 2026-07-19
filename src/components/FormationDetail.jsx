@@ -22,7 +22,7 @@ function AdjSection({ sec, items, icon }) {
   );
 }
 
-function AdjustmentsPanel({ flat }) {
+function AdjustmentsPanel({ fm, flat }) {
   const matched = ADJUSTMENTS.filter(a => a.triggers.some(t => flat.includes(t)));
   const ss = matched.filter(a => a.section === "Safety Setup");
   const zd = matched.filter(a => a.section === "Zone Drops");
@@ -31,7 +31,20 @@ function AdjustmentsPanel({ flat }) {
   const qt = matched.filter(a => a.section === "QB Threat");
   return (
     <div>
-      <div style={{ fontSize: "12px", color: "var(--color-text-3)", letterSpacing: "2px", textTransform: "uppercase", marginBottom: 14, fontFamily: "'IBM Plex Mono', monospace" }}>In-Game Adjustments</div>
+      {fm.coaching?.length > 0 && (
+        <div style={{ marginBottom: 18 }}>
+          <div style={{ fontSize: "12px", color: "var(--color-text-3)", letterSpacing: "2px", textTransform: "uppercase", marginBottom: 14, fontFamily: "'IBM Plex Mono', monospace" }}>Formation-Specific</div>
+          <div style={{ display: "flex", flexWrap: "nowrap", gap: 5 }}>
+            {fm.coaching.map((c, i) => (
+              <div key={i} style={{ flex: "1 1 0", minWidth: 0, background: "var(--color-surface-1)", border: "1px solid var(--color-border-subtle)", borderLeft: "3px solid var(--color-gold)", borderRadius: 5, padding: "7px 7px" }}>
+                <div style={{ fontSize: 10.5, fontWeight: "bold", color: "var(--color-text-1)", fontFamily: "'IBM Plex Mono', monospace", lineHeight: 1.3 }}>{c.label}</div>
+                <div style={{ fontSize: 11, color: "var(--color-text-3)", lineHeight: 1.35, marginTop: 3 }}>{c.value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      <div style={{ fontSize: "12px", color: "var(--color-text-3)", letterSpacing: "2px", textTransform: "uppercase", marginBottom: 14, fontFamily: "'IBM Plex Mono', monospace" }}>Scouting-Based</div>
       {matched.length === 0 && (
         <div style={{ fontSize: 11, color: "var(--color-text-3)", padding: "10px", textAlign: "center", fontStyle: "italic" }}>No specific adjustments flagged — default settings apply.</div>
       )}
@@ -199,7 +212,7 @@ export default function FormationDetail({ fm, flat, situation = "base", runPass 
 
         {tab === "coaching" && (
           <div>
-            <AdjustmentsPanel flat={flat} />
+            <AdjustmentsPanel fm={fm} flat={flat} />
             {(flat.includes("boundary_hash") || flat.includes("field_hash")) && (
               <div style={{ marginTop: 4, background: "var(--color-surface-1)", border: "1px solid var(--color-border-subtle)", borderLeft: "3px solid var(--color-border)", borderRadius: 5, padding: "10px 13px" }}>
                 <div style={{ fontSize: 10, color: "var(--color-gold)", letterSpacing: "1.5px", textTransform: "uppercase", marginBottom: 4, fontFamily: "'IBM Plex Mono', monospace" }}>📐 Hash Shade</div>
@@ -220,12 +233,12 @@ export default function FormationDetail({ fm, flat, situation = "base", runPass 
           <div>
             <div style={{ fontSize: "12px", color: "var(--color-text-3)", letterSpacing: "2px", textTransform: "uppercase", marginBottom: 18, fontFamily: "'IBM Plex Mono', monospace" }}>Down & Distance Quick Reference</div>
             {(fm.callsheet || []).map((c, i) => (
-              <div key={i} style={{ display: "grid", gridTemplateColumns: "95px 1fr", background: i % 2 === 0 ? "var(--color-surface-1)" : "var(--color-surface-2)", border: "1px solid var(--color-border-subtle)", borderRadius: 4, marginBottom: 4, overflow: "hidden" }}>
+              <div key={i} style={{ display: "grid", gridTemplateColumns: "130px 1fr", background: i % 2 === 0 ? "var(--color-surface-1)" : "var(--color-surface-2)", border: "1px solid var(--color-border-subtle)", borderRadius: 4, marginBottom: 4, overflow: "hidden" }}>
                 <div style={{ padding: "10px 12px", background: "var(--color-bg)", borderRight: "1px solid var(--color-border-subtle)", display: "flex", alignItems: "center" }}>
                   <span style={{ fontSize: 11, fontWeight: "bold", color: "var(--color-gold)", fontFamily: "'IBM Plex Mono', monospace" }}>{c.down}</span>
                 </div>
                 <div style={{ padding: "10px 13px" }}>
-                  <div style={{ fontSize: 15, fontWeight: "700", color: "var(--color-text-1)", fontFamily: "'IBM Plex Mono', monospace" }}>{c.call}</div>
+                  <div style={{ fontSize: 12, fontWeight: "700", color: "var(--color-text-1)", fontFamily: "'IBM Plex Mono', monospace" }}>{c.call}</div>
                   {c.note && <div style={{ fontSize: 11, color: "var(--color-text-3)", fontStyle: "italic", marginTop: 1 }}>{c.note}</div>}
                 </div>
               </div>
