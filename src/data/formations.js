@@ -160,7 +160,7 @@ export const FDB = {
   },
   "4-3 Under": {
     books:["4-3","4-3 Shell","4-3 Zone"], priority:"run", personnel:"Base",
-    desc:"The three interior linemen shifted to the weak side with the tackle in a weak 3-technique, four down linemen and three linebackers, and the Sam set over the tight end. The weak shift and the Sam on the tight end collapse the strong-side and cutback run lanes at once. A gap-sound run front against a tight-end-based team.",
+    desc:"The three interior linemen shift to the weak side with the tackle in a weak 3-technique, 4 down linemen and 3 linebackers, and the Sam set over the tight end. The weak shift and the Sam on the tight end collapse the strong-side and cutback run lanes at once. A gap-sound run front against a tight-end-based team.",
     dcNote:"Under sets the front away from the tight end and puts the Sam on him, so the strong-side run is walled and the weak-side 3-technique closes the cutback. Against a downhill 12-personnel team it takes away both directions the ball can go. The menu is heavy on man and Cover 0 pressure, and 1 Contain Press gives you a pressed mobile-quarterback answer with both edges containing. Call it against a physical, tight-end-driven running game.",
     blitzBase:16, blitzMods:[{tags:["inside_run","short_yardage_run"],d:+8},{tags:["p12","p21","strong_oline"],d:+6},{tags:["quick_game","rpo","empty"],d:-14},{tags:["qb_scramble","dual_threat"],d:-8}],
     avoidTags:["empty","four_wide","hurry_up","p10"],
@@ -200,7 +200,7 @@ export const FDB = {
   },
   "4-3 Odd": {
     books:["4-3","4-3 Multiple"], priority:"hybrid", personnel:"Base",
-    desc:"An odd front from 4-3 personnel: the nose head-up on the center, four down linemen, and the Will linebacker walked up to make five on the line of scrimmage. The head-up nose and the walked-up Will deny the offense a strength read, so the run fits and the rush points both become a guess. Base personnel built for pre-snap confusion.",
+    desc:"An odd front from 4-3 personnel: the nose head-up on the center, 4 down linemen & the Will  walked up to make 5 on the line of scrimmage. The head-up nose and the walked-up Will deny the offense a strength read, so the run fits & the rush points both become a guess. Base personnel built for pre-snap confusion.",
     dcNote:"Odd is a disguise front from base personnel. Head-up on the center with no obvious 3-technique, the offensive line has no shade to key, so it cannot tell where the pressure is coming from or how to set the run. That indecision does the work even on a four-man rush. The menu carries a line pinch with palms quarters and a strong-side slant fire zone to twist the front behind the disguise. Call it against a quarterback who diagnoses the coverage off the front.",
     blitzBase:22, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+10},{tags:["quick_game","rpo","screens"],d:-12},{tags:["qb_scramble","dual_threat"],d:-8},{tags:["play_action"],d:+4}],
     avoidTags:["empty","four_wide","hurry_up","short_yardage_run"],
@@ -222,7 +222,7 @@ export const FDB = {
   // ── NICKEL 4-3 FAMILY
   "Nickel Over": {
     books:["4-2-5 Man","4-2-5 Man Pressure","4-2-5 Shell","4-2-5 Zone","4-2-5 Zone Pressure","4-3","4-3 Man","4-3 Man Pressure","4-3 Multiple","4-3 Press Quarters","4-3 Shell","4-3 Zone","4-3 Zone Pressure"], priority:"pass", personnel:"Nickel",
-    desc:"The base nickel front: four down linemen with two linebackers at the second level and five defensive backs, the line shaded Over. Swapping a base linebacker for a defensive back erases the linebacker-on-slot mismatch while the Over shade keeps the run fits honest. Its 53-play menu is the deepest in the game, the true every-down nickel.",
+    desc:"The base nickel front: four down linemen with two linebackers at the second level and five defensive backs, the line shaded Over. The nickelback will place himself directly over the slot receiver. Its 53-play menu is the deepest in the game, the true every-down nickel.",
     dcNote:"Nickel Over is the base you can live in against any spread. The extra defensive back solves the slot mismatch a base linebacker cannot cover, and the Over shade means you have not surrendered the run to get it. Because the menu spans man, match, zone, and sim pressure, one personnel group answers early downs and passing downs alike. Start here, disguise the shell, and only leave for a sub-package when the situation demands it.",
     blitzBase:20, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+10},{tags:["quick_game","rpo","screens"],d:-14},{tags:["qb_scramble","dual_threat"],d:-10},{tags:["empty","four_wide"],d:+6}],
     avoidTags:["inside_run","short_yardage_run","p22","p13","fb_lead","run_heavy_1st"],
@@ -1154,8 +1154,8 @@ export const FDB = {
   },
   "4-3 Over Wide": {
     books:["4-3","4-3 Man","4-3 Man Pressure","4-3 Multiple","4-3 Press Quarters"], priority:"pass", personnel:"Base",
-    desc:"A 4-3 Over front with the coverage spread wider to handle spread passing while keeping four down linemen. It carries a deep menu of single-high man coverages plus fire-zone pressures, and it has a specific mobile-quarterback answer with both edges containing and a spy. A versatile four-down front for a balanced-to-spread offense.",
-    dcNote:"Over Wide is your four-down answer to spread passing. The value is the coverage breadth — Cover 1 variants (hole, robber, contain), Cover 3 rotations, quarters, and Tampa 2 all live here. The standout is Cover 1 Contain: both edges contain with a spy, which is your genuine answer to a mobile quarterback from a four-down front. Use it when you want a four-man rush with man or match behind it against a QB who can hurt you with his legs or his arm.",
+    desc:"A 4-3 Over front with the coverage spread wider to handle spread passing while keeping 4 down linemen. Carrying a deep menu of single-high man coverages plus fire-zone pressures & it has a specific mobile-QB answer with both edges containing and a spy. A versatile four-down front for a balanced-to-spread offense.",
+    dcNote:"Over Wide is your four-down answer to spread passing. The value is the coverage breadth — Cover 1 variants (hole, robber, contain), Cover 3 rotations, quarters, and Tampa 2 all live here. The standout is Cover 1 Contain: both edges contain with a spy, which is your genuine answer to a mobile quarterback from a 4 down front. Use it when you want a four-man rush with man or match behind it against a QB who can hurt you with his legs or his arm.",
     blitzBase:26, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+10},{tags:["empty","pass_heavy_3rd"],d:+6},{tags:["quick_game","rpo","screens"],d:-14},{tags:["qb_scramble","dual_threat"],d:-8}],
     avoidTags:["inside_run","short_yardage_run","p22","p13","fb_lead"],
     coreTags:["p11","p10","qb_pocket","mobile_qb","pass_heavy_3rd","slot_threat","quick_game"],
@@ -1192,7 +1192,7 @@ export const FDB = {
   },
   "4-3 Under Wide": {
     books:["4-3","4-3 Man","4-3 Man Pressure","4-3 Multiple","4-3 Press Quarters","4-3 Shell","4-3 Zone","4-3 Zone Pressure","Multiple"], priority:"pass", personnel:"Base",
-    desc:"A 4-3 Under front spread wider for spread passing, carrying the deepest pressure and man-coverage menu of the 4-3 family. Twenty plays span single-high man variants, fire zones, and a dedicated mobile-quarterback answer with both edges containing, a spy, and press. A versatile four-down front built to pressure and match a spread offense.",
+    desc:"Front spread wider for spread passing, carrying the deepest pressure and man-coverage menu of the 4-3 family. 20 plays span single-high man variants, fire zones & a dedicated mobile QB answer. A versatile 4-down front built to pressure and match a spread offense.",
     dcNote:"Under Wide is the most complete 4-3 in the package — twenty plays covering nearly every man, zone, and pressure answer. Its standout is Cover 1 Contain Press: both edges contain, a spy underneath, corners pressing outside — the four-down answer to a mobile quarterback who also has weapons outside. Beyond that it carries the full crash and fire-zone pressure menu. Use it when you need one four-down front that can do everything against a spread passing attack.",
     blitzBase:30, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+12},{tags:["empty","pass_heavy_3rd"],d:+7},{tags:["quick_game","rpo","screens"],d:-15},{tags:["qb_scramble","dual_threat"],d:-8}],
     avoidTags:["inside_run","short_yardage_run","p22","p13","fb_lead"],
@@ -1232,7 +1232,7 @@ export const FDB = {
   },
   "Dime 3-2": {
     books:["3-3-5","3-3-5 Man","3-3-5 Man Pressure","3-3-5 Shell","3-3-5 Three High","3-3-5 Tite","3-3-5 Zone","3-3-5 Zone Pressure","3-4","3-4 Man","3-4 Man Pressure","3-4 Multiple","3-4 Shell","3-4 Zone","3-4 Zone Pressure","4-2-5","4-2-5 Man","4-2-5 Man Pressure","4-2-5 Shell","4-2-5 Zone","4-2-5 Zone Pressure","4-3","4-3 Man","4-3 Man Pressure","4-3 Multiple","4-3 Press Quarters","4-3 Shell","4-3 Zone","4-3 Zone Pressure","Multiple"], priority:"pass", personnel:"Dime",
-    desc:"A dime package with three down linemen and two linebackers, backed by six defensive backs for maximum pass coverage. It carries the deepest coverage menu in the dime family, from hard-flat Cover 2 and Cover 3 variants through match Palms and Quarters, plus a full edge and DB pressure package. The core dime front for obvious passing situations.",
+    desc:"A dime package with 3 down linemen and 2 linebackers, backed by 6DBs defensive backs for maximum pass coverage. It carries the deepest coverage menu in the dime family, from hard-flat Cover 2 and Cover 3 variants through match Palms and Quarters, plus a full edge and DB pressure package. The core dime front for obvious passing situations.",
     dcNote:"Dime 3-2 is your primary passing-down coverage front. Six defensive backs let you match any spread concept while three down linemen still generate a natural four-man rush with an edge blitzer. The coverage breadth is the strength — hard-flat and cloud Cover 3, Cover 6, Palms, Quarters all live here, so you have the specific answer for whatever the offense shows. It is a pass-defense front, so keep it to clear passing downs where the run is not a real threat.",
     blitzBase:24, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+11},{tags:["empty","four_wide"],d:+7},{tags:["quick_game","rpo","screens"],d:-16},{tags:["qb_scramble","dual_threat"],d:-9}],
     avoidTags:["inside_run","short_yardage_run","p22","p13","p21","fb_lead","run_heavy_1st","strong_oline"],
