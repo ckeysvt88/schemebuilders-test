@@ -227,7 +227,7 @@ export default function FormationInfo() {
               <FormationDiagram name={sel} />
               <div style={{ display: "grid", gridTemplateColumns: `repeat(${tiles.length}, 1fr)`, gap: 6, marginTop: 8 }}>
                 {tiles.map(([k, v]) => (
-                  <div key={k} style={{ ...stat, borderColor: (k === "CB" && v >= 4) || (k === "S" && v >= 4) ? "var(--color-gold)" : "var(--color-border-subtle)" }}>
+                  <div key={k} style={{ ...stat, borderColor: (k === "CB" && v >= 20) || (k === "S" && v >= 4) ? "var(--color-gold)" : "var(--color-border-subtle)" }}>
                     <div style={{ fontFamily: "var(--font-mono)", fontSize: 18, fontWeight: 700, color: "var(--color-gold-bright)" }}>{v}</div>
                     <div style={{ fontSize: 9.5, color: "var(--color-text-3)", fontFamily: "var(--font-mono)", letterSpacing: "0.5px" }}>{k}</div>
                   </div>

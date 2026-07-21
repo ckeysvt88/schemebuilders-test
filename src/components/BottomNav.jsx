@@ -26,6 +26,18 @@ const TABS = [
     ),
   },
   {
+    id: "teams",
+    label: "Teams",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="8" cy="7" r="3"/>
+        <path d="M2.5 19c0-3.3 2.5-6 5.5-6s5.5 2.7 5.5 6"/>
+        <circle cx="16" cy="8" r="2.3"/>
+        <path d="M13.8 13.2c2.4 0.3 4.2 2.5 4.2 5.3"/>
+      </svg>
+    ),
+  },
+  {
     id: "compare",
     label: "Compare",
     icon: (
@@ -75,7 +87,7 @@ export default function BottomNav({ step, setStep, hasPlan, isDark = true, onTog
     }}>
       <div style={{
         maxWidth: 720, margin: "0 auto",
-        display: "grid", gridTemplateColumns: "repeat(6, 1fr)",
+        display: "grid", gridTemplateColumns: "repeat(7, 1fr)",
         height: "var(--nav-h)",
       }}>
         {TABS.map(tab => {

@@ -282,7 +282,7 @@ export const FDB = {
   },
   "Nickel 3-3 Dbl Mug": {
     books:["3-2-6","3-3-5 Zone Pressure"], priority:"pressure", personnel:"Nickel",
-    desc:"Both inside linebackers walk into the A-gaps before the snap, forcing the protection to treat both as rushers. On most calls the defense still brings only four and the mugged backers drop to their zones. The idea: show six, bring four or five, and make the protection account for threats that never come.",
+    desc:"A three-man front with both linebackers mugging the A-gaps compresses the protection toward the middle while preserving the flexibility of an odd front. Most calls still rush only four or five, but the offense cannot easily identify which defender is coming. The goal is to force the center to commit inside & create hesitation in protection.",
     dcNote:"The play list is built for sequencing off one picture. Sims like Nickel Sim 2 rush four while the ends drop out, dogs like Nickel Dog 3 Buzz bring five with a three-deep net behind them, and Mid Blitz is the real thing — six through the A-gaps with no safety help. Rotate those looks and the center can never set the protection right. If the quarterback starts throwing hot into the vacated middle, sit in Tampa 2 and let the mug become a pure bluff.",
     blitzBase:30, blitzMods:[{tags:["qb_pocket","qb_one_read"],d:+12},{tags:["quick_game","rpo","screens"],d:-18},{tags:["qb_scramble","dual_threat"],d:-12},{tags:["pass_heavy_3rd"],d:+8}],
     avoidTags:["inside_run","short_yardage_run","p22","p21","p13","fb_lead","run_heavy_1st"],

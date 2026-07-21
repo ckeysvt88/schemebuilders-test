@@ -52,6 +52,10 @@ export default function App() {
   const [myBook, setMyBook] = useState(() => {
     try { return localStorage.getItem("cfb26_myBook") || "All"; } catch(e) { return "All"; }
   });
+  // The book the user deliberately picked (Scout dropdown / Team Picker), distinct from
+  // myBook — which the Plan-tab recommendation modal can temporarily override. This is
+  // what "go back to my playbook" restores, instead of hard-resetting to "All".
+  const [manualBook, setManualBook] = useState(myBook);
 
   // ── Opponent profiles ─────────────────────────────────────────────────────────
   const [profiles, setProfiles] = useState(() => {
@@ -65,6 +69,9 @@ export default function App() {
   // ── Compare state ─────────────────────────────────────────────────────────────
   const [compareA, setCompareA] = useState("3-3-5 Tite");
   const [compareB, setCompareB] = useState("4-3 Multiple");
+
+  // ── Selected team (Team Picker → Plan) ────────────────────────────────────────
+  const [selectedTeam, setSelectedTeam] = useState(null);
 
   // ── Derived ──────────────────────────────────────────────────────────────────
   const flat         = Object.values(sel).flat();
@@ -108,11 +115,19 @@ export default function App() {
     setSelFm(null);
   };
 
+  // Deliberate book picks (Scout dropdown, Team Picker) — updates the "home" book
+  // that the Plan-tab recommendation modal reverts to.
+  const changeBookManual = (book) => {
+    changeBook(book);
+    setManualBook(book);
+  };
+
   const loadProfile = useCallback((profileTags) => {
     setSel(profileTags);
     setScored(scoreAll(Object.values(profileTags).flat(), myBook || "All", runPass));
     setSelFm(null);
     setActiveP(null);
+    setSelectedTeam(null);
   }, [myBook, runPass]);
 
   const toggle = useCallback((g, t) =>
@@ -127,6 +142,7 @@ export default function App() {
     setActiveP(fams[0] || (personnelSel.length ? personnelSel[0] : "p11"));
     setSelFm(null);
     setMainTab("personnel");
+    setSelectedTeam(null);
     navigate("plan");
     document.getElementById('root')?.scrollTo(0, 0);
   };
@@ -187,7 +203,7 @@ export default function App() {
   const sharedProps = {
     sel, setSel, flat, personnelSel,
     runPass, setRunPass,
-    myBook, changeBook,
+    myBook, changeBook, manualBook, changeBookManual,
     scored: displayScored, rawScored: scored, setScored,
     activeP, setActiveP,
     selFm, setSelFm,
@@ -206,6 +222,7 @@ export default function App() {
     ddDistance, setDdDistance,
     setStep: navigate,
     navigateToNotes: (profileName) => { setNotesInitProfile(profileName); navigate("notes"); },
+    selectedTeam,
   };
 
   return (
@@ -213,13 +230,16 @@ export default function App() {
       {step === "teams"   && <TeamsScreen   key="teams"   onBack={() => navigate("scout")} onBuildFromTeam={(team) => {
         const results = scoreAll(team.traits, "All");
         setMyBook("All");
+        setManualBook("All");
         try { localStorage.setItem("cfb26_myBook", "All"); } catch(e) {}
         setSel({ _team: team.traits });
         setScored(results);
         // Use getAvailableFamilies to pick the most contextually relevant starting family
         const teamFams = getAvailableFamilies(team.traits);
         setActiveP(teamFams[0] || "p11_gun");
-        setSelFm(null); setMainTab("personnel"); navigate("plan");
+        setSelFm(null); setMainTab("personnel");
+        setSelectedTeam(team);
+        navigate("plan");
         document.getElementById('root')?.scrollTo(0, 0);
       }} />}
       {step === "scout"   && <ScoutScreen   key="scout"   {...sharedProps} />}

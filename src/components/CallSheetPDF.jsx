@@ -463,6 +463,10 @@ export const ExportPDFButton = memo(function ExportPDFButton({ rawScored, sel, m
           </button>
         ) : (
           // ── Compact header button ─────────────────────────────────────────
+          // Keep the static label/appearance regardless of PDFDownloadLink's
+          // loading state — that flips true→false on every fresh mount (e.g.
+          // navigating in from Team Picker), which otherwise flashes this
+          // button and only this button, since it's the only async one here.
           <button
             disabled={loading}
             style={{
@@ -471,16 +475,15 @@ export const ExportPDFButton = memo(function ExportPDFButton({ rawScored, sel, m
               background: 'transparent',
               border: '1px solid var(--color-border)',
               borderRadius: 'var(--r-sm)',
-              color: loading ? 'var(--color-text-3)' : 'var(--color-text-2)',
+              color: 'var(--color-text-2)',
               fontSize: 12,
               cursor: loading ? 'wait' : 'pointer',
               fontFamily: 'var(--font-mono)',
               whiteSpace: 'nowrap',
               transition: 'all 150ms ease',
-              opacity: loading ? 0.6 : 1,
             }}
           >
-            {loading ? '…' : (label || 'PDF')}
+            {label || 'PDF'}
           </button>
         )
       }
